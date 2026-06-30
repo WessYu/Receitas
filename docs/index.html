@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Receitas | Plataforma full-stack</title>
+    <meta
+      name="description"
+      content="Vitrine do projeto Receitas, uma plataforma full-stack com Next.js, Prisma, PostgreSQL, autenticacao e painel admin."
+    />
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #1f211d;
+        --olive: #50614a;
+        --linen: #f7f1e7;
+        --porcelain: #fffaf2;
+        --tomato: #c95e49;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 12% 8%, rgba(201, 94, 73, 0.14), transparent 34rem),
+          linear-gradient(180deg, var(--porcelain), var(--linen));
+      }
+
+      main {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 56px 0;
+      }
+
+      .hero {
+        display: grid;
+        gap: 32px;
+        align-items: center;
+        min-height: calc(100vh - 112px);
+      }
+
+      .eyebrow {
+        margin: 0 0 16px;
+        color: var(--olive);
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 860px;
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(3.4rem, 8vw, 7.2rem);
+        line-height: 0.94;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        max-width: 720px;
+        margin: 28px 0 0;
+        color: rgba(31, 33, 29, 0.68);
+        font-size: 1.15rem;
+        line-height: 1.8;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 32px;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        border-radius: 8px;
+        padding: 0 18px;
+        font-weight: 800;
+        text-decoration: none;
+        transition:
+          transform 180ms ease,
+          background 180ms ease,
+          border-color 180ms ease;
+      }
+
+      .button:hover {
+        transform: translateY(-2px);
+      }
+
+      .button.primary {
+        background: var(--ink);
+        color: var(--porcelain);
+      }
+
+      .button.secondary {
+        border: 1px solid rgba(31, 33, 29, 0.14);
+        background: rgba(255, 250, 242, 0.74);
+      }
+
+      .panel {
+        border: 1px solid rgba(31, 33, 29, 0.1);
+        border-radius: 8px;
+        background: rgba(255, 250, 242, 0.72);
+        padding: 24px;
+        box-shadow: 0 24px 70px rgba(31, 33, 29, 0.1);
+      }
+
+      .grid {
+        display: grid;
+        gap: 16px;
+        margin-top: 40px;
+      }
+
+      .item {
+        border: 1px solid rgba(31, 33, 29, 0.1);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.58);
+        padding: 18px;
+      }
+
+      .item strong {
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      .item p {
+        margin: 0;
+        color: rgba(31, 33, 29, 0.62);
+        line-height: 1.65;
+      }
+
+      .note {
+        margin-top: 24px;
+        border-left: 4px solid var(--tomato);
+        padding-left: 16px;
+        color: rgba(31, 33, 29, 0.66);
+        line-height: 1.7;
+      }
+
+      @media (min-width: 820px) {
+        .hero {
+          grid-template-columns: 1.06fr 0.94fr;
+        }
+
+        .grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Projeto de portfolio</p>
+          <h1>Receitas full-stack com visual editorial.</h1>
+          <p class="lead">
+            Uma plataforma moderna feita com Next.js, TypeScript, Tailwind, Prisma, PostgreSQL,
+            autenticacao, favoritos, dashboard privado e painel administrativo.
+          </p>
+          <div class="actions">
+            <a class="button primary" href="https://github.com/WessYu/Receitas">Ver repositorio</a>
+            <a class="button secondary" href="https://github.com/WessYu/Receitas#como-iniciar-localmente">
+              Rodar localmente
+            </a>
+          </div>
+        </div>
+
+        <aside class="panel" aria-label="Resumo tecnico">
+          <p class="eyebrow">Stack</p>
+          <div class="grid">
+            <div class="item">
+              <strong>Produto</strong>
+              <p>Home, biblioteca filtravel, pagina individual, favoritos e perfil.</p>
+            </div>
+            <div class="item">
+              <strong>Admin</strong>
+              <p>CRUD de receitas, categorias, usuarios e status de publicacao.</p>
+            </div>
+            <div class="item">
+              <strong>Seguranca</strong>
+              <p>Senha com hash, cookie assinado, middleware e validacao Zod.</p>
+            </div>
+            <div class="item">
+              <strong>Banco</strong>
+              <p>Schema Prisma com seed inicial e suporte a PostgreSQL.</p>
+            </div>
+          </div>
+          <p class="note">
+            Esta pagina no GitHub Pages e uma vitrine estatica. O app completo precisa de Node.js e
+            PostgreSQL, por isso deve ser executado localmente ou em uma hospedagem full-stack.
+          </p>
+        </aside>
+      </section>
+    </main>
+  </body>
+</html>
