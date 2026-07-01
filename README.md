@@ -16,6 +16,7 @@ Plataforma full-stack de receitas com Next.js App Router, TypeScript, Tailwind C
 - Pagina individual com ingredientes, preparo e botao de salvar/remover favorito.
 - Dashboard privado com receitas salvas e edicao basica de perfil.
 - Admin protegido para criar, editar, excluir receitas, gerenciar categorias e listar usuarios.
+- Upload de foto no painel admin ao criar ou editar receitas, sem precisar alterar codigo.
 - Validacao com Zod, hash de senha com bcrypt e bloqueio no middleware e no servidor.
 
 ## Como instalar
@@ -105,3 +106,4 @@ Abra `http://localhost:3000`.
 - Use PostgreSQL gerenciado em producao.
 - Configure HTTPS para manter cookies seguros.
 - Nao versionar `.env`.
+- Em hospedagens serverless, confirme suporte a escrita local antes de usar uploads em `public/uploads`; em producao, prefira storage externo como S3, Cloudinary ou Supabase Storage.

@@ -28,13 +28,14 @@ export function RecipeForm({ categories, recipe }: { categories: Category[]; rec
   const [steps, setSteps] = useState<string[]>(recipe?.steps.map((step) => step.content) ?? [""]);
 
   return (
-    <form action={formAction} className="space-y-6">
+    <form action={formAction} className="space-y-6" encType="multipart/form-data">
       {state.message ? (
         <p className="rounded-md border border-tomato/20 bg-tomato/10 px-4 py-3 text-sm text-tomato">{state.message}</p>
       ) : null}
 
       <input type="hidden" name="ingredients" value={JSON.stringify(ingredients.filter((item) => item.amount || item.name))} />
       <input type="hidden" name="steps" value={JSON.stringify(steps.filter(Boolean))} />
+      <input type="hidden" name="currentImageUrl" value={recipe?.imageUrl ?? ""} />
 
       <section className="rounded-lg border border-ink/10 bg-white/75 p-6 shadow-sm">
         <div className="grid gap-5 md:grid-cols-2">
@@ -54,10 +55,19 @@ export function RecipeForm({ categories, recipe }: { categories: Category[]; rec
           </div>
           <div className="md:col-span-2">
             <label className="mb-2 block text-sm font-semibold" htmlFor="imageUrl">
-              Imagem
+              Imagem por URL
             </label>
             <input className="field" id="imageUrl" name="imageUrl" defaultValue={recipe?.imageUrl} placeholder="https://images.unsplash.com/..." />
             {state.errors?.imageUrl ? <p className="mt-2 text-xs text-tomato">{state.errors.imageUrl[0]}</p> : null}
+          </div>
+          <div className="md:col-span-2">
+            <label className="mb-2 block text-sm font-semibold" htmlFor="imageFile">
+              Enviar foto
+            </label>
+            <input className="field file:mr-4 file:rounded-md file:border-0 file:bg-ink file:px-4 file:py-2 file:text-sm file:font-semibold file:text-porcelain" id="imageFile" name="imageFile" type="file" accept="image/png,image/jpeg,image/webp,image/gif" />
+            <p className="mt-2 text-xs leading-5 text-ink/55">
+              Use uma foto do seu computador ou mantenha a URL acima. Formatos aceitos: JPG, PNG, WEBP e GIF ate 5 MB.
+            </p>
           </div>
           <div>
             <label className="mb-2 block text-sm font-semibold" htmlFor="categoryId">

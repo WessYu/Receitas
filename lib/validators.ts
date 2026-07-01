@@ -36,7 +36,16 @@ export const categorySchema = z.object({
 export const recipeSchema = z.object({
   title: z.string().min(3, "Informe um titulo."),
   description: z.string().min(20, "Escreva uma descricao mais completa."),
-  imageUrl: z.string().url("Informe uma URL de imagem valida."),
+  imageUrl: z.string().min(1, "Envie uma foto ou informe uma URL de imagem.").refine((value) => {
+    if (value.startsWith("/uploads/")) return true;
+
+    try {
+      new URL(value);
+      return true;
+    } catch {
+      return false;
+    }
+  }, "Envie uma foto ou informe uma URL de imagem valida."),
   categoryId: z.string().min(1, "Selecione uma categoria."),
   prepTime: z.coerce.number().int().min(1, "Tempo invalido."),
   servings: z.coerce.number().int().min(1, "Porcoes invalidas."),

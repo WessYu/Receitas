@@ -339,6 +339,126 @@ const recipes = [
       "Doure a manteiga com salvia.",
       "Misture o gnocchi e finalize com queijo."
     ]
+  },
+  {
+    title: "Tilapia no papillote com legumes",
+    description: "Peixe assado no papel com legumes finos, limao e azeite, sem sujeira e com muito aroma.",
+    category: "Jantar rapido",
+    imageUrl: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=1200&q=80",
+    prepTime: 26,
+    servings: 2,
+    difficulty: Difficulty.EASY,
+    featured: false,
+    ingredients: [["2 unidades", "files de tilapia"], ["1 unidade", "abobrinha"], ["1 unidade", "cenoura"], ["1 unidade", "limao"], ["2 colheres", "azeite"]],
+    steps: ["Monte os files sobre papel manteiga.", "Cubra com legumes, azeite e limao.", "Feche bem e asse ate o peixe ficar macio."]
+  },
+  {
+    title: "Curry de grao-de-bico",
+    description: "Grao-de-bico cozido em molho de coco, tomate e especiarias para um jantar quente e perfumado.",
+    category: "Vegetariano",
+    imageUrl: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=1200&q=80",
+    prepTime: 34,
+    servings: 4,
+    difficulty: Difficulty.EASY,
+    featured: false,
+    ingredients: [["2 xicaras", "grao-de-bico"], ["1 lata", "leite de coco"], ["1 unidade", "tomate"], ["1 colher", "curry"], ["1 punhado", "coentro"]],
+    steps: ["Refogue tomate e especiarias.", "Junte grao-de-bico e leite de coco.", "Cozinhe ate engrossar e finalize com coentro."]
+  },
+  {
+    title: "Granola de frigideira",
+    description: "Aveia, castanhas e mel tostados rapidamente para acompanhar frutas e iogurte.",
+    category: "Cafe da manha",
+    imageUrl: "https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?auto=format&fit=crop&w=1200&q=80",
+    prepTime: 18,
+    servings: 6,
+    difficulty: Difficulty.EASY,
+    featured: false,
+    ingredients: [["2 xicaras", "aveia"], ["1/2 xicara", "castanhas"], ["2 colheres", "mel"], ["1 pitada", "canela"], ["1/2 xicara", "coco em lascas"]],
+    steps: ["Misture todos os ingredientes.", "Toste em frigideira baixa mexendo sempre.", "Esfrie antes de guardar."]
+  },
+  {
+    title: "Mousse de maracuja com iogurte",
+    description: "Mousse leve, acida e cremosa feita com iogurte, maracuja e poucos ingredientes.",
+    category: "Sobremesas",
+    imageUrl: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=1200&q=80",
+    prepTime: 15,
+    servings: 6,
+    difficulty: Difficulty.EASY,
+    featured: false,
+    ingredients: [["1 xicara", "polpa de maracuja"], ["2 xicaras", "iogurte"], ["1 lata", "leite condensado"], ["1 pacote", "gelatina incolor"]],
+    steps: ["Bata iogurte, polpa e leite condensado.", "Misture gelatina hidratada.", "Leve para gelar ate firmar."]
+  },
+  {
+    title: "Lasanha de berinjela",
+    description: "Camadas de berinjela grelhada, molho de tomate e queijo para uma lasanha mais leve.",
+    category: "Massas",
+    imageUrl: "https://images.unsplash.com/photo-1574894709920-11b28e7367e3?auto=format&fit=crop&w=1200&q=80",
+    prepTime: 60,
+    servings: 6,
+    difficulty: Difficulty.MEDIUM,
+    featured: false,
+    ingredients: [["2 unidades", "berinjelas"], ["2 xicaras", "molho de tomate"], ["300 g", "mussarela"], ["1 punhado", "manjericao"], ["1/2 xicara", "parmesao"]],
+    steps: ["Grelhe fatias de berinjela.", "Monte camadas com molho e queijo.", "Asse ate borbulhar e dourar."]
+  },
+  {
+    title: "Carne de panela com cenoura",
+    description: "Carne cozida lentamente com caldo encorpado, cenoura macia e tempero caseiro.",
+    category: "Jantar rapido",
+    imageUrl: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=1200&q=80",
+    prepTime: 75,
+    servings: 5,
+    difficulty: Difficulty.MEDIUM,
+    featured: false,
+    ingredients: [["700 g", "acem"], ["2 unidades", "cenouras"], ["1 unidade", "cebola"], ["2 xicaras", "caldo"], ["2 folhas", "louro"]],
+    steps: ["Sele a carne em cubos.", "Refogue cebola e junte caldo.", "Cozinhe ate amaciar e finalize com cenoura."]
+  },
+  {
+    title: "Tabule de quinoa",
+    description: "Quinoa fria com pepino, tomate, hortela e limao para uma salada fresca e completa.",
+    category: "Vegetariano",
+    imageUrl: "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=1200&q=80",
+    prepTime: 22,
+    servings: 4,
+    difficulty: Difficulty.EASY,
+    featured: false,
+    ingredients: [["1 xicara", "quinoa"], ["1 unidade", "pepino"], ["2 unidades", "tomates"], ["1 punhado", "hortela"], ["1 unidade", "limao"]],
+    steps: ["Cozinhe e esfrie a quinoa.", "Pique os legumes pequenos.", "Misture com ervas, limao e azeite."]
+  },
+  {
+    title: "Waffle de iogurte",
+    description: "Massa macia por dentro e crocante por fora, perfeita com frutas frescas.",
+    category: "Cafe da manha",
+    imageUrl: "https://images.unsplash.com/photo-1562376552-0d160a2f238d?auto=format&fit=crop&w=1200&q=80",
+    prepTime: 24,
+    servings: 4,
+    difficulty: Difficulty.EASY,
+    featured: false,
+    ingredients: [["1 xicara", "farinha"], ["1 pote", "iogurte"], ["2 unidades", "ovos"], ["1 colher", "fermento"], ["1 colher", "manteiga"]],
+    steps: ["Misture os ingredientes ate formar massa lisa.", "Asse na maquina de waffle.", "Sirva com frutas."]
+  },
+  {
+    title: "Brownie intenso de cacau",
+    description: "Brownie denso, brilhante e com sabor profundo de cacau para cortar em quadrados.",
+    category: "Sobremesas",
+    imageUrl: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=1200&q=80",
+    prepTime: 38,
+    servings: 9,
+    difficulty: Difficulty.EASY,
+    featured: false,
+    ingredients: [["180 g", "manteiga"], ["1 xicara", "acucar"], ["3 unidades", "ovos"], ["3/4 xicara", "cacau"], ["1/2 xicara", "farinha"]],
+    steps: ["Derreta a manteiga e misture acucar.", "Junte ovos, cacau e farinha.", "Asse ate formar casquinha."]
+  },
+  {
+    title: "Penne ao pesto de rucula",
+    description: "Massa rapida com pesto fresco de rucula, castanhas e queijo curado.",
+    category: "Massas",
+    imageUrl: "https://images.unsplash.com/photo-1608897013039-887f21d8c804?auto=format&fit=crop&w=1200&q=80",
+    prepTime: 20,
+    servings: 3,
+    difficulty: Difficulty.EASY,
+    featured: false,
+    ingredients: [["300 g", "penne"], ["2 xicaras", "rucula"], ["1/3 xicara", "castanhas"], ["1/2 xicara", "parmesao"], ["1/2 xicara", "azeite"]],
+    steps: ["Bata rucula, castanhas, queijo e azeite.", "Cozinhe a massa.", "Misture tudo com um pouco da agua do cozimento."]
   }
 ];
 
