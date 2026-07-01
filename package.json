@@ -8,6 +8,7 @@
     "dev": "next dev",
     "prebuild": "prisma generate",
     "build": "next build",
+    "vercel-build": "prisma generate && prisma db push && tsx prisma/seed.ts && next build",
     "start": "next start",
     "lint": "next lint",
     "prisma:generate": "prisma generate",
