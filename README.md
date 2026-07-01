@@ -1,6 +1,6 @@
 # Receitas
 
-Plataforma full-stack de receitas com Next.js App Router, TypeScript, Tailwind CSS, Prisma, PostgreSQL, autenticacao por cookie assinado, senhas criptografadas e roles `USER` / `ADMIN`.
+Plataforma full-stack de receitas com Next.js App Router, TypeScript, Tailwind CSS, Prisma, PostgreSQL, autenticacao por cookie assinado, senhas criptografadas e roles 
 
 ## Links
 
