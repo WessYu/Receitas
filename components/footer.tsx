@@ -12,9 +12,6 @@ export function Footer() {
           <Link href="/dashboard" className="transition hover:text-ink">
             Favoritas
           </Link>
-          <Link href="/admin" className="transition hover:text-ink">
-            Admin
-          </Link>
         </div>
       </div>
     </footer>

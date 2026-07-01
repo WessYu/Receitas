@@ -123,26 +123,27 @@ const recipes = [
 ];
 
 async function main() {
-  const passwordHash = await bcrypt.hash("Admin@123456", 12);
+  const adminEmail = process.env.ADMIN_EMAIL;
+  const adminPassword = process.env.ADMIN_PASSWORD;
+
+  if (!adminEmail || !adminPassword) {
+    throw new Error("Defina ADMIN_EMAIL e ADMIN_PASSWORD no .env antes de rodar o seed.");
+  }
+
+  if (adminPassword.length < 12) {
+    throw new Error("ADMIN_PASSWORD precisa ter pelo menos 12 caracteres.");
+  }
+
+  const passwordHash = await bcrypt.hash(adminPassword, 12);
 
   const admin = await prisma.user.upsert({
-    where: { email: "admin@receitas.local" },
+    where: { email: adminEmail.toLowerCase() },
     update: { role: "ADMIN" },
     create: {
       name: "Admin Receitas",
-      email: "admin@receitas.local",
+      email: adminEmail.toLowerCase(),
       passwordHash,
       role: "ADMIN"
-    }
-  });
-
-  await prisma.user.upsert({
-    where: { email: "demo@receitas.local" },
-    update: {},
-    create: {
-      name: "Usuario Demo",
-      email: "demo@receitas.local",
-      passwordHash: await bcrypt.hash("Demo@123456", 12)
     }
   });
 

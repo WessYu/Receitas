@@ -7,7 +7,7 @@
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
     <meta
       name="description"
-      content="Site moderno de receitas com busca, filtros, favoritos e painel administrativo demonstrativo."
+      content="Site moderno de receitas com busca, filtros, detalhes e favoritos."
     />
     <style>
       :root {
@@ -174,7 +174,7 @@
 
       .mobile-nav {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         gap: 6px;
         padding: 0 0 12px;
       }
@@ -529,16 +529,6 @@
         border-bottom: 0;
       }
 
-      .admin-grid {
-        display: grid;
-        gap: 16px;
-      }
-
-      .admin-form {
-        display: grid;
-        gap: 12px;
-      }
-
       .toast {
         position: fixed;
         right: 18px;
@@ -596,9 +586,6 @@
           grid-template-columns: 1.25fr repeat(4, 1fr) auto;
         }
 
-        .admin-grid {
-          grid-template-columns: 0.9fr 1.1fr;
-        }
       }
 
       @media (min-width: 980px) {
@@ -624,17 +611,13 @@
           <button type="button" data-view="home">Inicio</button>
           <button type="button" data-view="recipes">Receitas</button>
           <button type="button" data-view="saved">Salvas</button>
-          <button type="button" data-view="admin">Admin</button>
         </nav>
-        <div class="actions">
-          <a class="btn btn-secondary" href="https://github.com/WessYu/Receitas">GitHub</a>
-        </div>
+        <div class="actions"></div>
       </div>
       <div class="page mobile-nav" aria-label="Navegacao mobile">
         <button type="button" data-view="home">Inicio</button>
         <button type="button" data-view="recipes">Receitas</button>
         <button type="button" data-view="saved">Salvas</button>
-        <button type="button" data-view="admin">Admin</button>
       </div>
     </header>
 
@@ -804,8 +787,7 @@
       const app = document.querySelector("#app");
       const toast = document.querySelector("#toast");
       const storageKeys = {
-        favorites: "receitas-pages-favorites",
-        custom: "receitas-pages-custom"
+        favorites: "receitas-pages-favorites"
       };
 
       let state = {
@@ -816,8 +798,7 @@
         maxTime: "",
         ingredient: "",
         selectedId: null,
-        favorites: readJson(storageKeys.favorites, []),
-        customRecipes: readJson(storageKeys.custom, [])
+        favorites: readJson(storageKeys.favorites, [])
       };
 
       function readJson(key, fallback) {
@@ -833,7 +814,7 @@
       }
 
       function getRecipes() {
-        return [...baseRecipes, ...state.customRecipes];
+        return baseRecipes;
       }
 
       function categories() {
@@ -1078,84 +1059,16 @@
           <section class="section">
             <div class="section-head">
               <div>
-                <p class="eyebrow">Area privada</p>
-                <h2>Receitas salvas</h2>
+              <p class="eyebrow">Favoritos</p>
+              <h2>Receitas salvas</h2>
               </div>
               <button class="btn btn-secondary" type="button" data-view="recipes">Explorar receitas</button>
-            </div>
-            <div class="panel" style="margin-bottom: 24px">
-              <h3>Perfil demo</h3>
-              <p>Nome: Usuario Demo</p>
-              <p>Email: demo@receitas.local</p>
             </div>
             ${
               saved.length
                 ? `<div class="cards">${saved.map(recipeCard).join("")}</div>`
                 : `<div class="empty"><h3>Nenhuma receita salva</h3><p>Abra uma receita e salve para montar sua biblioteca.</p></div>`
             }
-          </section>
-        `;
-      }
-
-      function renderAdmin() {
-        const recipes = getRecipes();
-        return `
-          <section class="section">
-            <div class="section-head">
-              <div>
-                <p class="eyebrow">Painel admin demo</p>
-                <h2>Controle editorial</h2>
-              </div>
-              <button class="btn btn-secondary" type="button" id="resetDemo">Resetar demo</button>
-            </div>
-            <div class="cards" style="margin-bottom: 20px">
-              <div class="panel"><p class="eyebrow">Receitas</p><h3>${recipes.length}</h3></div>
-              <div class="panel"><p class="eyebrow">Categorias</p><h3>${categories().length}</h3></div>
-              <div class="panel"><p class="eyebrow">Usuarios</p><h3>2</h3></div>
-            </div>
-            <div class="admin-grid">
-              <form class="panel admin-form" id="adminForm">
-                <h3>Criar receita local</h3>
-                <input class="field" name="title" required placeholder="Titulo" />
-                <input class="field" name="category" required placeholder="Categoria" />
-                <div style="display:grid; gap:10px; grid-template-columns:1fr 1fr">
-                  <input class="field" name="time" required type="number" min="1" placeholder="Minutos" />
-                  <select class="select" name="difficulty">
-                    <option>Facil</option>
-                    <option>Media</option>
-                    <option>Avancada</option>
-                  </select>
-                </div>
-                <textarea class="area" name="description" required placeholder="Descricao"></textarea>
-                <button class="btn btn-primary" type="submit">Criar receita</button>
-              </form>
-              <div class="table-wrap">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Titulo</th>
-                      <th>Categoria</th>
-                      <th>Status</th>
-                      <th>Tempo</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    ${recipes
-                      .map(
-                        (recipe) => `
-                          <tr>
-                            <td><strong>${recipe.title}</strong></td>
-                            <td>${recipe.category}</td>
-                            <td><span class="pill">Publicado</span></td>
-                            <td>${recipe.time} min</td>
-                          </tr>
-                        `
-                      )
-                      .join("")}
-                  </tbody>
-                </table>
-              </div>
-            </div>
           </section>
         `;
       }
@@ -1169,7 +1082,6 @@
         if (state.view === "recipes") app.innerHTML = renderRecipes();
         if (state.view === "detail") app.innerHTML = renderDetail();
         if (state.view === "saved") app.innerHTML = renderSaved();
-        if (state.view === "admin") app.innerHTML = renderAdmin();
       }
 
       document.addEventListener("click", (event) => {
@@ -1184,14 +1096,6 @@
         if (categoryButton) {
           state.category = categoryButton.dataset.category;
           state.view = "recipes";
-          render();
-        }
-        if (event.target.id === "resetDemo") {
-          state.customRecipes = [];
-          state.favorites = [];
-          saveJson(storageKeys.custom, []);
-          saveJson(storageKeys.favorites, []);
-          showToast("Demo reiniciada.");
           render();
         }
       });
@@ -1215,29 +1119,6 @@
           render();
         }
 
-        if (event.target.id === "adminForm") {
-          event.preventDefault();
-          const form = new FormData(event.target);
-          const title = form.get("title").trim();
-          const recipe = {
-            id: "local-" + Date.now(),
-            title,
-            category: form.get("category").trim(),
-            time: Number(form.get("time")),
-            servings: 2,
-            difficulty: form.get("difficulty"),
-            featured: false,
-            image:
-              "https://images.unsplash.com/photo-1495521821757-a1efb6729352?auto=format&fit=crop&w=1200&q=80",
-            description: form.get("description").trim(),
-            ingredients: ["Ingredientes adicionados no painel demo", "Ajuste no projeto full-stack para persistir no banco"],
-            steps: ["Prepare os ingredientes.", "Finalize e publique a receita."]
-          };
-          state.customRecipes = [recipe, ...state.customRecipes];
-          saveJson(storageKeys.custom, state.customRecipes);
-          showToast("Receita criada nesta demonstracao.");
-          render();
-        }
       });
 
       render();

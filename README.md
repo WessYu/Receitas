@@ -7,7 +7,7 @@ Plataforma full-stack de receitas com Next.js App Router, TypeScript, Tailwind C
 - GitHub Pages: https://wessyu.github.io/Receitas/
 - Repositorio: https://github.com/WessYu/Receitas
 
-> O GitHub Pages hospeda uma versao estatica navegavel em `docs/`, com receitas, filtros, detalhes, favoritos e admin demonstrativo no navegador. A aplicacao completa deste repositorio precisa de Node.js e PostgreSQL para autenticar usuarios, usar Prisma e executar o painel admin real.
+> O GitHub Pages hospeda uma versao publica navegavel em `docs/`, com receitas, filtros, detalhes e favoritos no navegador. O painel admin nao fica exposto no Pages; ele existe apenas na aplicacao full-stack protegida por login e role `ADMIN`.
 
 ## Funcionalidades
 
@@ -59,21 +59,20 @@ npm run prisma:migrate
 
 ## Como criar o admin inicial
 
-Rode o seed:
+Antes de rodar o seed, defina no `.env` o seu email e uma senha forte:
+
+```env
+ADMIN_EMAIL="seu-email@exemplo.com"
+ADMIN_PASSWORD="troque-por-uma-senha-forte-com-12-caracteres"
+```
+
+Depois rode:
 
 ```bash
 npm run db:seed
 ```
 
-Credenciais criadas:
-
-- Admin: `admin@receitas.local`
-- Senha: `Admin@123456`
-
-Tambem existe um usuario comum:
-
-- Usuario: `demo@receitas.local`
-- Senha: `Demo@123456`
+O seed cria apenas o usuario administrador definido por voce no `.env`.
 
 ## Como iniciar localmente
 
@@ -91,7 +90,7 @@ Abra `http://localhost:3000`.
 - `npm run prisma:migrate`: cria/aplica migrations.
 - `npm run prisma:generate`: gera o Prisma Client.
 - `npm run prisma:studio`: abre o Prisma Studio.
-- `npm run db:seed`: popula categorias, receitas, admin e usuario demo.
+- `npm run db:seed`: popula categorias, receitas e o admin configurado no `.env`.
 
 ## Estrutura
 
