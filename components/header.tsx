@@ -16,8 +16,8 @@ export async function Header() {
     <header className="sticky top-0 z-40 border-b border-ink/10 bg-porcelain/85 backdrop-blur-xl">
       <div className="container-page flex h-20 items-center justify-between gap-5">
         <Link href="/" className="flex items-center gap-3 font-semibold">
-          <span className="relative h-11 w-11 overflow-hidden rounded-md shadow-sm">
-            <Image src="/logo.svg" alt="Receitas" fill priority sizes="44px" className="object-contain" />
+          <span className="relative h-12 w-12 overflow-hidden rounded-2xl shadow-soft ring-1 ring-ink/10">
+            <Image src="/logo.svg" alt="Receitas" fill priority sizes="48px" className="object-contain" />
           </span>
           <span className="font-serif text-2xl">Receitas</span>
         </Link>
