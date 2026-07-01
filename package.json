@@ -13,7 +13,10 @@
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:studio": "prisma studio",
-    "db:seed": "prisma generate && tsx prisma/seed.ts"
+    "db:push": "prisma db push",
+    "db:seed": "prisma generate && tsx prisma/seed.ts",
+    "setup:db": "prisma generate && prisma db push && tsx prisma/seed.ts",
+    "setup:dev": "npm install && npm run setup:db && npm run dev"
   },
   "dependencies": {
     "@prisma/client": "^6.10.1",
