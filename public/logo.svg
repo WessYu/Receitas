@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-labelledby="title desc">
+  <title id="title">Receitas</title>
+  <desc id="desc">Logo com monograma R, folha e colher.</desc>
+  <rect width="96" height="96" rx="22" fill="#20221e"/>
+  <path d="M62 18c10 4 15 13 12 24-12 1-21-4-24-15 3-6 7-9 12-9Z" fill="#87956b"/>
+  <path d="M54 35c7-6 12-9 20-12" fill="none" stroke="#fffaf2" stroke-width="4" stroke-linecap="round"/>
+  <path d="M27 72V24h22c12 0 20 7 20 18 0 8-4 14-12 17l14 13H56L44 60h-5v12H27Zm12-23h9c6 0 10-3 10-8s-4-8-10-8h-9v16Z" fill="#fffaf2"/>
+  <path d="M24 76c16-2 33-8 49-23" fill="none" stroke="#c85f4d" stroke-width="5" stroke-linecap="round"/>
+</svg>

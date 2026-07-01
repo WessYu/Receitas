@@ -6,7 +6,12 @@ import { ToastProvider } from "@/components/toast";
 
 export const metadata: Metadata = {
   title: "Receitas | Cozinha simples e elegante",
-  description: "Uma plataforma moderna para descobrir, salvar e administrar receitas."
+  description: "Uma plataforma moderna para descobrir, salvar e administrar receitas.",
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/logo.svg"
+  }
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

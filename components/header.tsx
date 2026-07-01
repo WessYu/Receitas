@@ -1,5 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
-import { ChefHat, LogOut, ShieldCheck, UserRound } from "lucide-react";
+import { LogOut, ShieldCheck, UserRound } from "lucide-react";
 import { getCurrentUser } from "@/lib/session";
 import { logoutAction } from "@/lib/actions";
 
@@ -15,8 +16,8 @@ export async function Header() {
     <header className="sticky top-0 z-40 border-b border-ink/10 bg-porcelain/85 backdrop-blur-xl">
       <div className="container-page flex h-20 items-center justify-between gap-5">
         <Link href="/" className="flex items-center gap-3 font-semibold">
-          <span className="grid h-10 w-10 place-items-center rounded-md bg-ink text-porcelain">
-            <ChefHat className="h-5 w-5" />
+          <span className="relative h-11 w-11 overflow-hidden rounded-md shadow-sm">
+            <Image src="/logo.svg" alt="Receitas" fill priority sizes="44px" className="object-contain" />
           </span>
           <span className="font-serif text-2xl">Receitas</span>
         </Link>

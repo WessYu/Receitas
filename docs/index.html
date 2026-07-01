@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Receitas</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
     <meta
       name="description"
       content="Site moderno de receitas com busca, filtros, favoritos e painel administrativo demonstrativo."
@@ -90,13 +91,10 @@
       }
 
       .brand-mark {
-        display: grid;
         width: 42px;
         height: 42px;
-        place-items: center;
         border-radius: 8px;
-        background: var(--ink);
-        color: var(--paper);
+        box-shadow: 0 8px 24px rgba(32, 34, 30, 0.12);
       }
 
       .brand-name {
@@ -619,7 +617,7 @@
     <header class="topbar">
       <div class="page topbar-inner">
         <button class="brand" type="button" data-view="home" aria-label="Ir para inicio">
-          <span class="brand-mark">R</span>
+          <img class="brand-mark" src="./logo.svg" alt="" width="42" height="42" />
           <span class="brand-name">Receitas</span>
         </button>
         <nav class="nav" aria-label="Navegacao principal">
