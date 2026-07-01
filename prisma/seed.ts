@@ -119,6 +119,226 @@ const recipes = [
       "Cozinhe a massa em agua salgada e reserve um pouco da agua do cozimento.",
       "Misture a massa aos tomates, ajuste a textura com a agua reservada e finalize com manjericao."
     ]
+  },
+  {
+    title: "Frango ao molho de mostarda e mel",
+    description: "Peito de frango dourado com molho cremoso, acidez leve e toque adocicado na medida.",
+    category: "Jantar rapido",
+    imageUrl: "https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=1200&q=80",
+    prepTime: 32,
+    servings: 3,
+    difficulty: Difficulty.EASY,
+    featured: false,
+    ingredients: [
+      ["3 unidades", "files de frango"],
+      ["2 colheres", "mostarda"],
+      ["1 colher", "mel"],
+      ["1/2 xicara", "creme de leite"],
+      ["1 ramo", "tomilho fresco"]
+    ],
+    steps: [
+      "Tempere e doure o frango dos dois lados.",
+      "Misture mostarda, mel e creme de leite.",
+      "Volte o frango ao molho e cozinhe ate ficar macio."
+    ]
+  },
+  {
+    title: "Sopa cremosa de abobora assada",
+    description: "Abobora assada, gengibre e caldo de legumes formam uma sopa aveludada e confortante.",
+    category: "Vegetariano",
+    imageUrl: "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=1200&q=80",
+    prepTime: 45,
+    servings: 4,
+    difficulty: Difficulty.EASY,
+    featured: false,
+    ingredients: [
+      ["800 g", "abobora"],
+      ["1 unidade", "cebola"],
+      ["1 colher", "gengibre ralado"],
+      ["700 ml", "caldo de legumes"],
+      ["2 colheres", "sementes tostadas"]
+    ],
+    steps: [
+      "Asse a abobora com cebola e azeite.",
+      "Bata com caldo quente e gengibre.",
+      "Ajuste sal e finalize com sementes."
+    ]
+  },
+  {
+    title: "Omelete de cogumelos e queijo",
+    description: "Omelete macia com cogumelos salteados e queijo derretido para uma refeicao rapida.",
+    category: "Cafe da manha",
+    imageUrl: "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=1200&q=80",
+    prepTime: 15,
+    servings: 1,
+    difficulty: Difficulty.EASY,
+    featured: false,
+    ingredients: [
+      ["3 unidades", "ovos"],
+      ["1 xicara", "cogumelos"],
+      ["1/3 xicara", "queijo"],
+      ["1 colher", "cebolinha"],
+      ["1 colher", "manteiga"]
+    ],
+    steps: [
+      "Salteie os cogumelos na manteiga.",
+      "Bata os ovos e leve a frigideira.",
+      "Recheie, dobre e finalize com cebolinha."
+    ]
+  },
+  {
+    title: "Cheesecake leve com frutas vermelhas",
+    description: "Base crocante, creme suave e cobertura de frutas vermelhas para servir gelado.",
+    category: "Sobremesas",
+    imageUrl: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=1200&q=80",
+    prepTime: 70,
+    servings: 8,
+    difficulty: Difficulty.MEDIUM,
+    featured: false,
+    ingredients: [
+      ["200 g", "biscoito"],
+      ["80 g", "manteiga"],
+      ["450 g", "cream cheese"],
+      ["3 unidades", "ovos"],
+      ["1 xicara", "frutas vermelhas"]
+    ],
+    steps: [
+      "Monte a base com biscoito e manteiga.",
+      "Bata o creme e despeje sobre a base.",
+      "Asse em temperatura baixa e cubra com frutas."
+    ]
+  },
+  {
+    title: "Carbonara com ervilhas frescas",
+    description: "Massa cremosa sem creme de leite, com ovos, queijo, pimenta e ervilhas para frescor.",
+    category: "Massas",
+    imageUrl: "https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=1200&q=80",
+    prepTime: 25,
+    servings: 2,
+    difficulty: Difficulty.MEDIUM,
+    featured: false,
+    ingredients: [
+      ["220 g", "espaguete"],
+      ["2 unidades", "gemas"],
+      ["1 unidade", "ovo"],
+      ["1/2 xicara", "parmesao"],
+      ["1/2 xicara", "ervilhas"]
+    ],
+    steps: [
+      "Cozinhe a massa e reserve agua.",
+      "Misture ovos, queijo e pimenta.",
+      "Una tudo fora do fogo ate formar creme."
+    ]
+  },
+  {
+    title: "Arroz de camarao com coentro",
+    description: "Arroz umido, camaroes suculentos e ervas frescas em uma panela so.",
+    category: "Jantar rapido",
+    imageUrl: "https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=1200&q=80",
+    prepTime: 38,
+    servings: 4,
+    difficulty: Difficulty.MEDIUM,
+    featured: false,
+    ingredients: [
+      ["300 g", "camarao"],
+      ["1 xicara", "arroz"],
+      ["1 unidade", "tomate"],
+      ["1/2 unidade", "pimentao"],
+      ["1 punhado", "coentro fresco"]
+    ],
+    steps: [
+      "Refogue os aromaticos e o arroz.",
+      "Adicione caldo e cozinhe ate quase secar.",
+      "Junte os camaroes no final e finalize com coentro."
+    ]
+  },
+  {
+    title: "Salada morna de lentilha",
+    description: "Lentilhas cozidas no ponto, legumes crocantes e vinagrete de mostarda para marmita elegante.",
+    category: "Vegetariano",
+    imageUrl: "https://images.unsplash.com/photo-1505253716362-afaea1d3d1af?auto=format&fit=crop&w=1200&q=80",
+    prepTime: 35,
+    servings: 3,
+    difficulty: Difficulty.EASY,
+    featured: false,
+    ingredients: [
+      ["1 xicara", "lentilha"],
+      ["1 unidade", "cenoura"],
+      ["1 talo", "salsao"],
+      ["1 colher", "mostarda"],
+      ["1 punhado", "salsinha"]
+    ],
+    steps: [
+      "Cozinhe a lentilha ate ficar macia.",
+      "Misture legumes picados e vinagrete.",
+      "Sirva morna com salsinha."
+    ]
+  },
+  {
+    title: "Rabanada de forno com laranja",
+    description: "Fatias douradas no forno com perfume de laranja, canela e textura macia.",
+    category: "Cafe da manha",
+    imageUrl: "https://images.unsplash.com/photo-1484723091739-30a097e8f929?auto=format&fit=crop&w=1200&q=80",
+    prepTime: 35,
+    servings: 4,
+    difficulty: Difficulty.EASY,
+    featured: false,
+    ingredients: [
+      ["6 fatias", "pao"],
+      ["2 unidades", "ovos"],
+      ["1 xicara", "leite"],
+      ["1 colher", "raspas de laranja"],
+      ["1 pitada", "canela"]
+    ],
+    steps: [
+      "Misture ovos, leite, laranja e canela.",
+      "Passe as fatias de pao na mistura.",
+      "Asse ate dourar dos dois lados."
+    ]
+  },
+  {
+    title: "Panna cotta de baunilha",
+    description: "Creme italiano delicado, gelado e servido com calda simples de frutas.",
+    category: "Sobremesas",
+    imageUrl: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=1200&q=80",
+    prepTime: 25,
+    servings: 6,
+    difficulty: Difficulty.MEDIUM,
+    featured: false,
+    ingredients: [
+      ["500 ml", "creme de leite"],
+      ["1 unidade", "fava de baunilha"],
+      ["1/3 xicara", "acucar"],
+      ["1 pacote", "gelatina incolor"],
+      ["1/2 xicara", "calda de frutas"]
+    ],
+    steps: [
+      "Aqueca creme, baunilha e acucar.",
+      "Misture a gelatina hidratada.",
+      "Leve para gelar e sirva com calda."
+    ]
+  },
+  {
+    title: "Gnocchi na manteiga de salvia",
+    description: "Gnocchi macio envolvido em manteiga noisette, salvia crocante e queijo ralado.",
+    category: "Massas",
+    imageUrl: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=1200&q=80",
+    prepTime: 30,
+    servings: 2,
+    difficulty: Difficulty.MEDIUM,
+    featured: false,
+    ingredients: [
+      ["400 g", "gnocchi"],
+      ["3 colheres", "manteiga"],
+      ["10 folhas", "salvia"],
+      ["1/2 xicara", "parmesao"],
+      ["1 pitada", "pimenta-do-reino"]
+    ],
+    steps: [
+      "Cozinhe o gnocchi ate subir.",
+      "Doure a manteiga com salvia.",
+      "Misture o gnocchi e finalize com queijo."
+    ]
   }
 ];
 

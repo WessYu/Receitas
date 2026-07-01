@@ -529,6 +529,16 @@
         border-bottom: 0;
       }
 
+      .account-grid {
+        display: grid;
+        gap: 16px;
+      }
+
+      .form-stack {
+        display: grid;
+        gap: 12px;
+      }
+
       .toast {
         position: fixed;
         right: 18px;
@@ -586,6 +596,9 @@
           grid-template-columns: 1.25fr repeat(4, 1fr) auto;
         }
 
+        .account-grid {
+          grid-template-columns: 0.9fr 1.1fr;
+        }
       }
 
       @media (min-width: 980px) {
@@ -611,13 +624,15 @@
           <button type="button" data-view="home">Inicio</button>
           <button type="button" data-view="recipes">Receitas</button>
           <button type="button" data-view="saved">Salvas</button>
+          <button type="button" data-view="account">Conta</button>
         </nav>
-        <div class="actions"></div>
+        <div class="actions" id="authActions"></div>
       </div>
       <div class="page mobile-nav" aria-label="Navegacao mobile">
         <button type="button" data-view="home">Inicio</button>
         <button type="button" data-view="recipes">Receitas</button>
         <button type="button" data-view="saved">Salvas</button>
+        <button type="button" data-view="account">Conta</button>
       </div>
     </header>
 
@@ -781,13 +796,165 @@
             "Cubra o salmao com a mistura e pressione levemente.",
             "Asse ate o peixe ficar macio e a crosta dourada."
           ]
+        },
+        {
+          id: "frango-mostarda",
+          title: "Frango ao molho de mostarda e mel",
+          category: "Jantar rapido",
+          time: 32,
+          servings: 3,
+          difficulty: "Facil",
+          featured: false,
+          image:
+            "https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=1200&q=80",
+          description:
+            "Peito de frango dourado com molho cremoso, acidez leve e toque adocicado na medida.",
+          ingredients: ["3 files de frango", "2 colheres de mostarda", "1 colher de mel", "1/2 xicara de creme de leite", "Tomilho fresco"],
+          steps: ["Tempere e doure o frango dos dois lados.", "Misture mostarda, mel e creme de leite.", "Volte o frango ao molho e cozinhe ate ficar macio."]
+        },
+        {
+          id: "sopa-abobora",
+          title: "Sopa cremosa de abobora assada",
+          category: "Vegetariano",
+          time: 45,
+          servings: 4,
+          difficulty: "Facil",
+          featured: false,
+          image:
+            "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=1200&q=80",
+          description:
+            "Abobora assada, gengibre e caldo de legumes formam uma sopa aveludada e confortante.",
+          ingredients: ["800 g de abobora", "1 cebola", "1 colher de gengibre ralado", "700 ml de caldo de legumes", "Sementes tostadas"],
+          steps: ["Asse a abobora com cebola e azeite.", "Bata com caldo quente e gengibre.", "Ajuste sal e finalize com sementes."]
+        },
+        {
+          id: "omelete-cogumelos",
+          title: "Omelete de cogumelos e queijo",
+          category: "Cafe da manha",
+          time: 15,
+          servings: 1,
+          difficulty: "Facil",
+          featured: false,
+          image:
+            "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=1200&q=80",
+          description:
+            "Omelete macia com cogumelos salteados e queijo derretido para uma refeicao rapida.",
+          ingredients: ["3 ovos", "1 xicara de cogumelos", "1/3 xicara de queijo", "Cebolinha", "Manteiga"],
+          steps: ["Salteie os cogumelos na manteiga.", "Bata os ovos e leve a frigideira.", "Recheie, dobre e finalize com cebolinha."]
+        },
+        {
+          id: "cheesecake-frutas",
+          title: "Cheesecake leve com frutas vermelhas",
+          category: "Sobremesas",
+          time: 70,
+          servings: 8,
+          difficulty: "Media",
+          featured: false,
+          image:
+            "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=1200&q=80",
+          description:
+            "Base crocante, creme suave e cobertura de frutas vermelhas para servir gelado.",
+          ingredients: ["200 g de biscoito", "80 g de manteiga", "450 g de cream cheese", "3 ovos", "1 xicara de frutas vermelhas"],
+          steps: ["Monte a base com biscoito e manteiga.", "Bata o creme e despeje sobre a base.", "Asse em temperatura baixa e cubra com frutas."]
+        },
+        {
+          id: "carbonara-ervilhas",
+          title: "Carbonara com ervilhas frescas",
+          category: "Massas",
+          time: 25,
+          servings: 2,
+          difficulty: "Media",
+          featured: false,
+          image:
+            "https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=1200&q=80",
+          description:
+            "Massa cremosa sem creme de leite, com ovos, queijo, pimenta e ervilhas para frescor.",
+          ingredients: ["220 g de espaguete", "2 gemas", "1 ovo", "1/2 xicara de parmesao", "1/2 xicara de ervilhas"],
+          steps: ["Cozinhe a massa e reserve agua.", "Misture ovos, queijo e pimenta.", "Una tudo fora do fogo ate formar creme."]
+        },
+        {
+          id: "arroz-camarao",
+          title: "Arroz de camarao com coentro",
+          category: "Jantar rapido",
+          time: 38,
+          servings: 4,
+          difficulty: "Media",
+          featured: false,
+          image:
+            "https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=1200&q=80",
+          description:
+            "Arroz umido, camaroes suculentos e ervas frescas em uma panela so.",
+          ingredients: ["300 g de camarao", "1 xicara de arroz", "1 tomate", "1/2 pimentao", "Coentro fresco"],
+          steps: ["Refogue os aromaticos e o arroz.", "Adicione caldo e cozinhe ate quase secar.", "Junte os camaroes no final e finalize com coentro."]
+        },
+        {
+          id: "salada-lentilha",
+          title: "Salada morna de lentilha",
+          category: "Vegetariano",
+          time: 35,
+          servings: 3,
+          difficulty: "Facil",
+          featured: false,
+          image:
+            "https://images.unsplash.com/photo-1505253716362-afaea1d3d1af?auto=format&fit=crop&w=1200&q=80",
+          description:
+            "Lentilhas cozidas no ponto, legumes crocantes e vinagrete de mostarda para marmita elegante.",
+          ingredients: ["1 xicara de lentilha", "1 cenoura", "1 talo de salsao", "1 colher de mostarda", "Salsinha"],
+          steps: ["Cozinhe a lentilha ate ficar macia.", "Misture legumes picados e vinagrete.", "Sirva morna com salsinha."]
+        },
+        {
+          id: "rabanada-forno",
+          title: "Rabanada de forno com laranja",
+          category: "Cafe da manha",
+          time: 35,
+          servings: 4,
+          difficulty: "Facil",
+          featured: false,
+          image:
+            "https://images.unsplash.com/photo-1484723091739-30a097e8f929?auto=format&fit=crop&w=1200&q=80",
+          description:
+            "Fatias douradas no forno com perfume de laranja, canela e textura macia.",
+          ingredients: ["6 fatias de pao", "2 ovos", "1 xicara de leite", "Raspas de laranja", "Canela"],
+          steps: ["Misture ovos, leite, laranja e canela.", "Passe as fatias de pao na mistura.", "Asse ate dourar dos dois lados."]
+        },
+        {
+          id: "panna-cotta",
+          title: "Panna cotta de baunilha",
+          category: "Sobremesas",
+          time: 25,
+          servings: 6,
+          difficulty: "Media",
+          featured: false,
+          image:
+            "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=1200&q=80",
+          description:
+            "Creme italiano delicado, gelado e servido com calda simples de frutas.",
+          ingredients: ["500 ml de creme de leite", "1 fava de baunilha", "1/3 xicara de acucar", "Gelatina incolor", "Calda de frutas"],
+          steps: ["Aqueca creme, baunilha e acucar.", "Misture a gelatina hidratada.", "Leve para gelar e sirva com calda."]
+        },
+        {
+          id: "gnocchi-manteiga",
+          title: "Gnocchi na manteiga de salvia",
+          category: "Massas",
+          time: 30,
+          servings: 2,
+          difficulty: "Media",
+          featured: false,
+          image:
+            "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=1200&q=80",
+          description:
+            "Gnocchi macio envolvido em manteiga noisette, salvia crocante e queijo ralado.",
+          ingredients: ["400 g de gnocchi", "3 colheres de manteiga", "Folhas de salvia", "Parmesao", "Pimenta-do-reino"],
+          steps: ["Cozinhe o gnocchi ate subir.", "Doure a manteiga com salvia.", "Misture o gnocchi e finalize com queijo."]
         }
       ];
 
       const app = document.querySelector("#app");
+      const authActions = document.querySelector("#authActions");
       const toast = document.querySelector("#toast");
       const storageKeys = {
-        favorites: "receitas-pages-favorites"
+        users: "receitas-pages-users",
+        currentUser: "receitas-pages-current-user"
       };
 
       let state = {
@@ -798,7 +965,8 @@
         maxTime: "",
         ingredient: "",
         selectedId: null,
-        favorites: readJson(storageKeys.favorites, [])
+        users: readJson(storageKeys.users, []),
+        currentUserEmail: localStorage.getItem(storageKeys.currentUser) || ""
       };
 
       function readJson(key, fallback) {
@@ -819,6 +987,27 @@
 
       function categories() {
         return [...new Set(getRecipes().map((recipe) => recipe.category))].sort();
+      }
+
+      function currentUser() {
+        return state.users.find((user) => user.email === state.currentUserEmail) || null;
+      }
+
+      function persistUsers() {
+        saveJson(storageKeys.users, state.users);
+      }
+
+      function favorites() {
+        return currentUser()?.favorites || [];
+      }
+
+      function setCurrentUser(email) {
+        state.currentUserEmail = email;
+        if (email) {
+          localStorage.setItem(storageKeys.currentUser, email);
+        } else {
+          localStorage.removeItem(storageKeys.currentUser);
+        }
       }
 
       function setView(view) {
@@ -857,19 +1046,28 @@
       }
 
       function isSaved(id) {
-        return state.favorites.includes(id);
+        return favorites().includes(id);
       }
 
       function toggleFavorite(id) {
-        if (isSaved(id)) {
-          state.favorites = state.favorites.filter((item) => item !== id);
+        const user = currentUser();
+
+        if (!user) {
+          state.view = "login";
+          showToast("Entre ou crie uma conta para salvar receitas.");
+          render();
+          return;
+        }
+
+        if (user.favorites.includes(id)) {
+          user.favorites = user.favorites.filter((item) => item !== id);
           showToast("Receita removida das salvas.");
         } else {
-          state.favorites = [...state.favorites, id];
+          user.favorites = [...user.favorites, id];
           showToast("Receita salva.");
         }
 
-        saveJson(storageKeys.favorites, state.favorites);
+        persistUsers();
         render();
       }
 
@@ -932,7 +1130,7 @@
                 <div class="stats">
                   <div class="stat"><strong>${getRecipes().length}</strong><span>Receitas</span></div>
                   <div class="stat"><strong>${categories().length}</strong><span>Categorias</span></div>
-                  <div class="stat"><strong>${state.favorites.length}</strong><span>Salvas</span></div>
+                  <div class="stat"><strong>${favorites().length}</strong><span>Salvas</span></div>
                 </div>
               </div>
             </aside>
@@ -1054,6 +1252,10 @@
       }
 
       function renderSaved() {
+        if (!currentUser()) {
+          return renderLogin("Entre para ver suas receitas salvas.");
+        }
+
         const saved = getRecipes().filter((recipe) => isSaved(recipe.id));
         return `
           <section class="section">
@@ -1073,7 +1275,125 @@
         `;
       }
 
+      function renderLogin(message = "") {
+        return `
+          <section class="section">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">Acesso</p>
+                <h2>Entrar na conta</h2>
+              </div>
+              <button class="btn btn-secondary" type="button" data-view="register">Criar conta</button>
+            </div>
+            <form class="panel form-stack" id="loginForm" style="max-width: 520px">
+              ${message ? `<p>${message}</p>` : ""}
+              <label>
+                <strong>Email</strong>
+                <input class="field" name="email" type="email" autocomplete="email" required placeholder="voce@email.com" />
+              </label>
+              <label>
+                <strong>Senha</strong>
+                <input class="field" name="password" type="password" autocomplete="current-password" required placeholder="Sua senha" />
+              </label>
+              <button class="btn btn-primary" type="submit">Entrar</button>
+            </form>
+          </section>
+        `;
+      }
+
+      function renderRegister() {
+        return `
+          <section class="section">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">Nova conta</p>
+                <h2>Criar conta</h2>
+              </div>
+              <button class="btn btn-secondary" type="button" data-view="login">Entrar</button>
+            </div>
+            <form class="panel form-stack" id="registerForm" style="max-width: 620px">
+              <label>
+                <strong>Nome</strong>
+                <input class="field" name="name" autocomplete="name" required minlength="2" placeholder="Seu nome" />
+              </label>
+              <label>
+                <strong>Email</strong>
+                <input class="field" name="email" type="email" autocomplete="email" required placeholder="voce@email.com" />
+              </label>
+              <label>
+                <strong>Senha</strong>
+                <input class="field" name="password" type="password" autocomplete="new-password" required minlength="8" placeholder="Minimo 8 caracteres" />
+              </label>
+              <label>
+                <strong>Confirmar senha</strong>
+                <input class="field" name="confirmPassword" type="password" autocomplete="new-password" required minlength="8" placeholder="Repita a senha" />
+              </label>
+              <button class="btn btn-primary" type="submit">Cadastrar</button>
+            </form>
+          </section>
+        `;
+      }
+
+      function renderAccount() {
+        const user = currentUser();
+
+        if (!user) {
+          return renderLogin("Entre ou crie uma conta para acessar seu perfil.");
+        }
+
+        return `
+          <section class="section">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">Minha conta</p>
+                <h2>${user.name}</h2>
+              </div>
+              <button class="btn btn-secondary" type="button" data-logout>Sair</button>
+            </div>
+            <div class="account-grid">
+              <form class="panel form-stack" id="profileForm">
+                <h3>Dados do perfil</h3>
+                <label>
+                  <strong>Nome</strong>
+                  <input class="field" name="name" required minlength="2" value="${user.name}" />
+                </label>
+                <label>
+                  <strong>Email</strong>
+                  <input class="field" name="email" type="email" required value="${user.email}" />
+                </label>
+                <button class="btn btn-primary" type="submit">Salvar perfil</button>
+              </form>
+              <div class="panel">
+                <p class="eyebrow">Resumo</p>
+                <h3>${favorites().length} receitas salvas</h3>
+                <p>Suas receitas ficam ligadas a esta conta neste navegador.</p>
+                <div class="card-actions">
+                  <button class="btn btn-secondary" type="button" data-view="saved">Ver salvas</button>
+                  <button class="btn btn-secondary" type="button" data-view="recipes">Explorar receitas</button>
+                </div>
+              </div>
+            </div>
+          </section>
+        `;
+      }
+
+      function renderAuthActions() {
+        const user = currentUser();
+
+        authActions.innerHTML = user
+          ? `
+              <button class="btn btn-secondary" type="button" data-view="account">${user.name.split(" ")[0]}</button>
+              <button class="btn btn-primary" type="button" data-logout>Sair</button>
+            `
+          : `
+              <button class="btn btn-secondary" type="button" data-view="login">Entrar</button>
+              <button class="btn btn-primary" type="button" data-view="register">Criar conta</button>
+            `;
+      }
+
       function render() {
+        renderAuthActions();
+
         document.querySelectorAll("[data-view]").forEach((button) => {
           button.classList.toggle("active", button.dataset.view === state.view);
         });
@@ -1082,6 +1402,9 @@
         if (state.view === "recipes") app.innerHTML = renderRecipes();
         if (state.view === "detail") app.innerHTML = renderDetail();
         if (state.view === "saved") app.innerHTML = renderSaved();
+        if (state.view === "login") app.innerHTML = renderLogin();
+        if (state.view === "register") app.innerHTML = renderRegister();
+        if (state.view === "account") app.innerHTML = renderAccount();
       }
 
       document.addEventListener("click", (event) => {
@@ -1089,10 +1412,17 @@
         const recipeButton = event.target.closest("[data-recipe]");
         const favoriteButton = event.target.closest("[data-favorite]");
         const categoryButton = event.target.closest("[data-category]");
+        const logoutButton = event.target.closest("[data-logout]");
 
         if (viewButton) setView(viewButton.dataset.view);
         if (recipeButton) selectRecipe(recipeButton.dataset.recipe);
         if (favoriteButton) toggleFavorite(favoriteButton.dataset.favorite);
+        if (logoutButton) {
+          setCurrentUser("");
+          state.view = "home";
+          showToast("Voce saiu da conta.");
+          render();
+        }
         if (categoryButton) {
           state.category = categoryButton.dataset.category;
           state.view = "recipes";
@@ -1116,6 +1446,74 @@
           state.difficulty = form.get("difficulty");
           state.maxTime = form.get("maxTime");
           state.ingredient = form.get("ingredient").trim();
+          render();
+        }
+
+        if (event.target.id === "loginForm") {
+          event.preventDefault();
+          const form = new FormData(event.target);
+          const email = form.get("email").trim().toLowerCase();
+          const password = form.get("password");
+          const user = state.users.find((item) => item.email === email && item.password === password);
+
+          if (!user) {
+            showToast("Email ou senha invalidos.");
+            return;
+          }
+
+          setCurrentUser(user.email);
+          state.view = "account";
+          showToast("Login realizado.");
+          render();
+        }
+
+        if (event.target.id === "registerForm") {
+          event.preventDefault();
+          const form = new FormData(event.target);
+          const name = form.get("name").trim();
+          const email = form.get("email").trim().toLowerCase();
+          const password = form.get("password");
+          const confirmPassword = form.get("confirmPassword");
+
+          if (password !== confirmPassword) {
+            showToast("As senhas precisam ser iguais.");
+            return;
+          }
+
+          if (state.users.some((user) => user.email === email)) {
+            showToast("Ja existe uma conta com este email.");
+            return;
+          }
+
+          const user = { name, email, password, favorites: [] };
+          state.users = [...state.users, user];
+          persistUsers();
+          setCurrentUser(email);
+          state.view = "account";
+          showToast("Conta criada.");
+          render();
+        }
+
+        if (event.target.id === "profileForm") {
+          event.preventDefault();
+          const user = currentUser();
+          if (!user) return;
+
+          const form = new FormData(event.target);
+          const name = form.get("name").trim();
+          const email = form.get("email").trim().toLowerCase();
+          const emailInUse = state.users.some((item) => item.email === email && item.email !== user.email);
+
+          if (emailInUse) {
+            showToast("Este email ja esta em uso.");
+            return;
+          }
+
+          user.name = name;
+          user.email = email;
+          persistUsers();
+          setCurrentUser(email);
+          showToast("Perfil atualizado.");
           render();
         }
 
