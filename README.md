@@ -7,7 +7,7 @@ Plataforma full-stack de receitas com Next.js App Router, TypeScript, Tailwind C
 - GitHub Pages: https://wessyu.github.io/Receitas/
 - Repositorio: https://github.com/WessYu/Receitas
 
-> O GitHub Pages hospeda apenas a vitrine estatica em `docs/`. A aplicacao completa precisa de Node.js e PostgreSQL para autenticar usuarios, usar Prisma e executar o painel admin.
+> O GitHub Pages hospeda uma versao estatica navegavel em `docs/`, com receitas, filtros, detalhes, favoritos e admin demonstrativo no navegador. A aplicacao completa deste repositorio precisa de Node.js e PostgreSQL para autenticar usuarios, usar Prisma e executar o painel admin real.
 
 ## Funcionalidades
 
