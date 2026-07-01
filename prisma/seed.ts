@@ -470,8 +470,8 @@ async function main() {
     throw new Error("Defina ADMIN_EMAIL e ADMIN_PASSWORD no .env antes de rodar o seed.");
   }
 
-  if (adminPassword.length < 12) {
-    throw new Error("ADMIN_PASSWORD precisa ter pelo menos 12 caracteres.");
+  if (adminPassword.length < 8) {
+    throw new Error("ADMIN_PASSWORD precisa ter pelo menos 8 caracteres.");
   }
 
   const passwordHash = await bcrypt.hash(adminPassword, 12);

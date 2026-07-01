@@ -64,7 +64,7 @@ Antes de rodar o seed, defina no `.env` o seu email e uma senha forte:
 
 ```env
 ADMIN_EMAIL="seu-email@exemplo.com"
-ADMIN_PASSWORD="troque-por-uma-senha-forte-com-12-caracteres"
+ADMIN_PASSWORD="troque-por-uma-senha-forte-com-8-caracteres"
 ```
 
 Depois rode:
