@@ -11,7 +11,7 @@ export function SearchBar({ defaultValue = "" }: { defaultValue?: string }) {
         name="q"
         defaultValue={defaultValue}
         className="field pl-12"
-        placeholder="Buscar por receita, tecnica ou ingrediente"
+        placeholder="Buscar por receita, técnica ou ingrediente"
       />
     </label>
   );

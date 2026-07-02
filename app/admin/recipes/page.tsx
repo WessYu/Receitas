@@ -8,7 +8,11 @@ export const dynamic = "force-dynamic";
 
 export default async function AdminRecipesPage() {
   const recipes = await prisma.recipe.findMany({
-    include: { category: true },
+    include: {
+      category: true,
+      author: { select: { name: true } },
+      _count: { select: { comments: true, favorites: true } }
+    },
     orderBy: { createdAt: "desc" }
   });
 
@@ -26,14 +30,16 @@ export default async function AdminRecipesPage() {
       </div>
       <div className="overflow-hidden rounded-lg border border-ink/10 bg-white/75 shadow-sm">
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[780px] text-left text-sm">
+          <table className="w-full min-w-[980px] text-left text-sm">
             <thead className="bg-porcelain text-xs uppercase text-ink/45">
               <tr>
-                <th className="px-5 py-4">Titulo</th>
+                <th className="px-5 py-4">Título</th>
                 <th className="px-5 py-4">Categoria</th>
+                <th className="px-5 py-4">Autor</th>
                 <th className="px-5 py-4">Dificuldade</th>
                 <th className="px-5 py-4">Status</th>
-                <th className="px-5 py-4 text-right">Acoes</th>
+                <th className="px-5 py-4">Interações</th>
+                <th className="px-5 py-4 text-right">Ações</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-ink/10">
@@ -41,11 +47,15 @@ export default async function AdminRecipesPage() {
                 <tr key={recipe.id}>
                   <td className="px-5 py-4 font-semibold">{recipe.title}</td>
                   <td className="px-5 py-4 text-ink/60">{recipe.category.name}</td>
+                  <td className="px-5 py-4 text-ink/60">{recipe.author?.name ?? "Admin"}</td>
                   <td className="px-5 py-4 text-ink/60">{formatDifficulty(recipe.difficulty)}</td>
                   <td className="px-5 py-4">
                     <span className="rounded-full bg-olive/10 px-3 py-1 text-xs font-semibold text-olive">
-                      {recipe.published ? "Publicado" : "Rascunho"}
+                      {recipe.published ? "Publicado" : "Em revisão"}
                     </span>
+                  </td>
+                  <td className="px-5 py-4 text-ink/60">
+                    {recipe._count.favorites} salvas · {recipe._count.comments} comentários
                   </td>
                   <td className="px-5 py-4">
                     <div className="flex justify-end gap-2">

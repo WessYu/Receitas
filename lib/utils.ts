@@ -16,9 +16,9 @@ export function slugify(value: string) {
 
 export function formatDifficulty(value: string) {
   const labels: Record<string, string> = {
-    EASY: "Facil",
-    MEDIUM: "Media",
-    HARD: "Avancada"
+    EASY: "Fácil",
+    MEDIUM: "Média",
+    HARD: "Avançada"
   };
 
   return labels[value] ?? value;

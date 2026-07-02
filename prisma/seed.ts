@@ -1,39 +1,39 @@
-import bcrypt from "bcryptjs";
+﻿import bcrypt from "bcryptjs";
 import { PrismaClient, Difficulty } from "@prisma/client";
 import { slugify } from "../lib/utils";
 
 const prisma = new PrismaClient();
 
-const categories = ["Jantar rapido", "Vegetariano", "Cafe da manha", "Sobremesas", "Massas"];
+const categories = ["Jantar rápido", "Vegetariano", "Café da manhã", "Sobremesas", "Massas"];
 
 const recipes = [
   {
-    title: "Risoto de limao siciliano com ervas",
-    description: "Cremoso, perfumado e equilibrado, este risoto resolve um jantar especial com poucos ingredientes e tecnica simples.",
-    category: "Jantar rapido",
+    title: "Risoto de limão siciliano com ervas",
+    description: "Cremoso, perfumado e equilibrado, este risoto resolve um jantar especial com poucos ingredientes e técnica simples.",
+    category: "Jantar rápido",
     imageUrl: "https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&w=1200&q=80",
     prepTime: 35,
     servings: 2,
     difficulty: Difficulty.MEDIUM,
     featured: true,
     ingredients: [
-      ["1 xicara", "arroz arboreo"],
+      ["1 xícara", "arroz arbóreo"],
       ["1/2 unidade", "cebola picada"],
       ["1 litro", "caldo de legumes quente"],
-      ["1 unidade", "limao siciliano"],
-      ["3 colheres", "queijo parmesao ralado"],
+      ["1 unidade", "limão siciliano"],
+      ["3 colheres", "queijo parmesão ralado"],
       ["1 colher", "manteiga fria"]
     ],
     steps: [
-      "Refogue a cebola em azeite ate ficar translucida.",
-      "Junte o arroz e mexa por dois minutos para envolver bem os graos.",
-      "Adicione o caldo quente aos poucos, mexendo ate o arroz ficar cremoso.",
-      "Finalize com raspas e suco de limao, parmesao e manteiga fria."
+      "Refogue a cebola em azeite até ficar translúcida.",
+      "Junte o arroz e mexa por dois minutos para envolver bem os grãos.",
+      "Adicione o caldo quente aos poucos, mexendo até o arroz ficar cremoso.",
+      "Finalize com raspas e suco de limão, parmesão e manteiga fria."
     ]
   },
   {
-    title: "Bowl de graos com legumes tostados",
-    description: "Uma refeicao completa, colorida e nutritiva com camadas de textura, molho fresco e preparo simples para a semana.",
+    title: "Bowl de grãos com legumes tostados",
+    description: "Uma refeição completa, colorida e nutritiva com camadas de textura, molho fresco e preparo simples para a semana.",
     category: "Vegetariano",
     imageUrl: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1200&q=80",
     prepTime: 30,
@@ -41,23 +41,23 @@ const recipes = [
     difficulty: Difficulty.EASY,
     featured: true,
     ingredients: [
-      ["1 xicara", "quinoa cozida"],
+      ["1 xícara", "quinoa cozida"],
       ["1 unidade", "abobrinha em cubos"],
       ["1 unidade", "cenoura em tiras"],
-      ["1/2 xicara", "grao-de-bico cozido"],
+      ["1/2 xícara", "grão-de-bico cozido"],
       ["2 colheres", "tahine"],
-      ["1 unidade", "limao"]
+      ["1 unidade", "limão"]
     ],
     steps: [
-      "Asse a abobrinha, a cenoura e o grao-de-bico com azeite e sal.",
-      "Misture tahine, limao, agua e sal ate formar um molho fluido.",
+      "Asse a abobrinha, a cenoura e o grão-de-bico com azeite e sal.",
+      "Misture tahine, limão, água e sal até formar um molho fluido.",
       "Monte o bowl com quinoa, legumes tostados e molho por cima."
     ]
   },
   {
     title: "Panquecas de banana e aveia",
-    description: "Maciez natural, docura na medida e preparo rapido para um cafe da manha de fim de semana sem complicacao.",
-    category: "Cafe da manha",
+    description: "Maciez natural, doçura na medida e preparo rápido para um café da manhã de fim de semana sem complicação.",
+    category: "Café da manhã",
     imageUrl: "https://images.unsplash.com/photo-1528207776546-365bb710ee93?auto=format&fit=crop&w=1200&q=80",
     prepTime: 20,
     servings: 2,
@@ -66,19 +66,19 @@ const recipes = [
     ingredients: [
       ["2 unidades", "bananas maduras"],
       ["2 unidades", "ovos"],
-      ["1/2 xicara", "aveia em flocos"],
+      ["1/2 xícara", "aveia em flocos"],
       ["1 pitada", "canela"],
-      ["1 colher", "fermento quimico"]
+      ["1 colher", "fermento químico"]
     ],
     steps: [
       "Amasse as bananas e misture com ovos, aveia, canela e fermento.",
-      "Aqueca uma frigideira antiaderente e doure pequenas porcoes de massa.",
+      "Aqueça uma frigideira antiaderente e doure pequenas porções de massa.",
       "Sirva com frutas, iogurte ou mel."
     ]
   },
   {
     title: "Torta fria de chocolate amargo",
-    description: "Sobremesa intensa, elegante e sem excesso de acucar, com base crocante e recheio sedoso.",
+    description: "Sobremesa intensa, elegante e sem excesso de açúcar, com base crocante e recheio sedoso.",
     category: "Sobremesas",
     imageUrl: "https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?auto=format&fit=crop&w=1200&q=80",
     prepTime: 55,
@@ -94,13 +94,13 @@ const recipes = [
     ],
     steps: [
       "Triture os biscoitos, misture com manteiga e pressione no fundo da forma.",
-      "Aqueca o creme de leite e despeje sobre o chocolate picado.",
-      "Mexa ate formar um creme liso, coloque sobre a base e gele ate firmar."
+      "Aqueça o creme de leite e despeje sobre o chocolate picado.",
+      "Mexa até formar um creme liso, coloque sobre a base e gele até firmar."
     ]
   },
   {
     title: "Massa curta com tomate assado",
-    description: "Tomates assados lentamente, alho e manjericao criam um molho encorpado para uma massa honesta e memoravel.",
+    description: "Tomatés assados lentamente, alho e manjericão criam um molho encorpado para uma massa honesta e memorável.",
     category: "Massas",
     imageUrl: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=1200&q=80",
     prepTime: 40,
@@ -111,39 +111,39 @@ const recipes = [
       ["300 g", "massa curta"],
       ["500 g", "tomate cereja"],
       ["4 dentes", "alho"],
-      ["1 punhado", "manjericao fresco"],
+      ["1 punhado", "manjericão fresco"],
       ["3 colheres", "azeite"]
     ],
     steps: [
-      "Asse os tomates com alho, azeite e sal ate murcharem.",
-      "Cozinhe a massa em agua salgada e reserve um pouco da agua do cozimento.",
-      "Misture a massa aos tomates, ajuste a textura com a agua reservada e finalize com manjericao."
+      "Asse os tomates com alho, azeite e sal até murcharem.",
+      "Cozinhe a massa em água salgada e reserve um pouco da água do cozimento.",
+      "Misture a massa aos tomates, ajuste a textura com a água reservada e finalize com manjericão."
     ]
   },
   {
     title: "Frango ao molho de mostarda e mel",
     description: "Peito de frango dourado com molho cremoso, acidez leve e toque adocicado na medida.",
-    category: "Jantar rapido",
+    category: "Jantar rápido",
     imageUrl: "https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=1200&q=80",
     prepTime: 32,
     servings: 3,
     difficulty: Difficulty.EASY,
     featured: false,
     ingredients: [
-      ["3 unidades", "files de frango"],
+      ["3 unidades", "filés de frango"],
       ["2 colheres", "mostarda"],
       ["1 colher", "mel"],
-      ["1/2 xicara", "creme de leite"],
+      ["1/2 xícara", "creme de leite"],
       ["1 ramo", "tomilho fresco"]
     ],
     steps: [
       "Tempere e doure o frango dos dois lados.",
       "Misture mostarda, mel e creme de leite.",
-      "Volte o frango ao molho e cozinhe ate ficar macio."
+      "Volte o frango ao molho e cozinhe até ficar macio."
     ]
   },
   {
-    title: "Sopa cremosa de abobora assada",
+    title: "Sopa cremosa de abóbora assada",
     description: "Abobora assada, gengibre e caldo de legumes formam uma sopa aveludada e confortante.",
     category: "Vegetariano",
     imageUrl: "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=1200&q=80",
@@ -152,22 +152,22 @@ const recipes = [
     difficulty: Difficulty.EASY,
     featured: false,
     ingredients: [
-      ["800 g", "abobora"],
+      ["800 g", "abóbora"],
       ["1 unidade", "cebola"],
       ["1 colher", "gengibre ralado"],
       ["700 ml", "caldo de legumes"],
       ["2 colheres", "sementes tostadas"]
     ],
     steps: [
-      "Asse a abobora com cebola e azeite.",
+      "Asse a abóbora com cebola e azeite.",
       "Bata com caldo quente e gengibre.",
       "Ajuste sal e finalize com sementes."
     ]
   },
   {
     title: "Omelete de cogumelos e queijo",
-    description: "Omelete macia com cogumelos salteados e queijo derretido para uma refeicao rapida.",
-    category: "Cafe da manha",
+    description: "Omelete macia com cogumelos salteados e queijo derretido para uma refeição rapida.",
+    category: "Café da manhã",
     imageUrl: "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=1200&q=80",
     prepTime: 15,
     servings: 1,
@@ -175,8 +175,8 @@ const recipes = [
     featured: false,
     ingredients: [
       ["3 unidades", "ovos"],
-      ["1 xicara", "cogumelos"],
-      ["1/3 xicara", "queijo"],
+      ["1 xícara", "cogumelos"],
+      ["1/3 xícara", "queijo"],
       ["1 colher", "cebolinha"],
       ["1 colher", "manteiga"]
     ],
@@ -200,7 +200,7 @@ const recipes = [
       ["80 g", "manteiga"],
       ["450 g", "cream cheese"],
       ["3 unidades", "ovos"],
-      ["1 xicara", "frutas vermelhas"]
+      ["1 xícara", "frutas vermelhas"]
     ],
     steps: [
       "Monte a base com biscoito e manteiga.",
@@ -221,35 +221,35 @@ const recipes = [
       ["220 g", "espaguete"],
       ["2 unidades", "gemas"],
       ["1 unidade", "ovo"],
-      ["1/2 xicara", "parmesao"],
-      ["1/2 xicara", "ervilhas"]
+      ["1/2 xícara", "parmesão"],
+      ["1/2 xícara", "ervilhas"]
     ],
     steps: [
-      "Cozinhe a massa e reserve agua.",
+      "Cozinhe a massa e reserve água.",
       "Misture ovos, queijo e pimenta.",
-      "Una tudo fora do fogo ate formar creme."
+      "Una tudo fora do fogo até formar creme."
     ]
   },
   {
-    title: "Arroz de camarao com coentro",
-    description: "Arroz umido, camaroes suculentos e ervas frescas em uma panela so.",
-    category: "Jantar rapido",
+    title: "Arroz de camarão com coentro",
+    description: "Arroz úmido, camarões suculentos e ervas frescas em uma panela so.",
+    category: "Jantar rápido",
     imageUrl: "https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=1200&q=80",
     prepTime: 38,
     servings: 4,
     difficulty: Difficulty.MEDIUM,
     featured: false,
     ingredients: [
-      ["300 g", "camarao"],
-      ["1 xicara", "arroz"],
+      ["300 g", "camarão"],
+      ["1 xícara", "arroz"],
       ["1 unidade", "tomate"],
       ["1/2 unidade", "pimentao"],
       ["1 punhado", "coentro fresco"]
     ],
     steps: [
-      "Refogue os aromaticos e o arroz.",
-      "Adicione caldo e cozinhe ate quase secar.",
-      "Junte os camaroes no final e finalize com coentro."
+      "Refogue os aromáticos e o arroz.",
+      "Adicione caldo e cozinhe até quase secar.",
+      "Junte os camarões no final e finalize com coentro."
     ]
   },
   {
@@ -262,14 +262,14 @@ const recipes = [
     difficulty: Difficulty.EASY,
     featured: false,
     ingredients: [
-      ["1 xicara", "lentilha"],
+      ["1 xícara", "lentilha"],
       ["1 unidade", "cenoura"],
-      ["1 talo", "salsao"],
+      ["1 talo", "salsão"],
       ["1 colher", "mostarda"],
       ["1 punhado", "salsinha"]
     ],
     steps: [
-      "Cozinhe a lentilha ate ficar macia.",
+      "Cozinhe a lentilha até ficar macia.",
       "Misture legumes picados e vinagrete.",
       "Sirva morna com salsinha."
     ]
@@ -277,23 +277,23 @@ const recipes = [
   {
     title: "Rabanada de forno com laranja",
     description: "Fatias douradas no forno com perfume de laranja, canela e textura macia.",
-    category: "Cafe da manha",
+    category: "Café da manhã",
     imageUrl: "https://images.unsplash.com/photo-1484723091739-30a097e8f929?auto=format&fit=crop&w=1200&q=80",
     prepTime: 35,
     servings: 4,
     difficulty: Difficulty.EASY,
     featured: false,
     ingredients: [
-      ["6 fatias", "pao"],
+      ["6 fatias", "pão"],
       ["2 unidades", "ovos"],
-      ["1 xicara", "leite"],
+      ["1 xícara", "leite"],
       ["1 colher", "raspas de laranja"],
       ["1 pitada", "canela"]
     ],
     steps: [
       "Misture ovos, leite, laranja e canela.",
-      "Passe as fatias de pao na mistura.",
-      "Asse ate dourar dos dois lados."
+      "Passe as fatias de pão na mistura.",
+      "Asse até dourar dos dois lados."
     ]
   },
   {
@@ -308,19 +308,19 @@ const recipes = [
     ingredients: [
       ["500 ml", "creme de leite"],
       ["1 unidade", "fava de baunilha"],
-      ["1/3 xicara", "acucar"],
+      ["1/3 xícara", "açúcar"],
       ["1 pacote", "gelatina incolor"],
-      ["1/2 xicara", "calda de frutas"]
+      ["1/2 xícara", "calda de frutas"]
     ],
     steps: [
-      "Aqueca creme, baunilha e acucar.",
+      "Aqueça creme, baunilha e açúcar.",
       "Misture a gelatina hidratada.",
       "Leve para gelar e sirva com calda."
     ]
   },
   {
-    title: "Gnocchi na manteiga de salvia",
-    description: "Gnocchi macio envolvido em manteiga noisette, salvia crocante e queijo ralado.",
+    title: "Gnocchi na manteiga de sálvia",
+    description: "Gnocchi macio envolvido em manteiga noisette, sálvia crocante e queijo ralado.",
     category: "Massas",
     imageUrl: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=1200&q=80",
     prepTime: 30,
@@ -330,50 +330,50 @@ const recipes = [
     ingredients: [
       ["400 g", "gnocchi"],
       ["3 colheres", "manteiga"],
-      ["10 folhas", "salvia"],
-      ["1/2 xicara", "parmesao"],
+      ["10 folhas", "sálvia"],
+      ["1/2 xícara", "parmesão"],
       ["1 pitada", "pimenta-do-reino"]
     ],
     steps: [
-      "Cozinhe o gnocchi ate subir.",
-      "Doure a manteiga com salvia.",
+      "Cozinhe o gnocchi até subir.",
+      "Doure a manteiga com sálvia.",
       "Misture o gnocchi e finalize com queijo."
     ]
   },
   {
-    title: "Tilapia no papillote com legumes",
-    description: "Peixe assado no papel com legumes finos, limao e azeite, sem sujeira e com muito aroma.",
-    category: "Jantar rapido",
+    title: "Tilápia no papillote com legumes",
+    description: "Peixe assado no papel com legumes finos, limão e azeite, sem sujeira e com muito aroma.",
+    category: "Jantar rápido",
     imageUrl: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=1200&q=80",
     prepTime: 26,
     servings: 2,
     difficulty: Difficulty.EASY,
     featured: false,
-    ingredients: [["2 unidades", "files de tilapia"], ["1 unidade", "abobrinha"], ["1 unidade", "cenoura"], ["1 unidade", "limao"], ["2 colheres", "azeite"]],
-    steps: ["Monte os files sobre papel manteiga.", "Cubra com legumes, azeite e limao.", "Feche bem e asse ate o peixe ficar macio."]
+    ingredients: [["2 unidades", "filés de tilapia"], ["1 unidade", "abobrinha"], ["1 unidade", "cenoura"], ["1 unidade", "limão"], ["2 colheres", "azeite"]],
+    steps: ["Monte os filés sobre papel manteiga.", "Cubra com legumes, azeite e limão.", "Feche bem e asse até o peixe ficar macio."]
   },
   {
-    title: "Curry de grao-de-bico",
-    description: "Grao-de-bico cozido em molho de coco, tomate e especiarias para um jantar quente e perfumado.",
+    title: "Curry de grão-de-bico",
+    description: "Grão-de-bico cozido em molho de coco, tomate e especiarias para um jantar quente e perfumado.",
     category: "Vegetariano",
     imageUrl: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=1200&q=80",
     prepTime: 34,
     servings: 4,
     difficulty: Difficulty.EASY,
     featured: false,
-    ingredients: [["2 xicaras", "grao-de-bico"], ["1 lata", "leite de coco"], ["1 unidade", "tomate"], ["1 colher", "curry"], ["1 punhado", "coentro"]],
-    steps: ["Refogue tomate e especiarias.", "Junte grao-de-bico e leite de coco.", "Cozinhe ate engrossar e finalize com coentro."]
+    ingredients: [["2 xícaras", "grão-de-bico"], ["1 lata", "leite de coco"], ["1 unidade", "tomate"], ["1 colher", "curry"], ["1 punhado", "coentro"]],
+    steps: ["Refogue tomate e especiarias.", "Junte grão-de-bico e leite de coco.", "Cozinhe até engrossar e finalize com coentro."]
   },
   {
     title: "Granola de frigideira",
     description: "Aveia, castanhas e mel tostados rapidamente para acompanhar frutas e iogurte.",
-    category: "Cafe da manha",
+    category: "Café da manhã",
     imageUrl: "https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?auto=format&fit=crop&w=1200&q=80",
     prepTime: 18,
     servings: 6,
     difficulty: Difficulty.EASY,
     featured: false,
-    ingredients: [["2 xicaras", "aveia"], ["1/2 xicara", "castanhas"], ["2 colheres", "mel"], ["1 pitada", "canela"], ["1/2 xicara", "coco em lascas"]],
+    ingredients: [["2 xícaras", "aveia"], ["1/2 xícara", "castanhas"], ["2 colheres", "mel"], ["1 pitada", "canela"], ["1/2 xícara", "coco em lascas"]],
     steps: ["Misture todos os ingredientes.", "Toste em frigideira baixa mexendo sempre.", "Esfrie antes de guardar."]
   },
   {
@@ -385,8 +385,8 @@ const recipes = [
     servings: 6,
     difficulty: Difficulty.EASY,
     featured: false,
-    ingredients: [["1 xicara", "polpa de maracuja"], ["2 xicaras", "iogurte"], ["1 lata", "leite condensado"], ["1 pacote", "gelatina incolor"]],
-    steps: ["Bata iogurte, polpa e leite condensado.", "Misture gelatina hidratada.", "Leve para gelar ate firmar."]
+    ingredients: [["1 xícara", "polpa de maracuja"], ["2 xícaras", "iogurte"], ["1 lata", "leite condensado"], ["1 pacote", "gelatina incolor"]],
+    steps: ["Bata iogurte, polpa e leite condensado.", "Misture gelatina hidratada.", "Leve para gelar até firmar."]
   },
   {
     title: "Lasanha de berinjela",
@@ -397,44 +397,44 @@ const recipes = [
     servings: 6,
     difficulty: Difficulty.MEDIUM,
     featured: false,
-    ingredients: [["2 unidades", "berinjelas"], ["2 xicaras", "molho de tomate"], ["300 g", "mussarela"], ["1 punhado", "manjericao"], ["1/2 xicara", "parmesao"]],
-    steps: ["Grelhe fatias de berinjela.", "Monte camadas com molho e queijo.", "Asse ate borbulhar e dourar."]
+    ingredients: [["2 unidades", "berinjelas"], ["2 xícaras", "molho de tomate"], ["300 g", "muçarela"], ["1 punhado", "manjericão"], ["1/2 xícara", "parmesão"]],
+    steps: ["Grelhe fatias de berinjela.", "Monte camadas com molho e queijo.", "Asse até borbulhar e dourar."]
   },
   {
     title: "Carne de panela com cenoura",
     description: "Carne cozida lentamente com caldo encorpado, cenoura macia e tempero caseiro.",
-    category: "Jantar rapido",
+    category: "Jantar rápido",
     imageUrl: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=1200&q=80",
     prepTime: 75,
     servings: 5,
     difficulty: Difficulty.MEDIUM,
     featured: false,
-    ingredients: [["700 g", "acem"], ["2 unidades", "cenouras"], ["1 unidade", "cebola"], ["2 xicaras", "caldo"], ["2 folhas", "louro"]],
-    steps: ["Sele a carne em cubos.", "Refogue cebola e junte caldo.", "Cozinhe ate amaciar e finalize com cenoura."]
+    ingredients: [["700 g", "acém"], ["2 unidades", "cenouras"], ["1 unidade", "cebola"], ["2 xícaras", "caldo"], ["2 folhas", "louro"]],
+    steps: ["Sele a carne em cubos.", "Refogue cebola e junte caldo.", "Cozinhe até amaciar e finalize com cenoura."]
   },
   {
     title: "Tabule de quinoa",
-    description: "Quinoa fria com pepino, tomate, hortela e limao para uma salada fresca e completa.",
+    description: "Quinoa fria com pepino, tomate, hortelã e limão para uma salada fresca e completa.",
     category: "Vegetariano",
     imageUrl: "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=1200&q=80",
     prepTime: 22,
     servings: 4,
     difficulty: Difficulty.EASY,
     featured: false,
-    ingredients: [["1 xicara", "quinoa"], ["1 unidade", "pepino"], ["2 unidades", "tomates"], ["1 punhado", "hortela"], ["1 unidade", "limao"]],
-    steps: ["Cozinhe e esfrie a quinoa.", "Pique os legumes pequenos.", "Misture com ervas, limao e azeite."]
+    ingredients: [["1 xícara", "quinoa"], ["1 unidade", "pepino"], ["2 unidades", "tomates"], ["1 punhado", "hortelã"], ["1 unidade", "limão"]],
+    steps: ["Cozinhe e esfrie a quinoa.", "Pique os legumes pequenos.", "Misture com ervas, limão e azeite."]
   },
   {
     title: "Waffle de iogurte",
     description: "Massa macia por dentro e crocante por fora, perfeita com frutas frescas.",
-    category: "Cafe da manha",
+    category: "Café da manhã",
     imageUrl: "https://images.unsplash.com/photo-1562376552-0d160a2f238d?auto=format&fit=crop&w=1200&q=80",
     prepTime: 24,
     servings: 4,
     difficulty: Difficulty.EASY,
     featured: false,
-    ingredients: [["1 xicara", "farinha"], ["1 pote", "iogurte"], ["2 unidades", "ovos"], ["1 colher", "fermento"], ["1 colher", "manteiga"]],
-    steps: ["Misture os ingredientes ate formar massa lisa.", "Asse na maquina de waffle.", "Sirva com frutas."]
+    ingredients: [["1 xícara", "farinha"], ["1 pote", "iogurte"], ["2 unidades", "ovos"], ["1 colher", "fermento"], ["1 colher", "manteiga"]],
+    steps: ["Misture os ingredientes até formar massa lisa.", "Asse na máquina de waffle.", "Sirva com frutas."]
   },
   {
     title: "Brownie intenso de cacau",
@@ -445,20 +445,20 @@ const recipes = [
     servings: 9,
     difficulty: Difficulty.EASY,
     featured: false,
-    ingredients: [["180 g", "manteiga"], ["1 xicara", "acucar"], ["3 unidades", "ovos"], ["3/4 xicara", "cacau"], ["1/2 xicara", "farinha"]],
-    steps: ["Derreta a manteiga e misture acucar.", "Junte ovos, cacau e farinha.", "Asse ate formar casquinha."]
+    ingredients: [["180 g", "manteiga"], ["1 xícara", "açúcar"], ["3 unidades", "ovos"], ["3/4 xícara", "cacau"], ["1/2 xícara", "farinha"]],
+    steps: ["Derreta a manteiga e misture açúcar.", "Junte ovos, cacau e farinha.", "Asse até formar casquinha."]
   },
   {
-    title: "Penne ao pesto de rucula",
-    description: "Massa rapida com pesto fresco de rucula, castanhas e queijo curado.",
+    title: "Penne ao pesto de rúcula",
+    description: "Massa rapida com pesto fresco de rúcula, castanhas e queijo curado.",
     category: "Massas",
     imageUrl: "https://images.unsplash.com/photo-1608897013039-887f21d8c804?auto=format&fit=crop&w=1200&q=80",
     prepTime: 20,
     servings: 3,
     difficulty: Difficulty.EASY,
     featured: false,
-    ingredients: [["300 g", "penne"], ["2 xicaras", "rucula"], ["1/3 xicara", "castanhas"], ["1/2 xicara", "parmesao"], ["1/2 xicara", "azeite"]],
-    steps: ["Bata rucula, castanhas, queijo e azeite.", "Cozinhe a massa.", "Misture tudo com um pouco da agua do cozimento."]
+    ingredients: [["300 g", "penne"], ["2 xícaras", "rúcula"], ["1/3 xícara", "castanhas"], ["1/2 xícara", "parmesão"], ["1/2 xícara", "azeite"]],
+    steps: ["Bata rúcula, castanhas, queijo e azeite.", "Cozinhe a massa.", "Misture tudo com um pouco da água do cozimento."]
   }
 ];
 

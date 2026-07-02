@@ -3,7 +3,7 @@
 import { useActionState, useMemo, useState } from "react";
 import { Plus, Save, Trash2 } from "lucide-react";
 import type { Category, Difficulty, Ingredient, PreparationStep, Recipe } from "@prisma/client";
-import { createRecipeAction, updateRecipeAction } from "@/lib/actions";
+import { createRecipeAction, createUserRecipeAction, updateRecipeAction } from "@/lib/actions";
 import type { ActionState } from "@/lib/validators";
 
 type RecipeWithChildren = Recipe & {
@@ -16,10 +16,18 @@ type IngredientDraft = {
   name: string;
 };
 
-export function RecipeForm({ categories, recipe }: { categories: Category[]; recipe?: RecipeWithChildren }) {
+export function RecipeForm({
+  categories,
+  recipe,
+  mode = "admin"
+}: {
+  categories: Category[];
+  recipe?: RecipeWithChildren;
+  mode?: "admin" | "user";
+}) {
   const action = useMemo(
-    () => (recipe ? updateRecipeAction.bind(null, recipe.id) : createRecipeAction),
-    [recipe]
+    () => (recipe ? updateRecipeAction.bind(null, recipe.id) : mode === "admin" ? createRecipeAction : createUserRecipeAction),
+    [mode, recipe]
   );
   const [state, formAction, pending] = useActionState<ActionState, FormData>(action, {});
   const [ingredients, setIngredients] = useState<IngredientDraft[]>(
@@ -41,14 +49,14 @@ export function RecipeForm({ categories, recipe }: { categories: Category[]; rec
         <div className="grid gap-5 md:grid-cols-2">
           <div className="md:col-span-2">
             <label className="mb-2 block text-sm font-semibold" htmlFor="title">
-              Titulo
+              Título
             </label>
             <input className="field" id="title" name="title" defaultValue={recipe?.title} />
             {state.errors?.title ? <p className="mt-2 text-xs text-tomato">{state.errors.title[0]}</p> : null}
           </div>
           <div className="md:col-span-2">
             <label className="mb-2 block text-sm font-semibold" htmlFor="description">
-              Descricao
+              Descrição
             </label>
             <textarea className="field min-h-28" id="description" name="description" defaultValue={recipe?.description} />
             {state.errors?.description ? <p className="mt-2 text-xs text-tomato">{state.errors.description[0]}</p> : null}
@@ -66,7 +74,7 @@ export function RecipeForm({ categories, recipe }: { categories: Category[]; rec
             </label>
             <input className="field file:mr-4 file:rounded-md file:border-0 file:bg-ink file:px-4 file:py-2 file:text-sm file:font-semibold file:text-porcelain" id="imageFile" name="imageFile" type="file" accept="image/png,image/jpeg,image/webp,image/gif" />
             <p className="mt-2 text-xs leading-5 text-ink/55">
-              Use uma foto do seu computador ou mantenha a URL acima. Formatos aceitos: JPG, PNG, WEBP e GIF ate 5 MB.
+              Use uma foto do seu computador ou mantenha a URL acima. Formatos aceitos: JPG, PNG, WEBP e GIF até 5 MB.
             </p>
           </div>
           <div>
@@ -88,9 +96,9 @@ export function RecipeForm({ categories, recipe }: { categories: Category[]; rec
               Dificuldade
             </label>
             <select className="field" id="difficulty" name="difficulty" defaultValue={recipe?.difficulty ?? "EASY"}>
-              <option value="EASY">Facil</option>
-              <option value="MEDIUM">Media</option>
-              <option value="HARD">Avancada</option>
+              <option value="EASY">Fácil</option>
+              <option value="MEDIUM">Média</option>
+              <option value="HARD">Avançada</option>
             </select>
           </div>
           <div>
@@ -101,18 +109,26 @@ export function RecipeForm({ categories, recipe }: { categories: Category[]; rec
           </div>
           <div>
             <label className="mb-2 block text-sm font-semibold" htmlFor="servings">
-              Porcoes
+              Porções
             </label>
             <input className="field" id="servings" name="servings" type="number" min="1" defaultValue={recipe?.servings ?? 2} />
           </div>
-          <label className="flex items-center gap-3 rounded-md border border-ink/10 bg-porcelain/70 px-4 py-3 text-sm font-semibold">
-            <input type="checkbox" name="published" defaultChecked={recipe?.published ?? true} />
-            Publicada
-          </label>
-          <label className="flex items-center gap-3 rounded-md border border-ink/10 bg-porcelain/70 px-4 py-3 text-sm font-semibold">
-            <input type="checkbox" name="featured" defaultChecked={recipe?.featured ?? false} />
-            Destaque
-          </label>
+          {mode === "admin" ? (
+            <>
+              <label className="flex items-center gap-3 rounded-md border border-ink/10 bg-porcelain/70 px-4 py-3 text-sm font-semibold">
+                <input type="checkbox" name="published" defaultChecked={recipe?.published ?? true} />
+                Publicada
+              </label>
+              <label className="flex items-center gap-3 rounded-md border border-ink/10 bg-porcelain/70 px-4 py-3 text-sm font-semibold">
+                <input type="checkbox" name="featured" defaultChecked={recipe?.featured ?? false} />
+                Destaque
+              </label>
+            </>
+          ) : (
+            <p className="rounded-md border border-olive/15 bg-olive/10 px-4 py-3 text-sm font-medium text-ink/70 md:col-span-2">
+              Sua receita será enviada para revisão. Quando o admin publicar, ela aparece na biblioteca para todos.
+            </p>
+          )}
         </div>
       </section>
 
@@ -182,7 +198,7 @@ export function RecipeForm({ categories, recipe }: { categories: Category[]; rec
 
       <button className="button-primary" disabled={pending} type="submit">
         <Save className="h-4 w-4" />
-        Salvar receita
+        {mode === "admin" ? "Salvar receita" : "Enviar para revisão"}
       </button>
     </form>
   );

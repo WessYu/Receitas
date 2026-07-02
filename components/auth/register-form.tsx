@@ -48,7 +48,7 @@ export function RegisterForm() {
         Criar conta
       </button>
       <p className="text-center text-sm text-ink/60">
-        Ja tem conta?{" "}
+        Já tem conta?{" "}
         <Link href="/login" className="font-semibold text-ink underline-offset-4 hover:underline">
           Entrar
         </Link>

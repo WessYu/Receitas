@@ -30,7 +30,7 @@ export default async function HomePage() {
             Receitas claras, bonitas e salvas no seu ritmo.
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-ink/65">
-            Descubra pratos realistas para a semana, filtre por tempo ou ingrediente e mantenha seus favoritos em uma area privada.
+            Descubra pratos realistas para a semana, filtre por tempo ou ingrediente e mantenha seus favoritos em uma área privada.
           </p>
           <form action="/recipes" className="mt-8 grid max-w-2xl gap-3 sm:grid-cols-[1fr_auto]">
             <SearchBar />
@@ -42,7 +42,7 @@ export default async function HomePage() {
           <div className="mt-8 grid gap-3 text-sm text-ink/65 sm:grid-cols-3">
             <span className="inline-flex items-center gap-2">
               <Clock3 className="h-4 w-4 text-olive" />
-              Filtros rapidos
+              Filtros rápidos
             </span>
             <span className="inline-flex items-center gap-2">
               <Bookmark className="h-4 w-4 text-olive" />
@@ -59,11 +59,11 @@ export default async function HomePage() {
           <div className="relative">
             <p className="text-sm font-medium text-porcelain/60">Receita do momento</p>
             <h2 className="mt-4 font-serif text-5xl leading-none">
-              {featuredRecipes[0]?.title ?? "Risoto de limao siciliano"}
+              {featuredRecipes[0]?.title ?? "Risoto de limão siciliano"}
             </h2>
             <p className="mt-4 max-w-md text-sm leading-6 text-porcelain/70">
               {featuredRecipes[0]?.description ??
-                "Uma base cremosa, acidez elegante e finalizacao simples para jantar sem pressa."}
+                "Uma base cremosa, acidez elegante e finalização simples para jantar sem pressa."}
             </p>
             <div
               className="mt-8 aspect-[4/3] overflow-hidden rounded-md bg-cover bg-center"

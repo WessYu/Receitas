@@ -29,8 +29,8 @@ export function ConfirmDeleteButton({
           <div className="w-full max-w-md rounded-lg bg-porcelain p-6 shadow-soft">
             <div className="mb-4 flex items-start justify-between gap-4">
               <div>
-                <h2 className="font-serif text-2xl">Confirmar exclusao</h2>
-                <p className="mt-2 text-sm leading-6 text-ink/60">Esta acao remove o registro definitivamente.</p>
+                <h2 className="font-serif text-2xl">Confirmar exclusão</h2>
+                <p className="mt-2 text-sm leading-6 text-ink/60">Esta ação remove o registro definitivamente.</p>
               </div>
               <button className="rounded-md p-2 hover:bg-ink/5" onClick={() => setOpen(false)} aria-label="Fechar" type="button">
                 <X className="h-4 w-4" />
@@ -51,7 +51,7 @@ export function ConfirmDeleteButton({
                     } else {
                       await deleteCategoryAction(id);
                     }
-                    showToast("Registro excluido.");
+                    showToast("Registro excluído.");
                     setOpen(false);
                   });
                 }}

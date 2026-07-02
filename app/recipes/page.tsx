@@ -38,7 +38,7 @@ export default async function RecipesPage({ searchParams }: PageProps) {
       <div className="mb-8">
         <p className="eyebrow mb-2">Biblioteca</p>
         <h1 className="font-serif text-5xl">Receitas</h1>
-        <p className="mt-4 max-w-2xl text-ink/60">Busque por prato, categoria, tempo, dificuldade ou ingrediente disponivel.</p>
+        <p className="mt-4 max-w-2xl text-ink/60">Busque por prato, categoria, tempo, dificuldade ou ingrediente disponível.</p>
       </div>
       <FilterBar categories={categories} params={filters} />
       <div className="mt-8">
@@ -49,7 +49,7 @@ export default async function RecipesPage({ searchParams }: PageProps) {
             ))}
           </div>
         ) : (
-          <EmptyState title="Nenhuma receita encontrada" description="Ajuste os filtros ou tente um termo mais amplo para descobrir novas opcoes." />
+          <EmptyState title="Nenhuma receita encontrada" description="Ajuste os filtros ou tente um termo mais amplo para descobrir novas opções." />
         )}
       </div>
     </section>

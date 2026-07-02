@@ -5,7 +5,7 @@ const links = [
   { href: "/admin", label: "Resumo", icon: LayoutDashboard },
   { href: "/admin/recipes", label: "Receitas", icon: BookOpen },
   { href: "/admin/categories", label: "Categorias", icon: FolderTree },
-  { href: "/admin/users", label: "Usuarios", icon: UsersRound }
+  { href: "/admin/users", label: "Usuários", icon: UsersRound }
 ];
 
 export function AdminSidebar() {

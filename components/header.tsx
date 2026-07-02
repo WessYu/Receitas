@@ -5,7 +5,7 @@ import { getCurrentUser } from "@/lib/session";
 import { logoutAction } from "@/lib/actions";
 
 const nav = [
-  { href: "/", label: "Inicio" },
+  { href: "/", label: "Início" },
   { href: "/recipes", label: "Receitas" }
 ];
 
@@ -39,8 +39,16 @@ export async function Header() {
         <div className="flex items-center gap-2">
           {user ? (
             <>
+              <Link href="/dashboard/recipes" className="hidden text-sm font-semibold text-ink/70 transition hover:text-ink md:inline-flex">
+                Minha cozinha
+              </Link>
               <Link href="/dashboard" className="button-secondary hidden px-4 py-2.5 sm:inline-flex">
-                <UserRound className="h-4 w-4" />
+                {user.avatarUrl ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={user.avatarUrl} alt={user.name} className="h-5 w-5 rounded-full object-cover" />
+                ) : (
+                  <UserRound className="h-4 w-4" />
+                )}
                 {user.name.split(" ")[0]}
               </Link>
               <form action={logoutAction}>

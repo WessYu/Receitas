@@ -32,11 +32,11 @@ export function FilterBar({ categories, params }: FilterBarProps) {
         </select>
         <select className="field" name="difficulty" defaultValue={params.difficulty ?? ""} aria-label="Dificuldade">
           <option value="">Dificuldade</option>
-          <option value="EASY">Facil</option>
-          <option value="MEDIUM">Media</option>
-          <option value="HARD">Avancada</option>
+          <option value="EASY">Fácil</option>
+          <option value="MEDIUM">Média</option>
+          <option value="HARD">Avançada</option>
         </select>
-        <input className="field" name="maxTime" defaultValue={params.maxTime ?? ""} placeholder="Ate min" type="number" min="1" />
+        <input className="field" name="maxTime" defaultValue={params.maxTime ?? ""} placeholder="Até min" type="number" min="1" />
         <input className="field" name="ingredient" defaultValue={params.ingredient ?? ""} placeholder="Ingrediente" />
         <button className="button-primary whitespace-nowrap" type="submit">
           Aplicar

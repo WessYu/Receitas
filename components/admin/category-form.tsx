@@ -19,7 +19,7 @@ export function CategoryForm() {
         Nova categoria
       </label>
       <div className="flex flex-col gap-3 sm:flex-row">
-        <input className="field" id="name" name="name" placeholder="Ex: Jantar rapido" />
+        <input className="field" id="name" name="name" placeholder="Ex: Jantar rápido" />
         <button className="button-primary whitespace-nowrap" disabled={pending} type="submit">
           <Plus className="h-4 w-4" />
           Criar

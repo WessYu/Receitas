@@ -26,7 +26,9 @@ export const registerSchema = z
 
 export const profileSchema = z.object({
   name: z.string().min(2, "Informe seu nome."),
-  email: z.string().email("Informe um email valido.")
+  email: z.string().email("Informe um email válido."),
+  avatarUrl: z.string().optional(),
+  emailNotifications: z.coerce.boolean().optional().default(false)
 });
 
 export const categorySchema = z.object({
@@ -34,8 +36,8 @@ export const categorySchema = z.object({
 });
 
 export const recipeSchema = z.object({
-  title: z.string().min(3, "Informe um titulo."),
-  description: z.string().min(20, "Escreva uma descricao mais completa."),
+  title: z.string().min(3, "Informe um título."),
+  description: z.string().min(20, "Escreva uma descrição mais completa."),
   imageUrl: z.string().min(1, "Envie uma foto ou informe uma URL de imagem.").refine((value) => {
     if (value.startsWith("/uploads/")) return true;
 
@@ -45,10 +47,10 @@ export const recipeSchema = z.object({
     } catch {
       return false;
     }
-  }, "Envie uma foto ou informe uma URL de imagem valida."),
+  }, "Envie uma foto ou informe uma URL de imagem válida."),
   categoryId: z.string().min(1, "Selecione uma categoria."),
-  prepTime: z.coerce.number().int().min(1, "Tempo invalido."),
-  servings: z.coerce.number().int().min(1, "Porcoes invalidas."),
+  prepTime: z.coerce.number().int().min(1, "Tempo inválido."),
+  servings: z.coerce.number().int().min(1, "Porções inválidas."),
   difficulty: z.enum(["EASY", "MEDIUM", "HARD"]),
   published: z.coerce.boolean().optional().default(false),
   featured: z.coerce.boolean().optional().default(false),
@@ -61,6 +63,10 @@ export const recipeSchema = z.object({
     )
     .min(1, "Inclua pelo menos um ingrediente."),
   steps: z.array(z.string().min(3, "Descreva o passo.")).min(1, "Inclua ao menos um passo.")
+});
+
+export const commentSchema = z.object({
+  content: z.string().trim().min(3, "Escreva um comentário um pouco maior.").max(600, "Use até 600 caracteres.")
 });
 
 export type ActionState = {
@@ -91,6 +97,6 @@ export function formError(error: unknown): ActionState {
 
   return {
     ok: false,
-    message: error instanceof Error ? error.message : "Nao foi possivel concluir a acao."
+    message: error instanceof Error ? error.message : "Não foi possível concluir a ação."
   };
 }

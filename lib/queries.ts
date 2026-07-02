@@ -46,9 +46,14 @@ export function buildRecipeWhere(params: {
 
 export const recipeInclude = {
   category: true,
+  author: { select: { name: true, avatarUrl: true } },
   ingredients: { orderBy: { order: "asc" } },
   steps: { orderBy: { order: "asc" } },
-  favorites: true
+  favorites: true,
+  comments: {
+    orderBy: { createdAt: "desc" },
+    include: { user: { select: { name: true, avatarUrl: true } } }
+  }
 } satisfies Prisma.RecipeInclude;
 
 export async function getCategories() {

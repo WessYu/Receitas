@@ -1,8 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Clock3, UsersRound } from "lucide-react";
 import type { Category, Difficulty, Recipe } from "@prisma/client";
 import { formatDifficulty } from "@/lib/utils";
+import { RecipeImage } from "@/components/recipes/recipe-image";
 
 type RecipeCardProps = {
   recipe: Recipe & { category: Category };
@@ -15,10 +15,9 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
       className="group overflow-hidden rounded-lg border border-ink/10 bg-white/75 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-soft"
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-ink/5">
-        <Image
+        <RecipeImage
           src={recipe.imageUrl}
           alt={recipe.title}
-          fill
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           className="object-cover transition duration-500 group-hover:scale-105"
         />

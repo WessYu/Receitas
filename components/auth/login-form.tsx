@@ -32,7 +32,7 @@ export function LoginForm() {
         Entrar
       </button>
       <p className="text-center text-sm text-ink/60">
-        Ainda nao tem conta?{" "}
+        Ainda não tem conta?{" "}
         <Link href="/register" className="font-semibold text-ink underline-offset-4 hover:underline">
           Cadastre-se
         </Link>

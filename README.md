@@ -1,23 +1,25 @@
 # Receitas
 
-Plataforma full-stack de receitas com Next.js App Router, TypeScript, Tailwind CSS, Prisma, PostgreSQL, autenticacao por cookie assinado, senhas criptografadas e roles 
+Plataforma full-stack de receitas com Next.js App Router, TypeScript, Tailwind CSS, Prisma, PostgreSQL, autenticação por cookie assinado, senhas criptografadas e roles.
 
 ## Links
 
 - GitHub Pages: https://wessyu.github.io/Receitas/
 - Repositorio: https://github.com/WessYu/Receitas
 
-> O GitHub Pages hospeda uma versao publica navegavel em `docs/`, com receitas, filtros, detalhes, cadastro, login, conta e favoritos no navegador. O painel admin nao fica exposto no Pages; ele existe apenas na aplicacao full-stack protegida por login e role `ADMIN`.
+> O GitHub Pages hospeda uma versão pública navegável em `docs/`, com receitas, filtros, detalhes, cadastro, login, conta e favoritos no navegador. O painel admin não fica exposto no Pages; ele existe apenas na aplicação full-stack protegida por login e role `ADMIN`.
 
 ## Funcionalidades
 
-- Cadastro, login, logout e perfil do usuario.
+- Cadastro, login, logout e perfil do usuário com foto.
 - Listagem de receitas com busca e filtros por categoria, dificuldade, tempo e ingrediente.
-- Pagina individual com ingredientes, preparo e botao de salvar/remover favorito.
-- Dashboard privado com receitas salvas e edicao basica de perfil.
-- Admin protegido para criar, editar, excluir receitas, gerenciar categorias e listar usuarios.
-- Upload de foto no painel admin ao criar ou editar receitas, sem precisar alterar codigo.
-- Validacao com Zod, hash de senha com bcrypt e bloqueio no middleware e no servidor.
+- Página individual com ingredientes, preparo, comentários e botão de salvar/remover favorito.
+- Dashboard privado com receitas salvas, receitas enviadas e edição de perfil.
+- Área para usuários enviarem receitas com foto, ingredientes e modo de preparo.
+- Admin protegido para criar, editar, aprovar, excluir receitas, gerenciar categorias, listar usuários e acompanhar comentários.
+- Upload de foto no painel admin e no envio de receitas, sem precisar alterar código.
+- Aviso por email para contas que aceitaram notificações quando uma nova receita for publicada.
+- Validação com Zod, hash de senha com bcrypt e bloqueio no middleware e no servidor.
 
 ## Como instalar
 
@@ -46,7 +48,7 @@ DATABASE_URL="postgresql://postgres:postgres@localhost:5432/receitas?schema=publ
 SESSION_SECRET="troque-por-um-segredo-com-pelo-menos-32-caracteres"
 ```
 
-Se tiver Docker instalado, voce pode subir o PostgreSQL do projeto:
+Se tiver Docker instalado, você pode subir o PostgreSQL do projeto:
 
 ```bash
 docker compose up -d
@@ -73,7 +75,22 @@ Depois rode:
 npm run db:seed
 ```
 
-O seed cria apenas o usuario administrador definido por voce no `.env`.
+O seed cria apenas o usuário administrador definido por você no `.env`.
+
+## Como configurar emails
+
+Para avisar usuários quando uma receita nova for publicada, preencha as variáveis SMTP no `.env`:
+
+```env
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
+SMTP_HOST="smtp.seu-provedor.com"
+SMTP_PORT="587"
+SMTP_USER="usuario-smtp"
+SMTP_PASSWORD="senha-smtp"
+SMTP_FROM="Receitas <no-reply@seudominio.com>"
+```
+
+Sem SMTP configurado, a receita é publicada normalmente e o envio de email é ignorado.
 
 ## Como iniciar localmente
 
@@ -86,7 +103,7 @@ Abra `http://localhost:3000`.
 ## Scripts
 
 - `npm run dev`: inicia o servidor local.
-- `npm run build`: gera a build de producao.
+- `npm run build`: gera a build de produção.
 - `npm run start`: executa a build.
 - `npm run prisma:migrate`: cria/aplica migrations.
 - `npm run prisma:generate`: gera o Prisma Client.
@@ -96,14 +113,14 @@ Abra `http://localhost:3000`.
 ## Estrutura
 
 - `app/`: rotas App Router.
-- `components/`: componentes reutilizaveis de UI, auth, receitas e admin.
-- `lib/`: Prisma, auth, validacoes, queries e server actions.
+- `components/`: componentes reutilizáveis de UI, auth, receitas e admin.
+- `lib/`: Prisma, auth, validações, queries e server actions.
 - `prisma/`: schema e seed.
 
-## Observacoes de producao
+## Observações de produção
 
 - Troque `SESSION_SECRET` por um valor longo e privado.
-- Use PostgreSQL gerenciado em producao.
+- Use PostgreSQL gerenciado em produção.
 - Configure HTTPS para manter cookies seguros.
-- Nao versionar `.env`.
-- Em hospedagens serverless, confirme suporte a escrita local antes de usar uploads em `public/uploads`; em producao, prefira storage externo como S3, Cloudinary ou Supabase Storage.
+- Não versionar `.env`.
+- Em hospedagens serverless, confirme suporte a escrita local antes de usar uploads em `public/uploads`; em produção, prefira storage externo como S3, Cloudinary ou Supabase Storage.
