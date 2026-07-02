@@ -100,7 +100,7 @@ const recipes = [
   },
   {
     title: "Massa curta com tomate assado",
-    description: "Tomatés assados lentamente, alho e manjericão criam um molho encorpado para uma massa honesta e memorável.",
+    description: "Tomates assados lentamente, alho e manjericão criam um molho encorpado para uma massa honesta e memorável.",
     category: "Massas",
     imageUrl: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=1200&q=80",
     prepTime: 40,
@@ -144,7 +144,7 @@ const recipes = [
   },
   {
     title: "Sopa cremosa de abóbora assada",
-    description: "Abobora assada, gengibre e caldo de legumes formam uma sopa aveludada e confortante.",
+    description: "Abóbora assada, gengibre e caldo de legumes formam uma sopa aveludada e confortante.",
     category: "Vegetariano",
     imageUrl: "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=1200&q=80",
     prepTime: 45,
@@ -166,7 +166,7 @@ const recipes = [
   },
   {
     title: "Omelete de cogumelos e queijo",
-    description: "Omelete macia com cogumelos salteados e queijo derretido para uma refeição rapida.",
+    description: "Omelete macia com cogumelos salteados e queijo derretido para uma refeição rápida.",
     category: "Café da manhã",
     imageUrl: "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=1200&q=80",
     prepTime: 15,
@@ -212,7 +212,7 @@ const recipes = [
     title: "Carbonara com ervilhas frescas",
     description: "Massa cremosa sem creme de leite, com ovos, queijo, pimenta e ervilhas para frescor.",
     category: "Massas",
-    imageUrl: "https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=1200&q=80",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Espaguetis_carbonara.jpg/1280px-Espaguetis_carbonara.jpg",
     prepTime: 25,
     servings: 2,
     difficulty: Difficulty.MEDIUM,
@@ -232,7 +232,7 @@ const recipes = [
   },
   {
     title: "Arroz de camarão com coentro",
-    description: "Arroz úmido, camarões suculentos e ervas frescas em uma panela so.",
+    description: "Arroz úmido, camarões suculentos e ervas frescas em uma panela só.",
     category: "Jantar rápido",
     imageUrl: "https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=1200&q=80",
     prepTime: 38,
@@ -243,7 +243,7 @@ const recipes = [
       ["300 g", "camarão"],
       ["1 xícara", "arroz"],
       ["1 unidade", "tomate"],
-      ["1/2 unidade", "pimentao"],
+      ["1/2 unidade", "pimentão"],
       ["1 punhado", "coentro fresco"]
     ],
     steps: [
@@ -278,7 +278,7 @@ const recipes = [
     title: "Rabanada de forno com laranja",
     description: "Fatias douradas no forno com perfume de laranja, canela e textura macia.",
     category: "Café da manhã",
-    imageUrl: "https://images.unsplash.com/photo-1484723091739-30a097e8f929?auto=format&fit=crop&w=1200&q=80",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/French_toast_001.jpg/1280px-French_toast_001.jpg",
     prepTime: 35,
     servings: 4,
     difficulty: Difficulty.EASY,
@@ -300,7 +300,7 @@ const recipes = [
     title: "Panna cotta de baunilha",
     description: "Creme italiano delicado, gelado e servido com calda simples de frutas.",
     category: "Sobremesas",
-    imageUrl: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=1200&q=80",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Panna_Cotta_with_cream_and_garnish.jpg/1280px-Panna_Cotta_with_cream_and_garnish.jpg",
     prepTime: 25,
     servings: 6,
     difficulty: Difficulty.MEDIUM,
@@ -322,7 +322,7 @@ const recipes = [
     title: "Gnocchi na manteiga de sálvia",
     description: "Gnocchi macio envolvido em manteiga noisette, sálvia crocante e queijo ralado.",
     category: "Massas",
-    imageUrl: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=1200&q=80",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Semolina_gnocchi_with_sage_brown_butter_%2810063056444%29.jpg/1280px-Semolina_gnocchi_with_sage_brown_butter_%2810063056444%29.jpg",
     prepTime: 30,
     servings: 2,
     difficulty: Difficulty.MEDIUM,
@@ -344,12 +344,12 @@ const recipes = [
     title: "Tilápia no papillote com legumes",
     description: "Peixe assado no papel com legumes finos, limão e azeite, sem sujeira e com muito aroma.",
     category: "Jantar rápido",
-    imageUrl: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=1200&q=80",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/8/83/Orata_al_Cartoccio.jpg",
     prepTime: 26,
     servings: 2,
     difficulty: Difficulty.EASY,
     featured: false,
-    ingredients: [["2 unidades", "filés de tilapia"], ["1 unidade", "abobrinha"], ["1 unidade", "cenoura"], ["1 unidade", "limão"], ["2 colheres", "azeite"]],
+    ingredients: [["2 unidades", "filés de tilápia"], ["1 unidade", "abobrinha"], ["1 unidade", "cenoura"], ["1 unidade", "limão"], ["2 colheres", "azeite"]],
     steps: ["Monte os filés sobre papel manteiga.", "Cubra com legumes, azeite e limão.", "Feche bem e asse até o peixe ficar macio."]
   },
   {
@@ -377,15 +377,15 @@ const recipes = [
     steps: ["Misture todos os ingredientes.", "Toste em frigideira baixa mexendo sempre.", "Esfrie antes de guardar."]
   },
   {
-    title: "Mousse de maracuja com iogurte",
-    description: "Mousse leve, acida e cremosa feita com iogurte, maracuja e poucos ingredientes.",
+    title: "Mousse de maracujá com iogurte",
+    description: "Mousse leve, ácida e cremosa feita com iogurte, maracujá e poucos ingredientes.",
     category: "Sobremesas",
-    imageUrl: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=1200&q=80",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/MouseDeMaracuja.jpg/1280px-MouseDeMaracuja.jpg",
     prepTime: 15,
     servings: 6,
     difficulty: Difficulty.EASY,
     featured: false,
-    ingredients: [["1 xícara", "polpa de maracuja"], ["2 xícaras", "iogurte"], ["1 lata", "leite condensado"], ["1 pacote", "gelatina incolor"]],
+    ingredients: [["1 xícara", "polpa de maracujá"], ["2 xícaras", "iogurte"], ["1 lata", "leite condensado"], ["1 pacote", "gelatina incolor"]],
     steps: ["Bata iogurte, polpa e leite condensado.", "Misture gelatina hidratada.", "Leve para gelar até firmar."]
   },
   {
@@ -450,7 +450,7 @@ const recipes = [
   },
   {
     title: "Penne ao pesto de rúcula",
-    description: "Massa rapida com pesto fresco de rúcula, castanhas e queijo curado.",
+    description: "Massa rápida com pesto fresco de rúcula, castanhas e queijo curado.",
     category: "Massas",
     imageUrl: "https://images.unsplash.com/photo-1608897013039-887f21d8c804?auto=format&fit=crop&w=1200&q=80",
     prepTime: 20,
@@ -504,7 +504,18 @@ async function main() {
 
     await prisma.recipe.upsert({
       where: { slug },
-      update: {},
+      update: {
+        title: recipe.title,
+        description: recipe.description,
+        imageUrl: recipe.imageUrl,
+        prepTime: recipe.prepTime,
+        servings: recipe.servings,
+        difficulty: recipe.difficulty,
+        featured: recipe.featured,
+        published: true,
+        categoryId: category.id,
+        authorId: admin.id
+      },
       create: {
         title: recipe.title,
         slug,
