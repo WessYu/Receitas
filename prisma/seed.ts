@@ -58,7 +58,7 @@ const recipes = [
     title: "Panquecas de banana e aveia",
     description: "Maciez natural, doçura na medida e preparo rápido para um café da manhã de fim de semana sem complicação.",
     category: "Café da manhã",
-    imageUrl: "https://images.unsplash.com/photo-1528207776546-365bb710ee93?auto=format&fit=crop&w=1200&q=80",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Banana_pancakes_Gili_Trawangan.JPG/1280px-Banana_pancakes_Gili_Trawangan.JPG",
     prepTime: 20,
     servings: 2,
     difficulty: Difficulty.EASY,

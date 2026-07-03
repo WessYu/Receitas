@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, Bookmark, Clock3, Sparkles } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { RecipeCard } from "@/components/recipes/recipe-card";
+import { RecipeImage } from "@/components/recipes/recipe-image";
 import { SearchBar } from "@/components/recipes/search-bar";
 
 export const dynamic = "force-dynamic";
@@ -20,6 +21,7 @@ export default async function HomePage() {
       take: 6
     })
   ]);
+  const heroRecipe = featuredRecipes[0];
 
   return (
     <div>
@@ -54,24 +56,30 @@ export default async function HomePage() {
             </span>
           </div>
         </div>
+
         <div className="relative overflow-hidden rounded-lg border border-ink/10 bg-ink p-5 text-porcelain shadow-soft">
           <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-white/10 to-transparent" />
           <div className="relative">
             <p className="text-sm font-medium text-porcelain/60">Receita do momento</p>
             <h2 className="mt-4 font-serif text-5xl leading-none">
-              {featuredRecipes[0]?.title ?? "Risoto de limão siciliano"}
+              {heroRecipe?.title ?? "Panquecas de banana e aveia"}
             </h2>
             <p className="mt-4 max-w-md text-sm leading-6 text-porcelain/70">
-              {featuredRecipes[0]?.description ??
-                "Uma base cremosa, acidez elegante e finalização simples para jantar sem pressa."}
+              {heroRecipe?.description ??
+                "Maciez natural, doçura na medida e preparo rápido para um café da manhã sem complicação."}
             </p>
-            <div
-              className="mt-8 aspect-[4/3] overflow-hidden rounded-md bg-cover bg-center"
-              style={{
-                backgroundImage:
-                  "url(https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&w=1200&q=80)"
-              }}
-            />
+            <div className="relative mt-8 aspect-[4/3] overflow-hidden rounded-md bg-porcelain/10">
+              <RecipeImage
+                src={
+                  heroRecipe?.imageUrl ??
+                  "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Banana_pancakes_Gili_Trawangan.JPG/1280px-Banana_pancakes_Gili_Trawangan.JPG"
+                }
+                alt={heroRecipe?.title ?? "Receita em destaque"}
+                priority
+                sizes="(min-width: 1024px) 45vw, 100vw"
+                className="object-cover"
+              />
+            </div>
           </div>
         </div>
       </section>
