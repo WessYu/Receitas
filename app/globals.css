@@ -4,7 +4,7 @@
 
 :root {
   color-scheme: light;
-  background: #eef3e8;
+  background: #f9e3dc;
 }
 
 * {
@@ -18,9 +18,9 @@ html {
 body {
   margin: 0;
   background:
-    radial-gradient(circle at top left, rgba(80, 97, 74, 0.16), transparent 34rem),
-    radial-gradient(circle at 85% 12%, rgba(201, 94, 73, 0.08), transparent 28rem),
-    linear-gradient(180deg, #f7faef 0%, #eef3e8 48%, #fbf7ed 100%);
+    radial-gradient(circle at top left, rgba(201, 94, 73, 0.16), transparent 34rem),
+    radial-gradient(circle at 88% 12%, rgba(255, 250, 242, 0.72), transparent 30rem),
+    linear-gradient(180deg, #fff6f1 0%, #f9e3dc 46%, #fff1ea 100%);
   color: #1f211d;
 }
 
