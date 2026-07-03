@@ -54,6 +54,10 @@ textarea {
   @apply w-full rounded-md border border-ink/10 bg-white/80 px-4 py-3 text-sm text-ink shadow-sm outline-none transition placeholder:text-ink/40 focus:border-olive focus:ring-2 focus:ring-olive/15;
 }
 
+.field-with-icon {
+  padding-left: 3.25rem;
+}
+
 .button-primary {
   @apply inline-flex items-center justify-center gap-2 rounded-md bg-ink px-5 py-3 text-sm font-semibold text-porcelain transition hover:-translate-y-0.5 hover:bg-olive focus-ring disabled:cursor-not-allowed disabled:opacity-60;
 }
