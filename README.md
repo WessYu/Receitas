@@ -1,35 +1,142 @@
-# Receitas
+# Receitas — Aplicação Full Stack
 
-Plataforma full-stack de receitas com Next.js App Router, TypeScript, Tailwind CSS, Prisma, PostgreSQL, autenticação por cookie assinado, senhas criptografadas e roles.
+Sistema web de receitas desenvolvido com **Next.js, TypeScript, TailwindCSS, Prisma e PostgreSQL**, com autenticação, área privada, favoritos, comentários, dashboard do usuário e painel administrativo.
 
-## Links
+O projeto foi criado como aplicação principal de portfólio para demonstrar uma experiência próxima de produto real: interface responsiva, rotas protegidas, banco de dados, regras de usuário e deploy em produção.
 
-- GitHub Pages: https://wessyu.github.io/Receitas/
-- Repositorio: https://github.com/WessYu/Receitas
+![Next.js](https://img.shields.io/badge/Next.js-111827?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![React](https://img.shields.io/badge/React-111827?style=for-the-badge&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-111827?style=for-the-badge&logo=typescript&logoColor=3178C6)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-111827?style=for-the-badge&logo=tailwindcss&logoColor=38BDF8)
+![Prisma](https://img.shields.io/badge/Prisma-111827?style=for-the-badge&logo=prisma&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-111827?style=for-the-badge&logo=postgresql&logoColor=4169E1)
 
-> O GitHub Pages hospeda uma versão pública navegável em `docs/`, com receitas, filtros, detalhes, cadastro, login, conta e favoritos no navegador. O painel admin não fica exposto no Pages; ele existe apenas na aplicação full-stack protegida por login e role `ADMIN`.
+---
+
+## Deploy
+
+- **Aplicação em produção:** https://receitas-delta-eight.vercel.app
+- **Repositório:** https://github.com/WessYu/Receitas
+
+---
+
+## Visão geral
+
+O **Receitas** é uma plataforma full stack para descobrir, salvar, comentar e gerenciar receitas.
+
+A aplicação possui uma área pública com listagem, filtros e detalhes de receitas, além de uma área autenticada onde o usuário pode editar perfil, salvar receitas favoritas, enviar receitas e acompanhar suas publicações.
+
+Também existe um fluxo administrativo protegido por role `ADMIN`, usado para gerenciar receitas, categorias, comentários e usuários.
+
+---
 
 ## Funcionalidades
 
-- Cadastro, login, logout e perfil do usuário com foto.
-- Listagem de receitas com busca e filtros por categoria, dificuldade, tempo e ingrediente.
-- Página individual com ingredientes, preparo, comentários e botão de salvar/remover favorito.
-- Dashboard privado com receitas salvas, receitas enviadas e edição de perfil.
-- Área para usuários enviarem receitas com foto, ingredientes e modo de preparo.
-- Admin protegido para criar, editar, aprovar, excluir receitas, gerenciar categorias, listar usuários e acompanhar comentários.
-- Upload de foto no painel admin e no envio de receitas, sem precisar alterar código.
-- Aviso por email para contas que aceitaram notificações quando uma nova receita for publicada.
-- Validação com Zod, hash de senha com bcrypt e bloqueio no middleware e no servidor.
+- Cadastro, login e logout de usuários
+- Autenticação com cookie assinado
+- Senhas criptografadas
+- Área privada do usuário
+- Perfil editável com foto e preferências
+- Listagem de receitas com busca e filtros
+- Página individual de receita com ingredientes e preparo
+- Comentários em receitas
+- Favoritos privados por usuário
+- Dashboard com receitas enviadas e salvas
+- Envio de receitas para revisão
+- Painel administrativo protegido
+- CRUD de receitas e categorias
+- Gerenciamento de usuários e comentários
+- Validação de dados com Zod
+- Banco de dados PostgreSQL com Prisma
+- Deploy em produção na Vercel
 
-## Como instalar
+---
+
+## Screenshots
+
+As telas principais do projeto incluem:
+
+- Home com chamada principal e receita em destaque
+- Biblioteca de receitas com filtros
+- Página de detalhe da receita
+- Tela de cadastro e login
+- Área privada do usuário
+- Dashboard / Minha cozinha
+- Painel administrativo
+
+> Para manter o README leve, os prints podem ser adicionados depois na pasta `docs/screenshots/` e referenciados nesta seção.
+
+---
+
+## Stack utilizada
+
+### Front-end
+
+- Next.js App Router
+- React
+- TypeScript
+- TailwindCSS
+- Lucide React
+- Componentização de interface
+- Layout responsivo
+
+### Back-end / Dados
+
+- Server Actions
+- Prisma ORM
+- PostgreSQL
+- Cookies para sessão
+- Bcrypt para hash de senha
+- Zod para validação
+- Nodemailer para notificações opcionais
+
+### Deploy
+
+- Vercel
+- Vercel Postgres / Neon
+- Variáveis de ambiente para produção
+
+---
+
+## Explicação técnica
+
+A aplicação usa **Next.js App Router** para organizar rotas públicas, privadas e administrativas.
+
+A autenticação é baseada em sessão via cookie assinado. As senhas são armazenadas com hash usando `bcryptjs`, e as permissões são controladas por roles, permitindo separar usuários comuns de administradores.
+
+O banco de dados é modelado com **Prisma**, utilizando relações entre usuários, receitas, categorias, ingredientes, etapas de preparo, favoritos e comentários.
+
+O painel administrativo permite gerenciar o conteúdo publicado, enquanto o usuário comum possui uma área privada para acompanhar suas receitas e salvar favoritos.
+
+---
+
+## Modelagem principal
+
+O banco possui entidades para:
+
+- `User`
+- `Recipe`
+- `Category`
+- `Ingredient`
+- `PreparationStep`
+- `Favorite`
+- `Comment`
+
+Essas relações permitem criar uma experiência completa com autoria, favoritos, comentários, filtros e gestão administrativa.
+
+---
+
+## Como rodar localmente
+
+### 1. Instale as dependências
 
 ```bash
 npm install
 ```
 
-## Como configurar o banco
+### 2. Configure as variáveis de ambiente
 
-Crie um banco PostgreSQL e copie o arquivo de ambiente:
+Crie um arquivo `.env` com base no `.env.example`:
 
 ```bash
 cp .env.example .env
@@ -41,86 +148,82 @@ No Windows PowerShell:
 Copy-Item .env.example .env
 ```
 
-Depois ajuste o `.env`:
+Exemplo de variáveis:
 
 ```env
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/receitas?schema=public"
+POSTGRES_PRISMA_URL="postgresql://usuario:senha@localhost:5432/receitas?schema=public"
 SESSION_SECRET="troque-por-um-segredo-com-pelo-menos-32-caracteres"
-```
-
-Se tiver Docker instalado, você pode subir o PostgreSQL do projeto:
-
-```bash
-docker compose up -d
-```
-
-## Como rodar as migrations
-
-```bash
-npm run prisma:migrate
-```
-
-## Como criar o admin inicial
-
-Antes de rodar o seed, defina no `.env` o seu email e uma senha forte:
-
-```env
 ADMIN_EMAIL="seu-email@exemplo.com"
-ADMIN_PASSWORD="troque-por-uma-senha-forte-com-8-caracteres"
+ADMIN_PASSWORD="troque-por-uma-senha-forte"
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
 ```
 
-Depois rode:
+### 3. Configure o banco
 
 ```bash
+npm run db:push
 npm run db:seed
 ```
 
-O seed cria apenas o usuário administrador definido por você no `.env`.
-
-## Como configurar emails
-
-Para avisar usuários quando uma receita nova for publicada, preencha as variáveis SMTP no `.env`:
-
-```env
-NEXT_PUBLIC_APP_URL="http://localhost:3000"
-SMTP_HOST="smtp.seu-provedor.com"
-SMTP_PORT="587"
-SMTP_USER="usuario-smtp"
-SMTP_PASSWORD="senha-smtp"
-SMTP_FROM="Receitas <no-reply@seudominio.com>"
-```
-
-Sem SMTP configurado, a receita é publicada normalmente e o envio de email é ignorado.
-
-## Como iniciar localmente
+### 4. Inicie o projeto
 
 ```bash
 npm run dev
 ```
 
-Abra `http://localhost:3000`.
+Acesse:
 
-## Scripts
+```txt
+http://localhost:3000
+```
 
-- `npm run dev`: inicia o servidor local.
-- `npm run build`: gera a build de produção.
-- `npm run start`: executa a build.
-- `npm run prisma:migrate`: cria/aplica migrations.
-- `npm run prisma:generate`: gera o Prisma Client.
-- `npm run prisma:studio`: abre o Prisma Studio.
-- `npm run db:seed`: popula categorias, receitas e o admin configurado no `.env`.
+---
 
-## Estrutura
+## Scripts disponíveis
 
-- `app/`: rotas App Router.
-- `components/`: componentes reutilizáveis de UI, auth, receitas e admin.
-- `lib/`: Prisma, auth, validações, queries e server actions.
-- `prisma/`: schema e seed.
+```bash
+npm run dev
+npm run build
+npm run start
+npm run vercel-build
+npm run prisma:generate
+npm run prisma:migrate
+npm run prisma:studio
+npm run db:push
+npm run db:seed
+```
 
-## Observações de produção
+---
 
-- Troque `SESSION_SECRET` por um valor longo e privado.
-- Use PostgreSQL gerenciado em produção.
-- Configure HTTPS para manter cookies seguros.
-- Não versionar `.env`.
-- Em hospedagens serverless, confirme suporte a escrita local antes de usar uploads em `public/uploads`; em produção, prefira storage externo como S3, Cloudinary ou Supabase Storage.
+## Estrutura do projeto
+
+```txt
+app/          Rotas da aplicação, páginas públicas, privadas e admin
+components/   Componentes reutilizáveis de UI, auth, receitas e admin
+lib/          Prisma, autenticação, validações, queries e server actions
+prisma/       Schema do banco e seed inicial
+public/       Assets públicos
+```
+
+---
+
+## Próximas melhorias
+
+- Adicionar screenshots diretamente no README
+- Integrar upload de imagens com storage externo
+- Melhorar acessibilidade e navegação por teclado
+- Criar testes para fluxos principais
+- Adicionar paginação avançada na listagem de receitas
+
+---
+
+## Autor
+
+Desenvolvido por **Wesley Cruz**.
+
+- GitHub: [@WessYu](https://github.com/WessYu)
+- Email: wess.c@proton.me
+
+---
+
+> Projeto principal de portfólio, criado para demonstrar front-end moderno, autenticação, banco de dados, CRUD, painel administrativo e deploy em produção.
