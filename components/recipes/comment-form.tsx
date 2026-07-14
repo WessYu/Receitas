@@ -17,25 +17,16 @@ export function CommentForm({ recipeId, isLoggedIn }: { recipeId: string; isLogg
   }, [showToast, state.message, state.ok]);
 
   if (!isLoggedIn) {
-    return (
-      <div className="rounded-lg border border-ink/10 bg-porcelain/80 p-5 text-sm text-ink/65">
-        Entre na sua conta para comentar e participar das receitas.
-      </div>
-    );
+    return <div className="rounded-lg border border-border bg-surface/85 p-5 text-sm text-muted">Entre na sua conta para comentar e participar das receitas.</div>;
   }
 
   return (
-    <form ref={formRef} action={action} className="rounded-lg border border-ink/10 bg-white/75 p-5 shadow-sm">
-      <label className="mb-3 flex items-center gap-2 text-sm font-semibold" htmlFor="content">
+    <form ref={formRef} action={action} className="rounded-lg border border-border bg-surface/85 p-5 shadow-sm">
+      <label className="mb-3 flex items-center gap-2 text-sm font-semibold text-ink" htmlFor="content">
         <MessageCircle className="h-4 w-4 text-olive" />
         Comentar receita
       </label>
-      <textarea
-        className="field min-h-28"
-        id="content"
-        name="content"
-        placeholder="Conte como ficou, deixe uma dica ou tire uma dúvida."
-      />
+      <textarea className="field min-h-28" id="content" name="content" placeholder="Conte como ficou, deixe uma dica ou tire uma dúvida." />
       {state.errors?.content ? <p className="mt-2 text-xs text-tomato">{state.errors.content[0]}</p> : null}
       {state.message && !state.ok ? <p className="mt-3 text-sm text-tomato">{state.message}</p> : null}
       <button className="button-primary mt-4" disabled={pending} type="submit">

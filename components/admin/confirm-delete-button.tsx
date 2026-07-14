@@ -25,14 +25,14 @@ export function ConfirmDeleteButton({
         {label}
       </button>
       {open ? (
-        <div className="fixed inset-0 z-50 grid place-items-center bg-ink/30 p-4 backdrop-blur-sm" role="dialog" aria-modal="true">
-          <div className="w-full max-w-md rounded-lg bg-porcelain p-6 shadow-soft">
+        <div className="fixed inset-0 z-50 grid place-items-center bg-background/70 p-4 backdrop-blur-sm" role="dialog" aria-modal="true">
+          <div className="w-full max-w-md rounded-lg border border-border bg-elevated p-6 shadow-soft">
             <div className="mb-4 flex items-start justify-between gap-4">
               <div>
-                <h2 className="font-serif text-2xl">Confirmar exclusão</h2>
-                <p className="mt-2 text-sm leading-6 text-ink/60">Esta ação remove o registro definitivamente.</p>
+                <h2 className="font-serif text-2xl text-ink">Confirmar exclusão</h2>
+                <p className="mt-2 text-sm leading-6 text-muted">Esta ação remove o registro definitivamente.</p>
               </div>
-              <button className="rounded-md p-2 hover:bg-ink/5" onClick={() => setOpen(false)} aria-label="Fechar" type="button">
+              <button className="rounded-md p-2 transition hover:bg-surface" onClick={() => setOpen(false)} aria-label="Fechar" type="button">
                 <X className="h-4 w-4" />
               </button>
             </div>
@@ -41,7 +41,7 @@ export function ConfirmDeleteButton({
                 Cancelar
               </button>
               <button
-                className="button-primary bg-tomato hover:bg-tomato"
+                className="button-primary bg-tomato text-ink hover:bg-tomato"
                 disabled={pending}
                 type="button"
                 onClick={() => {

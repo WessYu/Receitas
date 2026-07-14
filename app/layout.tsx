@@ -5,8 +5,8 @@ import { Header } from "@/components/header";
 import { ToastProvider } from "@/components/toast";
 
 export const metadata: Metadata = {
-  title: "Receitas | Cozinha simples e elegante",
-  description: "Uma plataforma moderna para descobrir, salvar e administrar receitas.",
+  title: "Mise | Cook beautifully",
+  description: "A refined digital recipe workspace for people who love cooking.",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",

@@ -14,8 +14,8 @@ export function CategoryForm() {
   }, [showToast, state.ok, state.message]);
 
   return (
-    <form action={action} className="rounded-lg border border-ink/10 bg-white/75 p-5 shadow-sm">
-      <label className="mb-2 block text-sm font-semibold" htmlFor="name">
+    <form action={action} className="rounded-lg border border-border bg-surface/85 p-5 shadow-sm">
+      <label className="mb-2 block text-sm font-semibold text-ink" htmlFor="name">
         Nova categoria
       </label>
       <div className="flex flex-col gap-3 sm:flex-row">

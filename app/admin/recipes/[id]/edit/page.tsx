@@ -19,7 +19,7 @@ export default async function EditRecipePage({ params }: { params: Promise<{ id:
     <div>
       <div className="mb-8">
         <p className="eyebrow mb-2">Editar receita</p>
-        <h1 className="font-serif text-5xl">{recipe.title}</h1>
+        <h1 className="font-serif text-5xl text-ink">{recipe.title}</h1>
       </div>
       <RecipeForm categories={categories} recipe={recipe} />
     </div>

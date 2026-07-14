@@ -2,15 +2,15 @@ import Link from "next/link";
 
 export function Footer() {
   return (
-    <footer className="mt-24 border-t border-ink/10 bg-porcelain/70">
-      <div className="container-page flex flex-col gap-4 py-8 text-sm text-ink/60 md:flex-row md:items-center md:justify-between">
-        <p>Receitas elegantes para cozinhar melhor no dia a dia.</p>
+    <footer className="mt-24 border-t border-border bg-background">
+      <div className="container-page flex flex-col gap-4 py-8 text-sm text-muted md:flex-row md:items-center md:justify-between">
+        <p>Mise. Cook beautifully.</p>
         <div className="flex gap-5">
-          <Link href="/recipes" className="transition hover:text-ink">
+          <Link href="/recipes" className="transition duration-300 hover:text-ink">
             Explorar
           </Link>
-          <Link href="/dashboard" className="transition hover:text-ink">
-            Favoritas
+          <Link href="/dashboard" className="transition duration-300 hover:text-ink">
+            Minha cozinha
           </Link>
         </div>
       </div>

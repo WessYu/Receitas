@@ -14,14 +14,14 @@ export function RegisterForm() {
         <p className="rounded-md border border-tomato/20 bg-tomato/10 px-4 py-3 text-sm text-tomato">{state.message}</p>
       ) : null}
       <div>
-        <label className="mb-2 block text-sm font-semibold" htmlFor="name">
+        <label className="mb-2 block text-sm font-semibold text-ink" htmlFor="name">
           Nome
         </label>
         <input className="field" id="name" name="name" autoComplete="name" />
         {state.errors?.name ? <p className="mt-2 text-xs text-tomato">{state.errors.name[0]}</p> : null}
       </div>
       <div>
-        <label className="mb-2 block text-sm font-semibold" htmlFor="email">
+        <label className="mb-2 block text-sm font-semibold text-ink" htmlFor="email">
           Email
         </label>
         <input className="field" id="email" name="email" type="email" autoComplete="email" />
@@ -29,14 +29,14 @@ export function RegisterForm() {
       </div>
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label className="mb-2 block text-sm font-semibold" htmlFor="password">
+          <label className="mb-2 block text-sm font-semibold text-ink" htmlFor="password">
             Senha
           </label>
           <input className="field" id="password" name="password" type="password" autoComplete="new-password" />
           {state.errors?.password ? <p className="mt-2 text-xs text-tomato">{state.errors.password[0]}</p> : null}
         </div>
         <div>
-          <label className="mb-2 block text-sm font-semibold" htmlFor="confirmPassword">
+          <label className="mb-2 block text-sm font-semibold text-ink" htmlFor="confirmPassword">
             Confirmar senha
           </label>
           <input className="field" id="confirmPassword" name="confirmPassword" type="password" autoComplete="new-password" />
@@ -47,9 +47,9 @@ export function RegisterForm() {
         <UserPlus className="h-4 w-4" />
         Criar conta
       </button>
-      <p className="text-center text-sm text-ink/60">
+      <p className="text-center text-sm text-muted">
         Já tem conta?{" "}
-        <Link href="/login" className="font-semibold text-ink underline-offset-4 hover:underline">
+        <Link href="/login" className="font-semibold text-link underline-offset-4 hover:underline">
           Entrar
         </Link>
       </p>

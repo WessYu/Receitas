@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Bookmark, Clock3, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { RecipeCard } from "@/components/recipes/recipe-card";
 import { RecipeImage } from "@/components/recipes/recipe-image";
@@ -13,7 +13,7 @@ export default async function HomePage() {
       where: { published: true, featured: true },
       include: { category: true },
       orderBy: { createdAt: "desc" },
-      take: 3
+      take: 4
     }),
     prisma.category.findMany({
       include: { _count: { select: { recipes: true } } },
@@ -25,76 +25,54 @@ export default async function HomePage() {
 
   return (
     <div>
-      <section className="container-page grid min-h-[calc(100vh-80px)] items-center gap-10 py-14 lg:grid-cols-[1.05fr_0.95fr]">
-        <div>
-          <p className="eyebrow mb-5">Cozinha autoral em casa</p>
-          <h1 className="max-w-3xl font-serif text-6xl leading-[0.96] text-ink md:text-7xl">
-            Receitas claras, bonitas e salvas no seu ritmo.
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-ink/65">
-            Descubra pratos realistas para a semana, filtre por tempo ou ingrediente e mantenha seus favoritos em uma área privada.
+      <section className="container-page py-16 md:py-24">
+        <div className="mx-auto max-w-5xl text-center">
+          <p className="mb-8 text-xs font-semibold uppercase tracking-[0.28em] text-muted">Mise</p>
+          <h1 className="font-serif text-6xl leading-[0.9] text-ink md:text-8xl">Cook beautifully.</h1>
+          <p className="mx-auto mt-7 max-w-2xl text-xl leading-9 text-muted md:text-2xl">
+            Discover recipes crafted for people who love cooking.
           </p>
-          <form action="/recipes" className="mt-8 grid max-w-2xl gap-3 sm:grid-cols-[1fr_auto]">
+          <form action="/recipes" className="mx-auto mt-10 grid max-w-2xl gap-3 sm:grid-cols-[1fr_auto]">
             <SearchBar />
             <button className="button-primary" type="submit">
-              Buscar
+              Pesquisar
               <ArrowRight className="h-4 w-4" />
             </button>
           </form>
-          <div className="mt-8 grid gap-3 text-sm text-ink/65 sm:grid-cols-3">
-            <span className="inline-flex items-center gap-2">
-              <Clock3 className="h-4 w-4 text-olive" />
-              Filtros rápidos
-            </span>
-            <span className="inline-flex items-center gap-2">
-              <Bookmark className="h-4 w-4 text-olive" />
-              Favoritos privados
-            </span>
-            <span className="inline-flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-olive" />
-              Curadoria editorial
-            </span>
-          </div>
         </div>
 
-        <div className="relative overflow-hidden rounded-lg border border-ink/10 bg-ink p-5 text-porcelain shadow-soft">
-          <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-white/10 to-transparent" />
-          <div className="relative">
-            <p className="text-sm font-medium text-porcelain/60">Receita do momento</p>
-            <h2 className="mt-4 font-serif text-5xl leading-none">
-              {heroRecipe?.title ?? "Panquecas de banana e aveia"}
-            </h2>
-            <p className="mt-4 max-w-md text-sm leading-6 text-porcelain/70">
-              {heroRecipe?.description ??
-                "Maciez natural, doçura na medida e preparo rápido para um café da manhã sem complicação."}
-            </p>
-            <div className="relative mt-8 aspect-[4/3] overflow-hidden rounded-md bg-porcelain/10">
-              <RecipeImage
-                src={
-                  heroRecipe?.imageUrl ??
-                  "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Banana_pancakes_Gili_Trawangan.JPG/1280px-Banana_pancakes_Gili_Trawangan.JPG"
-                }
-                alt={heroRecipe?.title ?? "Receita em destaque"}
-                priority
-                sizes="(min-width: 1024px) 45vw, 100vw"
-                className="object-cover"
-              />
-            </div>
-          </div>
+        <div className="relative mt-16 aspect-[16/9] min-h-[420px] overflow-hidden rounded-[28px] bg-surface shadow-soft">
+          <RecipeImage
+            src={
+              heroRecipe?.imageUrl ??
+              "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1800&q=90"
+            }
+            alt={heroRecipe?.title ?? "Mise hero recipe"}
+            priority
+            sizes="100vw"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/10 to-transparent" />
+          {heroRecipe ? (
+            <Link href={`/recipes/${heroRecipe.slug}`} className="absolute bottom-6 left-6 max-w-xl md:bottom-10 md:left-10">
+              <span className="text-xs font-semibold uppercase tracking-[0.22em] text-olive">{heroRecipe.category.name}</span>
+              <h2 className="mt-3 font-serif text-4xl leading-none text-ink md:text-6xl">{heroRecipe.title}</h2>
+            </Link>
+          ) : null}
         </div>
       </section>
 
       <section className="container-page py-12">
-        <div className="mb-7 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="eyebrow mb-2">Destaques</p>
-            <h2 className="font-serif text-4xl">Receitas para abrir o apetite</h2>
+            <p className="eyebrow mb-2">Editorial</p>
+            <h2 className="font-serif text-4xl text-ink">Selected recipes</h2>
           </div>
           <Link href="/recipes" className="button-secondary w-fit">
             Ver todas
           </Link>
         </div>
-        <div className="grid gap-5 md:grid-cols-3">
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           {featuredRecipes.map((recipe) => (
             <RecipeCard key={recipe.id} recipe={recipe} />
           ))}
@@ -102,28 +80,13 @@ export default async function HomePage() {
       </section>
 
       <section className="container-page py-12">
-        <div className="rounded-lg border border-ink/10 bg-white/60 p-6 shadow-sm md:p-8">
-          <div className="mb-6 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-            <div>
-              <p className="eyebrow mb-2">Categorias</p>
-              <h2 className="font-serif text-4xl">Escolha pelo momento</h2>
-            </div>
-            <Link href="/register" className="button-primary w-fit">
-              Criar conta
+        <div className="grid gap-px overflow-hidden rounded-[28px] border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+          {categories.map((category) => (
+            <Link key={category.id} href={`/recipes?category=${category.slug}`} className="bg-surface p-6 transition duration-300 hover:bg-elevated">
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">{category._count.recipes} receitas</span>
+              <span className="mt-3 block font-serif text-3xl text-ink">{category.name}</span>
             </Link>
-          </div>
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {categories.map((category) => (
-              <Link
-                key={category.id}
-                href={`/recipes?category=${category.slug}`}
-                className="rounded-md border border-ink/10 bg-porcelain px-5 py-4 transition hover:-translate-y-0.5 hover:border-olive/40"
-              >
-                <span className="font-semibold">{category.name}</span>
-                <span className="mt-1 block text-sm text-ink/55">{category._count.recipes} receitas</span>
-              </Link>
-            ))}
-          </div>
+          ))}
         </div>
       </section>
     </div>

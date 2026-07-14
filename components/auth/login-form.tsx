@@ -14,14 +14,14 @@ export function LoginForm() {
         <p className="rounded-md border border-tomato/20 bg-tomato/10 px-4 py-3 text-sm text-tomato">{state.message}</p>
       ) : null}
       <div>
-        <label className="mb-2 block text-sm font-semibold" htmlFor="email">
+        <label className="mb-2 block text-sm font-semibold text-ink" htmlFor="email">
           Email
         </label>
         <input className="field" id="email" name="email" type="email" autoComplete="email" />
         {state.errors?.email ? <p className="mt-2 text-xs text-tomato">{state.errors.email[0]}</p> : null}
       </div>
       <div>
-        <label className="mb-2 block text-sm font-semibold" htmlFor="password">
+        <label className="mb-2 block text-sm font-semibold text-ink" htmlFor="password">
           Senha
         </label>
         <input className="field" id="password" name="password" type="password" autoComplete="current-password" />
@@ -31,9 +31,9 @@ export function LoginForm() {
         <LogIn className="h-4 w-4" />
         Entrar
       </button>
-      <p className="text-center text-sm text-ink/60">
+      <p className="text-center text-sm text-muted">
         Ainda não tem conta?{" "}
-        <Link href="/register" className="font-semibold text-ink underline-offset-4 hover:underline">
+        <Link href="/register" className="font-semibold text-link underline-offset-4 hover:underline">
           Cadastre-se
         </Link>
       </p>

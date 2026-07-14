@@ -21,12 +21,12 @@ export default async function AdminUsersPage() {
     <div>
       <div className="mb-8">
         <p className="eyebrow mb-2">Usuários</p>
-        <h1 className="font-serif text-5xl">Contas cadastradas</h1>
+        <h1 className="font-serif text-5xl text-ink">Contas cadastradas</h1>
       </div>
-      <div className="overflow-hidden rounded-lg border border-ink/10 bg-white/75 shadow-sm">
+      <div className="overflow-hidden rounded-lg border border-border bg-surface/85 shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[960px] text-left text-sm">
-            <thead className="bg-porcelain text-xs uppercase text-ink/45">
+            <thead className="bg-elevated text-xs uppercase text-disabled">
               <tr>
                 <th className="px-5 py-4">Nome</th>
                 <th className="px-5 py-4">Email</th>
@@ -38,12 +38,12 @@ export default async function AdminUsersPage() {
                 <th className="px-5 py-4">Criado em</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-ink/10">
+            <tbody className="divide-y divide-border">
               {users.map((user) => (
                 <tr key={user.id}>
                   <td className="px-5 py-4">
-                    <div className="flex items-center gap-3 font-semibold">
-                      <div className="grid h-10 w-10 place-items-center overflow-hidden rounded-full bg-olive/10 text-olive">
+                    <div className="flex items-center gap-3 font-semibold text-ink">
+                      <div className="grid h-10 w-10 place-items-center overflow-hidden rounded-full border border-border bg-olive/10 text-olive">
                         {user.avatarUrl ? (
                           // eslint-disable-next-line @next/next/no-img-element
                           <img src={user.avatarUrl} alt={user.name} className="h-full w-full object-cover" />
@@ -54,15 +54,15 @@ export default async function AdminUsersPage() {
                       {user.name}
                     </div>
                   </td>
-                  <td className="px-5 py-4 text-ink/60">{user.email}</td>
+                  <td className="px-5 py-4 text-muted">{user.email}</td>
                   <td className="px-5 py-4">
-                    <span className="rounded-full bg-olive/10 px-3 py-1 text-xs font-semibold text-olive">{user.role}</span>
+                    <span className="rounded-full border border-gold/20 bg-gold/10 px-3 py-1 text-xs font-semibold text-gold">{user.role}</span>
                   </td>
-                  <td className="px-5 py-4 text-ink/60">{user._count.recipes}</td>
-                  <td className="px-5 py-4 text-ink/60">{user._count.comments}</td>
-                  <td className="px-5 py-4 text-ink/60">{user._count.favorites}</td>
-                  <td className="px-5 py-4 text-ink/60">{user.emailNotifications ? "Ativo" : "Desativado"}</td>
-                  <td className="px-5 py-4 text-ink/60">{new Intl.DateTimeFormat("pt-BR").format(user.createdAt)}</td>
+                  <td className="px-5 py-4 text-muted">{user._count.recipes}</td>
+                  <td className="px-5 py-4 text-muted">{user._count.comments}</td>
+                  <td className="px-5 py-4 text-muted">{user._count.favorites}</td>
+                  <td className="px-5 py-4 text-muted">{user.emailNotifications ? "Ativo" : "Desativado"}</td>
+                  <td className="px-5 py-4 text-muted">{new Intl.DateTimeFormat("pt-BR").format(user.createdAt)}</td>
                 </tr>
               ))}
             </tbody>

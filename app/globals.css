@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: light;
-  background: #f9e3dc;
+  color-scheme: dark;
+  background: #09090b;
 }
 
 * {
@@ -18,10 +18,11 @@ html {
 body {
   margin: 0;
   background:
-    radial-gradient(circle at top left, rgba(201, 94, 73, 0.16), transparent 34rem),
-    radial-gradient(circle at 88% 12%, rgba(255, 250, 242, 0.72), transparent 30rem),
-    linear-gradient(180deg, #fff6f1 0%, #f9e3dc 46%, #fff1ea 100%);
-  color: #1f211d;
+    radial-gradient(circle at 20% -10%, rgba(123, 174, 127, 0.10), transparent 34rem),
+    radial-gradient(circle at 90% 8%, rgba(200, 155, 91, 0.08), transparent 28rem),
+    #09090b;
+  color: #f8f8f5;
+  text-rendering: geometricPrecision;
 }
 
 a {
@@ -36,9 +37,26 @@ textarea {
   font: inherit;
 }
 
+main {
+  animation: page-in 520ms ease both;
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+    transform: scale(0.995);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
+
 ::selection {
-  background: #50614a;
-  color: #fffaf2;
+  background: #7bae7f;
+  color: #09090b;
 }
 
 .container-page {
@@ -47,11 +65,11 @@ textarea {
 }
 
 .focus-ring {
-  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-olive focus-visible:ring-offset-2 focus-visible:ring-offset-porcelain;
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-olive/80 focus-visible:ring-offset-2 focus-visible:ring-offset-background;
 }
 
 .field {
-  @apply w-full rounded-md border border-ink/10 bg-white/80 px-4 py-3 text-sm text-ink shadow-sm outline-none transition placeholder:text-ink/40 focus:border-olive focus:ring-2 focus:ring-olive/15;
+  @apply w-full rounded-md border border-border bg-elevated/80 px-4 py-3 text-sm text-ink shadow-sm outline-none transition placeholder:text-disabled focus:border-olive focus:ring-2 focus:ring-olive/20;
 }
 
 .field-with-icon {
@@ -59,11 +77,11 @@ textarea {
 }
 
 .button-primary {
-  @apply inline-flex items-center justify-center gap-2 rounded-md bg-ink px-5 py-3 text-sm font-semibold text-porcelain transition hover:-translate-y-0.5 hover:bg-olive focus-ring disabled:cursor-not-allowed disabled:opacity-60;
+  @apply inline-flex items-center justify-center gap-2 rounded-md bg-olive px-5 py-3 text-sm font-semibold text-background shadow-sm transition duration-300 hover:-translate-y-0.5 hover:bg-[#8DC592] focus-ring disabled:cursor-not-allowed disabled:opacity-60;
 }
 
 .button-secondary {
-  @apply inline-flex items-center justify-center gap-2 rounded-md border border-ink/10 bg-white/70 px-5 py-3 text-sm font-semibold text-ink transition hover:-translate-y-0.5 hover:border-olive/40 hover:bg-white focus-ring;
+  @apply inline-flex items-center justify-center gap-2 rounded-md border border-border bg-surface/80 px-5 py-3 text-sm font-semibold text-ink transition duration-300 hover:-translate-y-0.5 hover:border-olive/50 hover:bg-elevated focus-ring;
 }
 
 .eyebrow {

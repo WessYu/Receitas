@@ -34,22 +34,22 @@ export default async function RecipesPage({ searchParams }: PageProps) {
   ]);
 
   return (
-    <section className="container-page py-12">
-      <div className="mb-8">
-        <p className="eyebrow mb-2">Biblioteca</p>
-        <h1 className="font-serif text-5xl">Receitas</h1>
-        <p className="mt-4 max-w-2xl text-ink/60">Busque por prato, categoria, tempo, dificuldade ou ingrediente disponível.</p>
+    <section className="container-page py-16">
+      <div className="mb-10 max-w-3xl">
+        <p className="eyebrow mb-3">Biblioteca</p>
+        <h1 className="font-serif text-6xl leading-none text-ink md:text-7xl">Recipes for focused cooking.</h1>
+        <p className="mt-5 text-lg leading-8 text-muted">Busque por prato, categoria, tempo, dificuldade ou ingrediente disponivel.</p>
       </div>
       <FilterBar categories={categories} params={filters} />
-      <div className="mt-8">
+      <div className="mt-10">
         {recipes.length ? (
-          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
             {recipes.map((recipe) => (
               <RecipeCard key={recipe.id} recipe={recipe} />
             ))}
           </div>
         ) : (
-          <EmptyState title="Nenhuma receita encontrada" description="Ajuste os filtros ou tente um termo mais amplo para descobrir novas opções." />
+          <EmptyState title="Nenhuma receita encontrada" description="Ajuste os filtros ou tente um termo mais amplo para descobrir novas opcoes." />
         )}
       </div>
     </section>

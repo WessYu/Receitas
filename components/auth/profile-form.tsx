@@ -24,12 +24,12 @@ export function ProfileForm({
   }, [showToast, state.ok, state.message]);
 
   return (
-    <form action={action} className="rounded-lg border border-ink/10 bg-white/70 p-6 shadow-sm" encType="multipart/form-data">
+    <form action={action} className="rounded-lg border border-border bg-surface/85 p-6 shadow-sm" encType="multipart/form-data">
       <input type="hidden" name="currentAvatarUrl" value={avatarUrl ?? ""} />
-      <h2 className="font-serif text-3xl">Perfil</h2>
+      <h2 className="font-serif text-3xl text-ink">Perfil</h2>
       <div className="mt-6 grid gap-5 lg:grid-cols-[180px_1fr]">
         <div>
-          <div className="grid aspect-square place-items-center overflow-hidden rounded-lg border border-ink/10 bg-porcelain text-4xl font-semibold text-olive">
+          <div className="grid aspect-square place-items-center overflow-hidden rounded-lg border border-border bg-elevated text-4xl font-semibold text-olive">
             {avatarUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img src={avatarUrl} alt={name} className="h-full w-full object-cover" />
@@ -45,21 +45,21 @@ export function ProfileForm({
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
-            <label className="mb-2 block text-sm font-semibold" htmlFor="name">
+            <label className="mb-2 block text-sm font-semibold text-ink" htmlFor="name">
               Nome
             </label>
             <input className="field" id="name" name="name" defaultValue={name} />
             {state.errors?.name ? <p className="mt-2 text-xs text-tomato">{state.errors.name[0]}</p> : null}
           </div>
           <div>
-            <label className="mb-2 block text-sm font-semibold" htmlFor="email">
+            <label className="mb-2 block text-sm font-semibold text-ink" htmlFor="email">
               Email
             </label>
             <input className="field" id="email" name="email" type="email" defaultValue={email} />
             {state.errors?.email ? <p className="mt-2 text-xs text-tomato">{state.errors.email[0]}</p> : null}
           </div>
-          <label className="flex items-center gap-3 rounded-md border border-ink/10 bg-porcelain/70 px-4 py-3 text-sm font-semibold sm:col-span-2">
-            <input type="checkbox" name="emailNotifications" defaultChecked={emailNotifications} />
+          <label className="flex items-center gap-3 rounded-md border border-border bg-elevated px-4 py-3 text-sm font-semibold text-ink sm:col-span-2">
+            <input className="accent-olive" type="checkbox" name="emailNotifications" defaultChecked={emailNotifications} />
             <Bell className="h-4 w-4 text-olive" />
             Receber email quando uma receita nova for publicada
           </label>
