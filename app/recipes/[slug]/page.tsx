@@ -1,5 +1,6 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Clock3, Layers3, MessageCircle, UsersRound } from "lucide-react";
+import { ArrowRight, ChefHat, Clock3, Layers3, MessageCircle, UsersRound } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { recipeInclude } from "@/lib/queries";
 import { getCurrentUser } from "@/lib/session";
@@ -25,18 +26,55 @@ export default async function RecipePage({ params }: { params: Promise<{ slug: s
   const isSaved = user ? recipe.favorites.some((favorite) => favorite.userId === user.id) : false;
 
   return (
-    <article className="container-page py-12">
-      <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
-        <div className="relative aspect-[4/5] overflow-hidden rounded-lg border border-ink/10 bg-ink/5 shadow-soft lg:sticky lg:top-28">
-          <RecipeImage src={recipe.imageUrl} alt={recipe.title} priority sizes="(min-width: 1024px) 45vw, 100vw" />
+    <article>
+      <section className="container-page pt-8 sm:pt-12">
+        <div className="relative aspect-[16/8] min-h-[380px] overflow-hidden rounded-[22px] bg-[#1D1D22]">
+          <RecipeImage src={recipe.imageUrl} alt={recipe.title} priority sizes="100vw" className="object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 p-6 sm:p-10">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#96C59A]">{recipe.category.name}</p>
+            <h1 className="mt-3 max-w-4xl font-serif text-4xl leading-[0.98] tracking-[-0.035em] text-white sm:text-6xl">
+              {recipe.title}
+            </h1>
+            <p className="mt-4 max-w-2xl text-sm leading-7 text-white/75 sm:text-base">{recipe.description}</p>
+          </div>
         </div>
-        <div>
-          <p className="eyebrow mb-3">{recipe.category.name}</p>
-          <h1 className="font-serif text-5xl leading-tight md:text-6xl">{recipe.title}</h1>
-          <p className="mt-5 text-lg leading-8 text-ink/65">{recipe.description}</p>
+      </section>
+
+      <section className="container-page grid gap-10 py-10 lg:grid-cols-[0.72fr_1.28fr] lg:py-14">
+        <aside className="lg:sticky lg:top-24 lg:self-start">
+          <div className="rounded-[18px] border border-white/10 bg-[#141417] p-5">
+            <div className="grid grid-cols-3 gap-3">
+              <div>
+                <Clock3 className="h-4 w-4 text-[#7BAE7F]" />
+                <strong className="mt-2 block text-sm text-[#F5F5F3]">{recipe.prepTime} min</strong>
+                <span className="text-xs text-[#8F8F96]">tempo</span>
+              </div>
+              <div>
+                <UsersRound className="h-4 w-4 text-[#7BAE7F]" />
+                <strong className="mt-2 block text-sm text-[#F5F5F3]">{recipe.servings}</strong>
+                <span className="text-xs text-[#8F8F96]">porções</span>
+              </div>
+              <div>
+                <Layers3 className="h-4 w-4 text-[#7BAE7F]" />
+                <strong className="mt-2 block text-sm text-[#F5F5F3]">{formatDifficulty(recipe.difficulty)}</strong>
+                <span className="text-xs text-[#8F8F96]">nível</span>
+              </div>
+            </div>
+
+            <Link href={`/recipes/${recipe.slug}/cook`} className="button-primary mt-6 flex w-full">
+              <ChefHat className="h-4 w-4" />
+              Começar a cozinhar
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <div className="mt-3">
+              <SaveRecipeButton recipeId={recipe.id} isSaved={isSaved} isLoggedIn={Boolean(user)} />
+            </div>
+          </div>
+
           {recipe.author ? (
-            <div className="mt-5 flex items-center gap-3 text-sm text-ink/60">
-              <div className="grid h-10 w-10 place-items-center overflow-hidden rounded-full bg-olive/10 font-semibold text-olive">
+            <div className="mt-5 flex items-center gap-3 text-sm text-[#9A9AA0]">
+              <div className="grid h-10 w-10 place-items-center overflow-hidden rounded-full bg-[#1D1D22] font-semibold text-[#7BAE7F]">
                 {recipe.author.avatarUrl ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={recipe.author.avatarUrl} alt={recipe.author.name} className="h-full w-full object-cover" />
@@ -47,62 +85,54 @@ export default async function RecipePage({ params }: { params: Promise<{ slug: s
               <span>Receita de {recipe.author.name}</span>
             </div>
           ) : null}
-          <div className="mt-7 flex flex-wrap gap-3">
-            <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold shadow-sm">
-              <Clock3 className="h-4 w-4 text-olive" />
-              {recipe.prepTime} min
-            </span>
-            <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold shadow-sm">
-              <UsersRound className="h-4 w-4 text-olive" />
-              {recipe.servings} porções
-            </span>
-            <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold shadow-sm">
-              <Layers3 className="h-4 w-4 text-olive" />
-              {formatDifficulty(recipe.difficulty)}
-            </span>
-          </div>
-          <div className="mt-8">
-            <SaveRecipeButton recipeId={recipe.id} isSaved={isSaved} isLoggedIn={Boolean(user)} />
-          </div>
+        </aside>
 
-          <section className="mt-10 rounded-lg border border-ink/10 bg-white/70 p-6 shadow-sm">
-            <h2 className="font-serif text-3xl">Ingredientes</h2>
-            <ul className="mt-5 grid gap-3">
+        <div>
+          <section>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#7BAE7F]">Antes de começar</p>
+            <h2 className="mt-2 font-serif text-3xl text-[#F5F5F3] sm:text-4xl">Ingredientes</h2>
+            <ul className="mt-6 divide-y divide-white/10 border-y border-white/10">
               {recipe.ingredients.map((ingredient) => (
-                <li key={ingredient.id} className="flex gap-3 rounded-md bg-porcelain/80 px-4 py-3 text-sm">
-                  <strong className="min-w-24 text-olive">{ingredient.amount}</strong>
-                  <span>{ingredient.name}</span>
+                <li key={ingredient.id} className="grid grid-cols-[110px_1fr] gap-4 py-4 text-sm sm:grid-cols-[150px_1fr]">
+                  <strong className="text-[#96C59A]">{ingredient.amount}</strong>
+                  <span className="text-[#D0D0D4]">{ingredient.name}</span>
                 </li>
               ))}
             </ul>
           </section>
 
-          <section className="mt-6 rounded-lg border border-ink/10 bg-white/70 p-6 shadow-sm">
-            <h2 className="font-serif text-3xl">Preparo</h2>
-            <ol className="mt-5 space-y-4">
+          <section className="mt-14">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#7BAE7F]">Passo a passo</p>
+            <h2 className="mt-2 font-serif text-3xl text-[#F5F5F3] sm:text-4xl">Preparo</h2>
+            <ol className="mt-7 space-y-8">
               {recipe.steps.map((step) => (
-                <li key={step.id} className="grid grid-cols-[40px_1fr] gap-4">
-                  <span className="grid h-10 w-10 place-items-center rounded-full bg-olive text-sm font-bold text-white">{step.order}</span>
-                  <p className="pt-2 leading-7 text-ink/70">{step.content}</p>
+                <li key={step.id} className="grid grid-cols-[42px_1fr] gap-5">
+                  <span className="grid h-10 w-10 place-items-center rounded-full border border-[#7BAE7F]/30 text-sm font-bold text-[#96C59A]">
+                    {step.order}
+                  </span>
+                  <p className="pt-1 text-base leading-8 text-[#C2C2C7]">{step.content}</p>
                 </li>
               ))}
             </ol>
           </section>
 
-          <section className="mt-8">
-            <div className="mb-4 flex items-center justify-between gap-3">
-              <h2 className="font-serif text-3xl">Comentários</h2>
-              <span className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-xs font-semibold text-ink/55 shadow-sm">
-                <MessageCircle className="h-4 w-4 text-olive" />
+          <section className="mt-16 border-t border-white/10 pt-10">
+            <div className="mb-5 flex items-center justify-between gap-3">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#7BAE7F]">Comunidade</p>
+                <h2 className="mt-2 font-serif text-3xl text-[#F5F5F3]">Comentários</h2>
+              </div>
+              <span className="inline-flex items-center gap-2 text-sm text-[#9A9AA0]">
+                <MessageCircle className="h-4 w-4 text-[#7BAE7F]" />
                 {recipe.comments.length}
               </span>
             </div>
             <CommentForm recipeId={recipe.id} isLoggedIn={Boolean(user)} />
-            <div className="mt-5 grid gap-3">
+            <div className="mt-6 grid gap-3">
               {recipe.comments.map((comment) => (
-                <div key={comment.id} className="rounded-lg border border-ink/10 bg-white/70 p-5 shadow-sm">
+                <div key={comment.id} className="rounded-[16px] border border-white/10 bg-[#141417] p-5">
                   <div className="mb-3 flex items-center gap-3">
-                    <div className="grid h-10 w-10 place-items-center overflow-hidden rounded-full bg-olive/10 text-sm font-semibold text-olive">
+                    <div className="grid h-10 w-10 place-items-center overflow-hidden rounded-full bg-[#1D1D22] text-sm font-semibold text-[#7BAE7F]">
                       {comment.user.avatarUrl ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img src={comment.user.avatarUrl} alt={comment.user.name} className="h-full w-full object-cover" />
@@ -111,19 +141,19 @@ export default async function RecipePage({ params }: { params: Promise<{ slug: s
                       )}
                     </div>
                     <div>
-                      <strong className="block text-sm">{comment.user.name}</strong>
-                      <span className="text-xs text-ink/45">
+                      <strong className="block text-sm text-[#F5F5F3]">{comment.user.name}</strong>
+                      <span className="text-xs text-[#77777E]">
                         {new Intl.DateTimeFormat("pt-BR", { dateStyle: "short", timeStyle: "short" }).format(comment.createdAt)}
                       </span>
                     </div>
                   </div>
-                  <p className="leading-7 text-ink/70">{comment.content}</p>
+                  <p className="leading-7 text-[#B8B8BE]">{comment.content}</p>
                 </div>
               ))}
             </div>
           </section>
         </div>
-      </div>
+      </section>
     </article>
   );
 }
