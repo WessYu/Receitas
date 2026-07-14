@@ -110,6 +110,13 @@ main {
   @apply text-xs font-medium uppercase tracking-[0.16em] text-muted;
 }
 
+@media (min-width: 768px) {
+  .md\:container-page {
+    width: min(1240px, calc(100% - 32px));
+    margin-inline: auto;
+  }
+}
+
 @media (max-width: 640px) {
   .container-page {
     width: min(100% - 24px, 1240px);
