@@ -10,24 +10,23 @@ const config: Config = {
     extend: {
       colors: {
         background: "#09090B",
-        surface: "#151517",
+        surface: "#141417",
         elevated: "#1D1D22",
-        border: "#2A2A30",
-        ink: "#F8F8F5",
-        muted: "#9A9AA0",
+        border: "rgba(255,255,255,0.08)",
+        ink: "#F5F5F3",
+        muted: "#B8B8BE",
         disabled: "#66666D",
         olive: "#7BAE7F",
         sage: "#7BAE7F",
-        moss: "#C89B5B",
         gold: "#C89B5B",
+        tomato: "#D96C6C",
         link: "#9AD0FF",
         warning: "#D8B15A",
-        tomato: "#D96C6C",
         linen: "#1D1D22",
         porcelain: "#141417"
       },
       boxShadow: {
-        soft: "0 24px 80px rgba(0, 0, 0, 0.32)"
+        soft: "0 24px 70px rgba(0, 0, 0, 0.34)"
       },
       fontFamily: {
         sans: ["Geist", "Inter", "system-ui", "sans-serif"],
