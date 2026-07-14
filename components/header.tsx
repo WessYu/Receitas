@@ -1,28 +1,28 @@
 import Image from "next/image";
 import Link from "next/link";
-import { LogOut, ShieldCheck, UserRound } from "lucide-react";
+import { LogOut, Search, ShieldCheck, UserRound } from "lucide-react";
 import { getCurrentUser } from "@/lib/session";
 import { logoutAction } from "@/lib/actions";
 
 const nav = [
-  { href: "/", label: "Home" },
-  { href: "/recipes", label: "Recipes" }
+  { href: "/", label: "Inicio" },
+  { href: "/recipes", label: "Receitas" }
 ];
 
 export async function Header() {
   const user = await getCurrentUser();
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-xl">
-      <div className="container-page flex h-20 items-center justify-between gap-5">
+    <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur-xl">
+      <div className="container-page flex min-h-24 items-center justify-between gap-6 py-4">
         <Link href="/" className="flex items-center gap-3 font-semibold">
-          <span className="relative h-11 w-11 overflow-hidden rounded-2xl border border-border bg-surface">
-            <Image src="/logo.svg" alt="Mise" fill priority sizes="44px" className="object-contain" />
+          <span className="relative h-9 w-9 overflow-hidden rounded-xl border border-border bg-surface">
+            <Image src="/logo.svg" alt="Savor" fill priority sizes="36px" className="object-contain" />
           </span>
-          <span className="text-lg font-semibold tracking-normal text-ink">Mise</span>
+          <span className="text-base font-semibold tracking-normal text-ink">Savor</span>
         </Link>
 
-        <nav className="hidden items-center gap-7 text-sm font-medium text-muted md:flex">
+        <nav className="hidden items-center gap-7 text-sm font-medium text-muted lg:flex">
           {nav.map((item) => (
             <Link key={item.href} href={item.href} className="transition duration-300 hover:text-ink">
               {item.label}
@@ -36,13 +36,19 @@ export async function Header() {
           ) : null}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <form action="/recipes" className="relative hidden flex-1 md:block md:max-w-sm">
+          <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
+          <input
+            name="q"
+            className="h-11 w-full rounded-full border border-border bg-surface px-11 text-sm text-ink outline-none transition placeholder:text-disabled focus:border-olive"
+            placeholder="Pesquisar receita..."
+          />
+        </form>
+
+        <div className="flex items-center gap-3">
           {user ? (
             <>
-              <Link href="/dashboard/recipes" className="hidden text-sm font-semibold text-muted transition duration-300 hover:text-ink md:inline-flex">
-                Minha cozinha
-              </Link>
-              <Link href="/dashboard" className="button-secondary hidden px-4 py-2.5 sm:inline-flex">
+              <Link href="/dashboard" className="hidden items-center gap-2 text-sm font-medium text-muted transition hover:text-ink sm:inline-flex">
                 {user.avatarUrl ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={user.avatarUrl} alt={user.name} className="h-5 w-5 rounded-full object-cover" />
@@ -52,14 +58,14 @@ export async function Header() {
                 {user.name.split(" ")[0]}
               </Link>
               <form action={logoutAction}>
-                <button className="button-secondary px-3 py-2.5" type="submit" aria-label="Sair">
+                <button className="text-sm font-medium text-muted transition hover:text-ink" type="submit">
                   <LogOut className="h-4 w-4" />
                 </button>
               </form>
             </>
           ) : (
             <>
-              <Link href="/login" className="button-secondary px-4 py-2.5">
+              <Link href="/login" className="text-sm font-medium text-muted transition hover:text-ink">
                 Entrar
               </Link>
               <Link href="/register" className="button-primary hidden px-4 py-2.5 sm:inline-flex">

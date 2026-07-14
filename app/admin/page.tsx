@@ -62,7 +62,7 @@ export default async function AdminPage() {
     <div>
       <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
-          <p className="eyebrow mb-2">Mise OS</p>
+          <p className="eyebrow mb-2">Savor OS</p>
           <h1 className="font-serif text-6xl leading-none text-ink">Dashboard</h1>
           <p className="mt-4 text-muted">Operacao editorial, conteudo e sinais da comunidade em um so lugar.</p>
         </div>

@@ -6,23 +6,39 @@ import { Bookmark, BookmarkCheck } from "lucide-react";
 import { toggleFavoriteAction } from "@/lib/actions";
 import { useToast } from "@/components/toast";
 
-export function SaveRecipeButton({ recipeId, isSaved, isLoggedIn }: { recipeId: string; isSaved: boolean; isLoggedIn: boolean }) {
+export function SaveRecipeButton({
+  recipeId,
+  isSaved,
+  isLoggedIn,
+  saveLabel = "Salvar receita",
+  savedLabel = "Salva",
+  loggedOutLabel = "Entrar para salvar",
+  className = "button-primary"
+}: {
+  recipeId: string;
+  isSaved: boolean;
+  isLoggedIn: boolean;
+  saveLabel?: string;
+  savedLabel?: string;
+  loggedOutLabel?: string;
+  className?: string;
+}) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
   const { showToast } = useToast();
 
   if (!isLoggedIn) {
     return (
-      <a href="/login" className="button-primary">
+      <a href="/login" className={className}>
         <Bookmark className="h-4 w-4" />
-        Entrar para salvar
+        {loggedOutLabel}
       </a>
     );
   }
 
   return (
     <button
-      className="button-primary"
+      className={className}
       disabled={pending}
       onClick={() => {
         startTransition(async () => {
@@ -34,7 +50,7 @@ export function SaveRecipeButton({ recipeId, isSaved, isLoggedIn }: { recipeId: 
       type="button"
     >
       {isSaved ? <BookmarkCheck className="h-4 w-4" /> : <Bookmark className="h-4 w-4" />}
-      {isSaved ? "Salva" : "Salvar receita"}
+      {isSaved ? savedLabel : saveLabel}
     </button>
   );
 }
