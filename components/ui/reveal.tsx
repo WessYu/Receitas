@@ -1,6 +1,6 @@
 "use client";
 
-import { CSSProperties, ReactNode, useEffect, useRef, useState } from "react";
+import { CSSProperties, ReactNode, useEffect, useRef } from "react";
 
 type RevealTag = "div" | "section" | "article";
 
@@ -11,9 +11,32 @@ type RevealProps = {
   delay?: number;
 };
 
+const observedNodes = new WeakSet<Element>();
+let sharedObserver: IntersectionObserver | null = null;
+
+function getRevealObserver() {
+  if (typeof window === "undefined" || !("IntersectionObserver" in window)) {
+    return null;
+  }
+
+  sharedObserver ??= new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.setAttribute("data-visible", "true");
+          sharedObserver?.unobserve(entry.target);
+          observedNodes.delete(entry.target);
+        }
+      }
+    },
+    { rootMargin: "0px 0px -8% 0px", threshold: 0.08 }
+  );
+
+  return sharedObserver;
+}
+
 export function Reveal({ as: Tag = "div", children, className = "", delay = 0 }: RevealProps) {
   const ref = useRef<HTMLElement | null>(null);
-  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const node = ref.current;
@@ -22,19 +45,22 @@ export function Reveal({ as: Tag = "div", children, className = "", delay = 0 }:
       return;
     }
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.unobserve(entry.target);
-        }
-      },
-      { rootMargin: "0px 0px -10% 0px", threshold: 0.12 }
-    );
+    const observer = getRevealObserver();
 
+    if (!observer) {
+      node.setAttribute("data-visible", "true");
+      return;
+    }
+
+    observedNodes.add(node);
     observer.observe(node);
 
-    return () => observer.disconnect();
+    return () => {
+      if (observedNodes.has(node)) {
+        observer.unobserve(node);
+        observedNodes.delete(node);
+      }
+    };
   }, []);
 
   return (
@@ -44,7 +70,6 @@ export function Reveal({ as: Tag = "div", children, className = "", delay = 0 }:
       }}
       className={className}
       data-reveal
-      data-visible={visible ? "true" : undefined}
       style={{ "--reveal-delay": `${delay}ms` } as CSSProperties}
     >
       {children}

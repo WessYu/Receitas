@@ -109,7 +109,6 @@ export default async function HomePage() {
               <EditorialRecipe
                 key={recipe.id}
                 recipe={recipe}
-                priority={index < 2}
                 className={index === 0 ? "lg:col-span-7" : index === 1 ? "lg:col-span-5" : "lg:col-span-4"}
                 delay={index * 85}
                 imageClassName={index === 0 ? "aspect-[1.18/1]" : index === 1 ? "aspect-[0.92/1]" : "aspect-[1.1/1]"}
@@ -129,7 +128,6 @@ export default async function HomePage() {
               <EditorialRecipe
                 key={recipe.id}
                 recipe={recipe}
-                priority={index < 2}
                 delay={index * 75}
                 imageClassName="aspect-[1.18/1]"
               />
