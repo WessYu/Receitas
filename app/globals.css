@@ -62,6 +62,77 @@ main {
   }
 }
 
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translate3d(0, 18px, 0) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+[data-reveal] {
+  opacity: 0;
+  filter: blur(12px);
+  transform: translate3d(0, 28px, 0) scale(0.985);
+  transition:
+    opacity 760ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 760ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 760ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, filter, transform;
+}
+
+[data-reveal][data-visible="true"] {
+  opacity: 1;
+  filter: blur(0);
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+.hero-sequence > * {
+  animation: hero-rise 820ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-sequence > :nth-child(1) {
+  animation-delay: 80ms;
+}
+
+.hero-sequence > :nth-child(2) {
+  animation-delay: 180ms;
+}
+
+.hero-sequence > :nth-child(3) {
+  animation-delay: 280ms;
+}
+
+.hero-sequence > :nth-child(4) {
+  animation-delay: 380ms;
+}
+
+.featured-copy > * {
+  animation: hero-rise 780ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.featured-copy > :nth-child(1) {
+  animation-delay: 240ms;
+}
+
+.featured-copy > :nth-child(2) {
+  animation-delay: 330ms;
+}
+
+.featured-copy > :nth-child(3) {
+  animation-delay: 420ms;
+}
+
+.featured-copy > :nth-child(4) {
+  animation-delay: 510ms;
+}
+
 ::selection {
   background: var(--sage);
   color: #09090b;
@@ -99,11 +170,11 @@ main {
 }
 
 .button-primary {
-  @apply focus-ring inline-flex items-center justify-center gap-2 rounded-full bg-olive px-5 py-3 text-sm font-semibold text-background transition duration-300 hover:bg-[#8DC592] disabled:cursor-not-allowed disabled:opacity-60;
+  @apply focus-ring inline-flex items-center justify-center gap-2 rounded-full bg-olive px-5 py-3 text-sm font-semibold text-background transition duration-300 ease-out hover:-translate-y-0.5 hover:bg-[#8DC592] active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60;
 }
 
 .button-secondary {
-  @apply focus-ring inline-flex items-center justify-center gap-2 rounded-full border border-border bg-surface px-5 py-3 text-sm font-semibold text-ink transition duration-300 hover:border-white/20 hover:bg-elevated;
+  @apply focus-ring inline-flex items-center justify-center gap-2 rounded-full border border-border bg-surface px-5 py-3 text-sm font-semibold text-ink transition duration-300 ease-out hover:-translate-y-0.5 hover:border-white/20 hover:bg-elevated active:translate-y-0;
 }
 
 .eyebrow {
@@ -124,5 +195,11 @@ main {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  [data-reveal] {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
   }
 }

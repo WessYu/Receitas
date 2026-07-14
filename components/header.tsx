@@ -16,10 +16,10 @@ export async function Header() {
     <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur-xl">
       <div className="container-page flex min-h-24 items-center justify-between gap-6 py-4">
         <Link href="/" className="flex items-center gap-3 font-semibold">
-          <span className="relative h-9 w-9 overflow-hidden rounded-xl border border-border bg-surface">
+          <span className="relative h-9 w-9 overflow-hidden rounded-[14px]">
             <Image src="/logo.svg" alt="Savor" fill priority sizes="36px" className="object-contain" />
           </span>
-          <span className="text-base font-semibold tracking-normal text-ink">Savor</span>
+          <span className="text-base font-semibold tracking-[0.02em] text-ink">Savor</span>
         </Link>
 
         <nav className="hidden items-center gap-7 text-sm font-medium text-muted lg:flex">

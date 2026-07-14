@@ -3,6 +3,7 @@ import type { Category, Recipe } from "@prisma/client";
 import { ArrowRight, Clock3, Search } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { RecipeImage } from "@/components/recipes/recipe-image";
+import { Reveal } from "@/components/ui/reveal";
 
 type RecipeWithCategory = Recipe & { category: Category };
 type CategoryWithCount = Category & { _count: { recipes: number } };
@@ -59,7 +60,7 @@ export default async function HomePage() {
 
   return (
     <main className="overflow-hidden">
-      <section className="container-page flex min-h-[64vh] flex-col items-center justify-center py-24 text-center md:min-h-[70vh] md:py-28">
+      <section className="hero-sequence container-page flex min-h-[64vh] flex-col items-center justify-center py-24 text-center md:min-h-[70vh] md:py-28">
         <p className="eyebrow mb-6 text-gold">Savor</p>
         <h1 className="max-w-5xl font-serif text-6xl leading-[0.88] text-ink md:text-8xl lg:text-[7.5rem]">
           Receitas que valem o seu tempo.
@@ -69,7 +70,7 @@ export default async function HomePage() {
         </p>
         <form
           action="/recipes"
-          className="mt-10 flex w-full max-w-2xl items-center gap-3 rounded-full border border-border bg-surface px-4 py-3 transition duration-300 focus-within:border-olive focus-within:bg-elevated"
+          className="mt-10 flex w-full max-w-2xl items-center gap-3 rounded-full border border-border bg-surface px-4 py-3 transition duration-500 ease-out focus-within:border-olive focus-within:bg-elevated focus-within:shadow-[0_20px_70px_rgba(0,0,0,0.28)]"
         >
           <Search className="h-5 w-5 shrink-0 text-muted" />
           <input
@@ -86,20 +87,22 @@ export default async function HomePage() {
       {featuredRecipe ? <FeaturedRecipe recipe={featuredRecipe} /> : null}
 
       {categories.length ? (
-        <section className="py-24">
+        <Reveal as="section" className="py-24">
           <div className="container-page">
             <SectionHeading eyebrow="Categorias" title="Escolha pela vontade do momento." />
           </div>
           <div className="mt-10 flex gap-4 overflow-x-auto px-4 pb-2 md:container-page md:grid md:grid-cols-3 md:gap-5 md:overflow-visible md:px-0 lg:grid-cols-6">
             {categories.map((category, index) => (
-              <CategoryTile key={category.id} category={category} index={index} />
+              <Reveal key={category.id} delay={index * 65} className="min-w-[235px] md:min-w-0">
+                <CategoryTile category={category} index={index} />
+              </Reveal>
             ))}
           </div>
-        </section>
+        </Reveal>
       ) : null}
 
       {popularRecipes.length ? (
-        <section className="container-page py-16 md:py-24">
+        <Reveal as="section" className="container-page py-16 md:py-24">
           <SectionHeading eyebrow="Mais populares" title="As receitas mais salvas agora." />
           <div className="mt-10 grid gap-x-8 gap-y-12 lg:grid-cols-12">
             {popularRecipes.map((recipe, index) => (
@@ -108,27 +111,34 @@ export default async function HomePage() {
                 recipe={recipe}
                 priority={index < 2}
                 className={index === 0 ? "lg:col-span-7" : index === 1 ? "lg:col-span-5" : "lg:col-span-4"}
+                delay={index * 85}
                 imageClassName={index === 0 ? "aspect-[1.18/1]" : index === 1 ? "aspect-[0.92/1]" : "aspect-[1.1/1]"}
               />
             ))}
           </div>
-        </section>
+        </Reveal>
       ) : null}
 
       {weeklyRecipe ? <RecipeOfTheWeek recipe={weeklyRecipe} /> : null}
 
       {latestRecipes.length ? (
-        <section className="container-page py-20 md:py-28">
+        <Reveal as="section" className="container-page py-20 md:py-28">
           <SectionHeading eyebrow="Novidades" title="Pratos recem-chegados a cozinha." />
           <div className="mt-10 grid gap-x-7 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
             {latestRecipes.map((recipe, index) => (
-              <EditorialRecipe key={recipe.id} recipe={recipe} priority={index < 2} imageClassName="aspect-[1.18/1]" />
+              <EditorialRecipe
+                key={recipe.id}
+                recipe={recipe}
+                priority={index < 2}
+                delay={index * 75}
+                imageClassName="aspect-[1.18/1]"
+              />
             ))}
           </div>
-        </section>
+        </Reveal>
       ) : null}
 
-      <section className="container-page py-10 md:py-16">
+      <Reveal as="section" className="container-page py-10 md:py-16">
         <div className="relative overflow-hidden rounded-[32px] bg-surface px-6 py-14 md:px-14 md:py-16">
           <div className="max-w-3xl">
             <p className="eyebrow mb-4 text-gold">Sua cozinha</p>
@@ -144,17 +154,17 @@ export default async function HomePage() {
             </Link>
           </div>
         </div>
-      </section>
+      </Reveal>
     </main>
   );
 }
 
 function FeaturedRecipe({ recipe }: { recipe: RecipeWithCategory }) {
   return (
-    <section className="pb-16 md:pb-24">
+    <Reveal as="section" className="pb-16 md:pb-24" delay={120}>
       <Link
         href={`/recipes/${recipe.slug}`}
-        className="group relative mx-auto block min-h-[620px] w-[min(1500px,calc(100%-24px))] overflow-hidden rounded-[34px] bg-surface md:min-h-[calc(100vh-150px)]"
+        className="group relative mx-auto block min-h-[620px] w-[min(1500px,calc(100%-24px))] overflow-hidden rounded-[34px] bg-surface transition duration-700 ease-out hover:scale-[0.998] md:min-h-[calc(100vh-150px)]"
       >
         <RecipeImage
           src={recipe.imageUrl}
@@ -166,7 +176,7 @@ function FeaturedRecipe({ recipe }: { recipe: RecipeWithCategory }) {
         <div className="absolute inset-0 bg-black/10" />
         <div className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-background/95 via-background/52 to-transparent" />
         <div className="absolute inset-y-0 left-0 hidden w-1/2 bg-gradient-to-r from-background/70 to-transparent md:block" />
-        <div className="absolute bottom-8 left-6 max-w-2xl md:bottom-14 md:left-14 lg:bottom-16 lg:left-16">
+        <div className="featured-copy absolute bottom-8 left-6 max-w-2xl md:bottom-14 md:left-14 lg:bottom-16 lg:left-16">
           <span className="inline-flex rounded-full border border-white/12 bg-background/55 px-4 py-2 text-xs font-medium uppercase tracking-[0.16em] text-ink backdrop-blur-sm">
             {recipe.category.name}
           </span>
@@ -178,7 +188,7 @@ function FeaturedRecipe({ recipe }: { recipe: RecipeWithCategory }) {
           </span>
         </div>
       </Link>
-    </section>
+    </Reveal>
   );
 }
 
@@ -188,7 +198,7 @@ function CategoryTile({ category, index }: { category: CategoryWithCount; index:
   return (
     <Link
       href={`/recipes?category=${category.slug}`}
-      className="group relative h-[310px] min-w-[235px] overflow-hidden rounded-[28px] bg-surface md:min-w-0"
+      className="group relative block h-[310px] w-full overflow-hidden rounded-[28px] bg-surface transition duration-500 ease-out hover:-translate-y-1"
     >
       <RecipeImage
         src={image}
@@ -210,7 +220,7 @@ function CategoryTile({ category, index }: { category: CategoryWithCount; index:
 
 function RecipeOfTheWeek({ recipe }: { recipe: RecipeWithCategory }) {
   return (
-    <section className="bg-[#0c0c0e] py-24 md:py-32">
+    <Reveal as="section" className="bg-[#0c0c0e] py-24 md:py-32">
       <div className="container-page">
         <p className="eyebrow text-gold">Receita da semana</p>
         <Link href={`/recipes/${recipe.slug}`} className="group mt-8 block">
@@ -244,7 +254,7 @@ function RecipeOfTheWeek({ recipe }: { recipe: RecipeWithCategory }) {
           </div>
         </div>
       </div>
-    </section>
+    </Reveal>
   );
 }
 
@@ -252,17 +262,19 @@ function EditorialRecipe({
   recipe,
   priority,
   className = "",
+  delay = 0,
   imageClassName = "aspect-[1.08/1]"
 }: {
   recipe: RecipeWithCategory;
   priority?: boolean;
   className?: string;
+  delay?: number;
   imageClassName?: string;
 }) {
   return (
-    <article className={className}>
+    <Reveal as="article" className={className} delay={delay}>
       <Link href={`/recipes/${recipe.slug}`} className="group block">
-        <div className={`relative overflow-hidden rounded-[28px] bg-surface ${imageClassName}`}>
+        <div className={`relative overflow-hidden rounded-[28px] bg-surface transition duration-500 ease-out group-hover:-translate-y-1 ${imageClassName}`}>
           <RecipeImage
             src={recipe.imageUrl}
             alt={recipe.title}
@@ -273,13 +285,13 @@ function EditorialRecipe({
         </div>
         <div className="pt-5">
           <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted">
-            {recipe.category.name} · {recipe.prepTime} min
+            {recipe.category.name} - {recipe.prepTime} min
           </p>
           <h3 className="mt-3 font-serif text-3xl leading-none text-ink md:text-4xl">{recipe.title}</h3>
           <p className="mt-3 max-w-xl text-sm leading-6 text-muted">{recipe.description}</p>
         </div>
       </Link>
-    </article>
+    </Reveal>
   );
 }
 
