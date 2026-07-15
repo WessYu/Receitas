@@ -1,5 +1,7 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { LucideIcon } from "lucide-react";
 import { ArrowRight, ChefHat, Clock3, Layers3, MessageCircle, UsersRound } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { recipeInclude } from "@/lib/queries";
@@ -12,7 +14,56 @@ import { RecipeCard } from "@/components/recipes/recipe-card";
 
 export const dynamic = "force-dynamic";
 
-export default async function RecipePage({ params }: { params: Promise<{ slug: string }> }) {
+type RecipePageProps = {
+  params: Promise<{ slug: string }>;
+};
+
+export async function generateMetadata({ params }: RecipePageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const recipe = await prisma.recipe.findFirst({
+    where: { slug, published: true },
+    select: {
+      title: true,
+      description: true,
+      imageUrl: true,
+      slug: true
+    }
+  });
+
+  if (!recipe) {
+    return {
+      title: "Receita não encontrada"
+    };
+  }
+
+  return {
+    title: recipe.title,
+    description: recipe.description,
+    alternates: {
+      canonical: `/recipes/${recipe.slug}`
+    },
+    openGraph: {
+      title: `${recipe.title} | Savor`,
+      description: recipe.description,
+      url: `/recipes/${recipe.slug}`,
+      type: "article",
+      images: [
+        {
+          url: recipe.imageUrl,
+          alt: recipe.title
+        }
+      ]
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${recipe.title} | Savor`,
+      description: recipe.description,
+      images: [recipe.imageUrl]
+    }
+  };
+}
+
+export default async function RecipePage({ params }: RecipePageProps) {
   const { slug } = await params;
   const [recipe, user] = await Promise.all([
     prisma.recipe.findFirst({
@@ -36,10 +87,6 @@ export default async function RecipePage({ params }: { params: Promise<{ slug: s
   });
 
   const isSaved = user ? recipe.favorites.some((favorite) => favorite.userId === user.id) : false;
-  const estimatedCalories = Math.max(260, recipe.ingredients.length * 70 + recipe.prepTime * 3);
-  const estimatedProtein = Math.max(8, Math.round(recipe.ingredients.length * 2.4));
-  const estimatedCarbs = Math.max(18, Math.round(recipe.ingredients.length * 5.2));
-  const estimatedFat = Math.max(6, Math.round(recipe.ingredients.length * 1.8));
 
   return (
     <article>
@@ -60,12 +107,12 @@ export default async function RecipePage({ params }: { params: Promise<{ slug: s
           <section className="rounded-[28px] bg-surface p-6">
             <div className="grid grid-cols-3 gap-4">
               <Metric icon={Clock3} value={`${recipe.prepTime} min`} label="tempo" />
-              <Metric icon={UsersRound} value={`${recipe.servings}`} label="porcoes" />
-              <Metric icon={Layers3} value={formatDifficulty(recipe.difficulty)} label="nivel" />
+              <Metric icon={UsersRound} value={`${recipe.servings}`} label="porções" />
+              <Metric icon={Layers3} value={formatDifficulty(recipe.difficulty)} label="nível" />
             </div>
             <Link href={`/recipes/${recipe.slug}/cook`} className="button-primary mt-6 w-full">
               <ChefHat className="h-4 w-4" />
-              Comecar a cozinhar
+              Começar a cozinhar
               <ArrowRight className="h-4 w-4" />
             </Link>
             <div className="mt-3">
@@ -86,14 +133,14 @@ export default async function RecipePage({ params }: { params: Promise<{ slug: s
           </section>
 
           <section className="rounded-[28px] bg-surface p-6">
-            <h2 className="font-serif text-3xl text-ink">Nutricao</h2>
-            <p className="mt-2 text-xs text-muted">Estimativa por porcao</p>
+            <h2 className="font-serif text-3xl text-ink">Informações da receita</h2>
+            <p className="mt-2 text-xs text-muted">Dados cadastrados no preparo</p>
             <div className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-2xl bg-border">
               {[
-                ["Calorias", `${estimatedCalories} kcal`],
-                ["Proteina", `${estimatedProtein} g`],
-                ["Carbo", `${estimatedCarbs} g`],
-                ["Gordura", `${estimatedFat} g`]
+                ["Tempo total", `${recipe.prepTime} min`],
+                ["Porções", `${recipe.servings}`],
+                ["Dificuldade", formatDifficulty(recipe.difficulty)],
+                ["Ingredientes", `${recipe.ingredients.length}`]
               ].map(([label, value]) => (
                 <div key={label} className="bg-elevated p-4">
                   <span className="text-xs text-muted">{label}</span>
@@ -120,7 +167,7 @@ export default async function RecipePage({ params }: { params: Promise<{ slug: s
 
           <section className="mt-10">
             <div className="mb-4 flex items-center justify-between gap-3">
-              <h2 className="font-serif text-4xl text-ink">Comentarios</h2>
+              <h2 className="font-serif text-4xl text-ink">Comentários</h2>
               <span className="inline-flex items-center gap-2 rounded-full bg-surface px-3 py-1 text-xs font-semibold text-muted">
                 <MessageCircle className="h-4 w-4 text-olive" />
                 {recipe.comments.length}
@@ -171,7 +218,7 @@ export default async function RecipePage({ params }: { params: Promise<{ slug: s
   );
 }
 
-function Metric({ icon: Icon, value, label }: { icon: typeof Clock3; value: string; label: string }) {
+function Metric({ icon: Icon, value, label }: { icon: LucideIcon; value: string; label: string }) {
   return (
     <div>
       <Icon className="h-4 w-4 text-olive" />

@@ -30,6 +30,20 @@ Também existe um fluxo administrativo protegido por role `ADMIN`, usado para ge
 
 ---
 
+## Screenshots
+
+![Home do Savor](docs/screenshots/home.png)
+
+| Receita | Minha cozinha |
+| --- | --- |
+| ![Página de receita](docs/screenshots/recipe.png) | ![Minha cozinha](docs/screenshots/kitchen.png) |
+
+| Painel administrativo | Fluxo rápido |
+| --- | --- |
+| ![Painel administrativo](docs/screenshots/admin.png) | ![Busca, favoritos e modo de preparo](docs/screenshots/flow.png) |
+
+---
+
 ## Funcionalidades
 
 - Cadastro, login e logout de usuários
@@ -39,6 +53,7 @@ Também existe um fluxo administrativo protegido por role `ADMIN`, usado para ge
 - Perfil editável com foto e preferências
 - Listagem de receitas com busca e filtros
 - Página individual de receita com ingredientes e preparo
+- Modo cozinha com checklist, ajuste de porções, progresso, timer e tela ligada opcional
 - Comentários em receitas
 - Favoritos privados por usuário
 - Dashboard com receitas enviadas e salvas
@@ -48,23 +63,8 @@ Também existe um fluxo administrativo protegido por role `ADMIN`, usado para ge
 - Gerenciamento de usuários e comentários
 - Validação de dados com Zod
 - Banco de dados PostgreSQL com Prisma
+- SEO com Open Graph, Twitter Card, sitemap e robots
 - Deploy em produção na Vercel
-
----
-
-## Screenshots
-
-As telas principais do projeto incluem:
-
-- Home com chamada principal e receita em destaque
-- Biblioteca de receitas com filtros
-- Página de detalhe da receita
-- Tela de cadastro e login
-- Área privada do usuário
-- Dashboard / Minha cozinha
-- Painel administrativo
-
-> Para manter o README leve, os prints podem ser adicionados depois na pasta `docs/screenshots/` e referenciados nesta seção.
 
 ---
 
@@ -203,17 +203,17 @@ components/   Componentes reutilizáveis de UI, auth, receitas e admin
 lib/          Prisma, autenticação, validações, queries e server actions
 prisma/       Schema do banco e seed inicial
 public/       Assets públicos
+docs/         Versão estática e imagens para documentação
 ```
 
 ---
 
 ## Próximas melhorias
 
-- Adicionar screenshots diretamente no README
 - Integrar upload de imagens com storage externo
-- Melhorar acessibilidade e navegação por teclado
-- Criar testes para fluxos principais
+- Criar testes automatizados para fluxos principais
 - Adicionar paginação avançada na listagem de receitas
+- Incluir métricas reais de uso no dashboard administrativo
 
 ---
 

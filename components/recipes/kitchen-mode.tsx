@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Maximize2, Pause, Play, TimerReset, X } from "lucide-react";
 
 type KitchenStep = {
@@ -23,7 +23,7 @@ export function KitchenMode({ title, steps }: { title: string; steps: KitchenSte
   const [current, setCurrent] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const [running, setRunning] = useState(false);
-  const [wakeLock, setWakeLock] = useState<WakeLockSentinelLike | null>(null);
+  const wakeLockRef = useRef<WakeLockSentinelLike | null>(null);
 
   const step = steps[current];
   const progress = useMemo(() => `${current + 1}/${steps.length}`, [current, steps.length]);
@@ -42,16 +42,22 @@ export function KitchenMode({ title, steps }: { title: string; steps: KitchenSte
   useEffect(() => {
     if (!open) {
       setRunning(false);
-      wakeLock?.release().catch(() => undefined);
-      setWakeLock(null);
+      wakeLockRef.current?.release().catch(() => undefined);
+      wakeLockRef.current = null;
       return;
     }
 
     const nav = navigator as NavigatorWithWakeLock;
-    nav.wakeLock?.request("screen").then(setWakeLock).catch(() => undefined);
+    nav.wakeLock
+      ?.request("screen")
+      .then((result) => {
+        wakeLockRef.current = result;
+      })
+      .catch(() => undefined);
 
     return () => {
-      wakeLock?.release().catch(() => undefined);
+      wakeLockRef.current?.release().catch(() => undefined);
+      wakeLockRef.current = null;
     };
   }, [open]);
 
@@ -59,7 +65,7 @@ export function KitchenMode({ title, steps }: { title: string; steps: KitchenSte
     <>
       <button className="button-primary" type="button" onClick={() => setOpen(true)}>
         <Maximize2 className="h-4 w-4" />
-        Comecar a cozinhar
+        Começar a cozinhar
       </button>
 
       {open ? (
@@ -110,7 +116,7 @@ export function KitchenMode({ title, steps }: { title: string; steps: KitchenSte
                   }
                 }}
               >
-                {current < steps.length - 1 ? "Proximo passo" : "Finalizar"}
+                {current < steps.length - 1 ? "Próximo passo" : "Finalizar"}
                 <ChevronRight className="h-4 w-4" />
               </button>
             </div>

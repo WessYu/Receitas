@@ -7,7 +7,7 @@ export function Footer() {
         <div>
           <p className="text-base font-semibold text-ink">Savor</p>
           <p className="mt-3 max-w-xl text-sm leading-6 text-muted">
-            Um lugar para descobrir, salvar e cozinhar receitas com calma.
+            Um lugar para descobrir, salvar e cozinhar receitas com mais prazer.
           </p>
         </div>
         <div className="flex gap-5 text-sm text-muted">

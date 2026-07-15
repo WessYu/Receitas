@@ -64,7 +64,7 @@ export default async function AdminPage() {
         <div>
           <p className="eyebrow mb-2">Savor OS</p>
           <h1 className="font-serif text-6xl leading-none text-ink">Dashboard</h1>
-          <p className="mt-4 text-muted">Operacao editorial, conteudo e sinais da comunidade em um so lugar.</p>
+          <p className="mt-4 text-muted">Operação editorial, conteúdo e sinais da comunidade em um só lugar.</p>
         </div>
         <Link href="/admin/recipes/new" className="button-primary w-fit">
           <Plus className="h-4 w-4" />
@@ -74,15 +74,15 @@ export default async function AdminPage() {
 
       <div className="grid gap-4 md:grid-cols-4">
         <DashboardCard label="Receitas" value={recipeCount} icon={BookOpen} />
-        <DashboardCard label="Usuarios" value={userCount} icon={UsersRound} />
+        <DashboardCard label="Usuários" value={userCount} icon={UsersRound} />
         <DashboardCard label="Categorias" value={categoryCount} icon={FolderTree} />
-        <DashboardCard label="Comentarios" value={commentCount} icon={MessageCircle} />
+        <DashboardCard label="Comentários" value={commentCount} icon={MessageCircle} />
       </div>
 
       <section className="mt-8 grid gap-4 lg:grid-cols-4">
-        <InsightCard label="Publicadas" value={publishedCount} detail={`${pendingCount} em revisao`} icon={Star} />
+        <InsightCard label="Publicadas" value={publishedCount} detail={`${pendingCount} em revisão`} icon={Star} />
         <InsightCard label="Receitas salvas" value={favoriteCount} detail="favoritos totais" icon={Activity} />
-        <InsightCard label="Receitas da semana" value={weeklyRecipes} detail="criadas nos ultimos 7 dias" icon={TrendingUp} />
+        <InsightCard label="Receitas da semana" value={weeklyRecipes} detail="criadas nos últimos 7 dias" icon={TrendingUp} />
         <InsightCard label="Analytics" value={topRecipes.length} detail="receitas com sinais de interesse" icon={Activity} />
       </section>
 
@@ -123,7 +123,7 @@ export default async function AdminPage() {
                     <p className="mt-1 text-sm text-muted">{recipe.category.name} · {recipe.author?.name ?? "Admin"}</p>
                   </div>
                   <span className="rounded-full bg-olive/10 px-3 py-1 text-xs font-semibold text-olive">
-                    {recipe.published ? "Publicado" : "Em revisao"}
+                    {recipe.published ? "Publicado" : "Em revisão"}
                   </span>
                 </div>
               </div>
@@ -133,7 +133,7 @@ export default async function AdminPage() {
       </section>
 
       <section className="mt-8 rounded-[28px] bg-surface p-6">
-        <h2 className="mb-5 font-serif text-4xl text-ink">Comentarios recentes</h2>
+        <h2 className="mb-5 font-serif text-4xl text-ink">Comentários recentes</h2>
         {latestComments.length ? (
           <div className="grid gap-3">
             {latestComments.map((comment) => (
@@ -148,7 +148,7 @@ export default async function AdminPage() {
             ))}
           </div>
         ) : (
-          <p className="text-sm text-muted">Ainda nao ha comentarios publicados.</p>
+          <p className="text-sm text-muted">Ainda não há comentários publicados.</p>
         )}
       </section>
     </div>

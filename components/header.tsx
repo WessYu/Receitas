@@ -1,11 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { LogOut, Search, ShieldCheck, UserRound } from "lucide-react";
-import { getCurrentUser } from "@/lib/session";
 import { logoutAction } from "@/lib/actions";
+import { MobileNavigation } from "@/components/mobile-navigation";
+import { getCurrentUser } from "@/lib/session";
 
 const nav = [
-  { href: "/", label: "Inicio" },
+  { href: "/", label: "Início" },
   { href: "/recipes", label: "Receitas" }
 ];
 
@@ -37,8 +38,12 @@ export async function Header() {
         </nav>
 
         <form action="/recipes" className="relative hidden flex-1 md:block md:max-w-sm">
+          <label htmlFor="header-search" className="sr-only">
+            Buscar receitas
+          </label>
           <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
           <input
+            id="header-search"
             name="q"
             className="h-11 w-full rounded-full border border-border bg-surface px-11 text-sm text-ink outline-none transition placeholder:text-disabled focus:border-olive"
             placeholder="Pesquisar receita..."
@@ -58,7 +63,7 @@ export async function Header() {
                 {user.name.split(" ")[0]}
               </Link>
               <form action={logoutAction}>
-                <button className="text-sm font-medium text-muted transition hover:text-ink" type="submit">
+                <button className="text-sm font-medium text-muted transition hover:text-ink" type="submit" aria-label="Sair da conta" title="Sair">
                   <LogOut className="h-4 w-4" />
                 </button>
               </form>
@@ -73,6 +78,17 @@ export async function Header() {
               </Link>
             </>
           )}
+          <MobileNavigation
+            user={
+              user
+                ? {
+                    name: user.name,
+                    avatarUrl: user.avatarUrl,
+                    isAdmin: user.role === "ADMIN"
+                  }
+                : null
+            }
+          />
         </div>
       </div>
     </header>

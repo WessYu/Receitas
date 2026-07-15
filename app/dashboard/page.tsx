@@ -52,11 +52,11 @@ export default async function DashboardPage() {
       <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
           <p className="eyebrow mb-2">Perfil</p>
-          <h1 className="font-serif text-6xl leading-none text-ink">Ola, {user.name.split(" ")[0]}</h1>
-          <p className="mt-4 text-muted">Sua cozinha pessoal: criacoes, favoritos e sinais do que voce mais cozinha.</p>
+          <h1 className="font-serif text-6xl leading-none text-ink">Olá, {user.name.split(" ")[0]}</h1>
+          <p className="mt-4 text-muted">Sua cozinha pessoal: criações, favoritos e sinais do que você mais cozinha.</p>
         </div>
         <form action={logoutAction}>
-          <button className="button-secondary" type="submit">
+          <button className="button-secondary" type="submit" aria-label="Sair da conta" title="Sair">
             <LogOut className="h-4 w-4" />
             Sair
           </button>
@@ -77,7 +77,7 @@ export default async function DashboardPage() {
           <h2 className="font-serif text-4xl text-ink">Sua cozinha viva</h2>
           <div className="mt-6 grid gap-4">
             <div className="rounded-2xl bg-elevated p-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">Ultima receita</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">Última receita</p>
               <p className="mt-2 font-serif text-3xl text-ink">{lastRecipe?.title ?? "Nenhuma receita criada ainda"}</p>
             </div>
             <div className="rounded-2xl bg-elevated p-5">
@@ -90,7 +90,7 @@ export default async function DashboardPage() {
                     </span>
                   ))
                 ) : (
-                  <span className="text-sm text-muted">Crie receitas para descobrir seus padroes.</span>
+                  <span className="text-sm text-muted">Crie receitas para descobrir seus padrões.</span>
                 )}
               </div>
             </div>
@@ -102,7 +102,7 @@ export default async function DashboardPage() {
         <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <h2 className="font-serif text-4xl text-ink">Minhas receitas</h2>
-            <p className="mt-2 text-sm text-muted">Envie receitas para revisao e acompanhe o desempenho editorial.</p>
+            <p className="mt-2 text-sm text-muted">Envie receitas para revisão e acompanhe o desempenho editorial.</p>
           </div>
           <Link href="/dashboard/recipes/new" className="button-primary w-fit">
             Enviar receita
@@ -116,7 +116,7 @@ export default async function DashboardPage() {
                   <th className="py-3">Receita</th>
                   <th className="py-3">Categoria</th>
                   <th className="py-3">Status</th>
-                  <th className="py-3">Interacoes</th>
+                  <th className="py-3">Interações</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
@@ -126,11 +126,11 @@ export default async function DashboardPage() {
                     <td className="py-4 text-muted">{recipe.category.name}</td>
                     <td className="py-4">
                       <span className="rounded-full bg-olive/10 px-3 py-1 text-xs font-semibold text-olive">
-                        {recipe.published ? "Publicado" : "Em revisao"}
+                        {recipe.published ? "Publicado" : "Em revisão"}
                       </span>
                     </td>
                     <td className="py-4 text-muted">
-                      {recipe._count.favorites} salvas · {recipe._count.comments} comentarios
+                      {recipe._count.favorites} salvas · {recipe._count.comments} comentários
                     </td>
                   </tr>
                 ))}
@@ -151,7 +151,7 @@ export default async function DashboardPage() {
             ))}
           </div>
         ) : (
-          <EmptyState title="Nenhuma receita salva" description="Abra uma receita e use o botao de salvar para montar sua biblioteca pessoal." />
+          <EmptyState title="Nenhuma receita salva" description="Abra uma receita e use o botão de salvar para montar sua biblioteca pessoal." />
         )}
       </section>
     </section>

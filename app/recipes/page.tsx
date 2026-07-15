@@ -37,8 +37,8 @@ export default async function RecipesPage({ searchParams }: PageProps) {
     <section className="container-page py-16">
       <div className="mb-10 max-w-3xl">
         <p className="eyebrow mb-3">Biblioteca</p>
-        <h1 className="font-serif text-6xl leading-none text-ink md:text-7xl">Recipes for focused cooking.</h1>
-        <p className="mt-5 text-lg leading-8 text-muted">Busque por prato, categoria, tempo, dificuldade ou ingrediente disponivel.</p>
+        <h1 className="font-serif text-6xl leading-none text-ink md:text-7xl">Receitas para cozinhar com foco.</h1>
+        <p className="mt-5 text-lg leading-8 text-muted">Busque por prato, categoria, tempo, dificuldade ou ingrediente disponível.</p>
       </div>
       <FilterBar categories={categories} params={filters} />
       <div className="mt-10">
@@ -49,7 +49,7 @@ export default async function RecipesPage({ searchParams }: PageProps) {
             ))}
           </div>
         ) : (
-          <EmptyState title="Nenhuma receita encontrada" description="Ajuste os filtros ou tente um termo mais amplo para descobrir novas opcoes." />
+          <EmptyState title="Nenhuma receita encontrada" description="Ajuste os filtros ou tente um termo mais amplo para descobrir novas opções." />
         )}
       </div>
     </section>

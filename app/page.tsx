@@ -25,10 +25,18 @@ const categoryImageBySlug: Record<string, string> = {
   "jantar-rapido": "https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=1200&q=90"
 };
 
+const gourmetRecipeSlugs = [
+  "vieiras-seladas-com-pure-de-couve-flor",
+  "ravioli-de-ricota-com-manteiga-trufada",
+  "pato-com-reducao-de-laranja",
+  "tartar-de-salmao-com-avocado",
+  "nhoque-de-mandioquinha-com-fonduta"
+];
+
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-  const [featuredRecipe, categories, popularRecipes, weeklyRecipe, latestRecipes] = await Promise.all([
+  const [featuredRecipe, categories, gourmetRecipes, popularRecipes, weeklyRecipe, latestRecipes] = await Promise.all([
     prisma.recipe.findFirst({
       where: { published: true, featured: true },
       include: { category: true },
@@ -38,6 +46,11 @@ export default async function HomePage() {
       include: { _count: { select: { recipes: true } } },
       orderBy: { name: "asc" },
       take: 6
+    }),
+    prisma.recipe.findMany({
+      where: { published: true, slug: { in: gourmetRecipeSlugs } },
+      include: { category: true },
+      take: gourmetRecipeSlugs.length
     }),
     prisma.recipe.findMany({
       where: { published: true },
@@ -58,6 +71,10 @@ export default async function HomePage() {
     })
   ]);
 
+  const orderedGourmetRecipes = gourmetRecipeSlugs
+    .map((slug) => gourmetRecipes.find((recipe) => recipe.slug === slug))
+    .filter((recipe): recipe is RecipeWithCategory => Boolean(recipe));
+
   return (
     <main className="overflow-hidden">
       <section className="hero-sequence container-page flex min-h-[64vh] flex-col items-center justify-center py-24 text-center md:min-h-[70vh] md:py-28">
@@ -66,14 +83,18 @@ export default async function HomePage() {
           Receitas que valem o seu tempo.
         </h1>
         <p className="mt-7 max-w-2xl text-base leading-8 text-muted md:text-xl">
-          Descubra pratos com curadoria, salve o que inspira e cozinhe com uma interface calma.
+          Descubra pratos com curadoria, salve o que inspira e cozinhe melhor, no seu ritmo.
         </p>
         <form
           action="/recipes"
           className="mt-10 flex w-full max-w-2xl items-center gap-3 rounded-full border border-border bg-surface px-4 py-3 transition duration-500 ease-out focus-within:border-olive focus-within:bg-elevated focus-within:shadow-[0_20px_70px_rgba(0,0,0,0.28)]"
         >
-          <Search className="h-5 w-5 shrink-0 text-muted" />
+          <label htmlFor="home-search" className="sr-only">
+            Buscar receitas
+          </label>
+          <Search className="h-5 w-5 shrink-0 text-muted" aria-hidden="true" />
           <input
+            id="home-search"
             name="q"
             className="min-w-0 flex-1 bg-transparent text-base text-ink outline-none placeholder:text-disabled"
             placeholder="Pesquisar receita..."
@@ -101,6 +122,8 @@ export default async function HomePage() {
         </Reveal>
       ) : null}
 
+      {orderedGourmetRecipes.length ? <GourmetShowcase recipes={orderedGourmetRecipes} /> : null}
+
       {popularRecipes.length ? (
         <Reveal as="section" className="container-page py-16 md:py-24">
           <SectionHeading eyebrow="Mais populares" title="As receitas mais salvas agora." />
@@ -122,7 +145,7 @@ export default async function HomePage() {
 
       {latestRecipes.length ? (
         <Reveal as="section" className="container-page py-20 md:py-28">
-          <SectionHeading eyebrow="Novidades" title="Pratos recem-chegados a cozinha." />
+          <SectionHeading eyebrow="Novidades" title="Pratos recém-chegados à cozinha." />
           <div className="mt-10 grid gap-x-7 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
             {latestRecipes.map((recipe, index) => (
               <EditorialRecipe
@@ -213,6 +236,72 @@ function CategoryTile({ category, index }: { category: CategoryWithCount; index:
         </p>
       </div>
     </Link>
+  );
+}
+
+function GourmetShowcase({ recipes }: { recipes: RecipeWithCategory[] }) {
+  const [hero, ...items] = recipes;
+
+  if (!hero) return null;
+
+  return (
+    <Reveal as="section" className="bg-[#0c0c0e] py-24 md:py-32">
+      <div className="container-page">
+        <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-stretch">
+          <Link href={`/recipes/${hero.slug}`} className="group relative min-h-[520px] overflow-hidden rounded-[34px] bg-surface">
+            <RecipeImage
+              src={hero.imageUrl}
+              alt={hero.title}
+              sizes="(min-width: 1024px) 58vw, 100vw"
+              className="object-cover transition duration-700 ease-out group-hover:scale-[1.015]"
+            />
+            <div className="absolute inset-0 bg-black/12" />
+            <div className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-background/92 via-background/46 to-transparent" />
+            <div className="absolute bottom-7 left-6 right-6 md:bottom-10 md:left-10 md:right-10">
+              <span className="inline-flex rounded-full border border-white/12 bg-background/55 px-4 py-2 text-xs font-medium uppercase tracking-[0.16em] text-ink backdrop-blur-sm">
+                Gourmet da casa
+              </span>
+              <h2 className="mt-5 max-w-2xl font-serif text-5xl leading-[0.92] text-ink md:text-7xl">{hero.title}</h2>
+              <p className="mt-5 max-w-xl text-base leading-8 text-muted md:text-lg">{hero.description}</p>
+              <span className="button-primary mt-8">
+                Ver receita
+                <ArrowRight className="h-4 w-4" />
+              </span>
+            </div>
+          </Link>
+
+          <div className="flex flex-col justify-between gap-8 rounded-[34px] border border-border bg-surface p-6 md:p-8">
+            <div>
+              <p className="eyebrow text-gold">Curadoria premium</p>
+              <h2 className="mt-3 font-serif text-4xl leading-[0.98] text-ink md:text-6xl">Receitas gourmet em destaque.</h2>
+              <p className="mt-5 text-base leading-8 text-muted">
+                Pratos de restaurante para cozinhar em casa, com técnicas mais refinadas e apresentação especial.
+              </p>
+            </div>
+            <div className="grid gap-4">
+              {items.slice(0, 4).map((recipe, index) => (
+                <Reveal key={recipe.id} delay={index * 60}>
+                  <Link href={`/recipes/${recipe.slug}`} className="group grid grid-cols-[96px_1fr] gap-4 rounded-[24px] p-2 transition duration-300 hover:bg-elevated">
+                    <div className="relative aspect-square overflow-hidden rounded-[20px] bg-background">
+                      <RecipeImage
+                        src={recipe.imageUrl}
+                        alt={recipe.title}
+                        sizes="96px"
+                        className="object-cover transition duration-500 ease-out group-hover:scale-[1.03]"
+                      />
+                    </div>
+                    <div className="min-w-0 self-center">
+                      <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted">{recipe.category.name} - {recipe.prepTime} min</p>
+                      <h3 className="mt-2 font-serif text-2xl leading-none text-ink">{recipe.title}</h3>
+                    </div>
+                  </Link>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </Reveal>
   );
 }
 
