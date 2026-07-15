@@ -30,17 +30,31 @@ Também existe um fluxo administrativo protegido por role `ADMIN`, usado para ge
 
 ---
 
-## Screenshots
+## Demonstração
 
-![Home do Savor](docs/screenshots/home.png)
+<p align="center">
+  <a href="https://receitas-delta-eight.vercel.app">
+    <strong>🍳 Acessar aplicação em produção</strong>
+  </a>
+</p>
 
-| Receita | Minha cozinha |
-| --- | --- |
-| ![Página de receita](docs/screenshots/recipe.png) | ![Minha cozinha](docs/screenshots/kitchen.png) |
+### Página da receita
 
-| Painel administrativo | Fluxo rápido |
-| --- | --- |
-| ![Painel administrativo](docs/screenshots/admin.png) | ![Busca, favoritos e modo de preparo](docs/screenshots/flow.png) |
+![Página de detalhes da receita](docs/screenshots/recipe.png)
+
+### Biblioteca de receitas
+
+![Biblioteca de receitas com busca e filtros](docs/screenshots/library.png)
+
+### Painel administrativo
+
+![Dashboard administrativo do Savor](docs/screenshots/admin.png)
+
+### Vídeo demonstrativo
+
+https://github.com/user-attachments/assets/COLE-AQUI-O-LINK-DO-VIDEO
+
+Para o vídeo aparecer com player no README, abra a edição do README no GitHub e arraste o MP4 diretamente para o editor. O GitHub vai gerar automaticamente o link user-attachments; substitua a última linha por ele.
 
 ---
 
