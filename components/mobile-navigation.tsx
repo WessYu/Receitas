@@ -15,15 +15,14 @@ type MobileNavigationProps = {
     | null;
 };
 
-const baseLinks = [
-  { href: "/", label: "Início", icon: Home },
-  { href: "/recipes", label: "Receitas", icon: ChefHat },
-  { href: "/dashboard", label: "Minha cozinha", icon: UserRound },
-  { href: "/admin", label: "Admin", icon: ShieldCheck }
-];
-
 export function MobileNavigation({ user }: MobileNavigationProps) {
   const [open, setOpen] = useState(false);
+  const links = [
+    { href: "/", label: "Início", icon: Home },
+    { href: "/recipes", label: "Receitas", icon: ChefHat },
+    ...(user ? [{ href: "/dashboard", label: "Minha cozinha", icon: UserRound }] : []),
+    ...(user?.isAdmin ? [{ href: "/admin", label: "Admin", icon: ShieldCheck }] : [])
+  ];
 
   return (
     <div className="lg:hidden">
@@ -73,7 +72,7 @@ export function MobileNavigation({ user }: MobileNavigationProps) {
             </form>
 
             <nav className="mt-6 grid gap-2 text-sm font-semibold text-muted">
-              {baseLinks.map((item) => {
+              {links.map((item) => {
                 const Icon = item.icon;
 
                 return (
