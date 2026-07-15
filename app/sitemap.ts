@@ -25,7 +25,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   ];
 
-  if (!process.env.POSTGRES_PRISMA_URL) {
+  if (!process.env.DATABASE_URL) {
     return staticRoutes;
   }
 

@@ -11,6 +11,8 @@ type FilterBarProps = {
     difficulty?: string;
     maxTime?: string;
     ingredient?: string;
+    sort?: string;
+    perPage?: string;
   };
 };
 
@@ -21,7 +23,7 @@ export function FilterBar({ categories, params }: FilterBarProps) {
         <SlidersHorizontal className="h-4 w-4 text-olive" />
         Filtros
       </div>
-      <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr_1fr_1fr_auto]">
+      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-[1.35fr_0.95fr_0.95fr_0.95fr_0.9fr_0.9fr_0.85fr_auto]">
         <SearchBar defaultValue={params.q} />
         <select className="field" name="category" defaultValue={params.category ?? ""} aria-label="Categoria">
           <option value="">Categoria</option>
@@ -49,6 +51,20 @@ export function FilterBar({ categories, params }: FilterBarProps) {
           Ingrediente
         </label>
         <input id="ingredient" className="field" name="ingredient" defaultValue={params.ingredient ?? ""} placeholder="Ingrediente" />
+        <select className="field" name="sort" defaultValue={params.sort ?? "latest"} aria-label="Ordenação">
+          <option value="latest">Recentes</option>
+          <option value="viewed">Mais vistas</option>
+          <option value="saved">Mais salvas</option>
+          <option value="commented">Comentadas</option>
+          <option value="fastest">Menor tempo</option>
+          <option value="title">A-Z</option>
+        </select>
+        <select className="field" name="perPage" defaultValue={params.perPage ?? "9"} aria-label="Itens por página">
+          <option value="6">6 por página</option>
+          <option value="9">9 por página</option>
+          <option value="12">12 por página</option>
+          <option value="24">24 por página</option>
+        </select>
         <button className="button-primary whitespace-nowrap" type="submit">
           Aplicar
         </button>

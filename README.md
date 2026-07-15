@@ -162,11 +162,15 @@ Copy-Item .env.example .env
 Exemplo de variáveis:
 
 ```env
-POSTGRES_PRISMA_URL="postgresql://usuario:senha@localhost:5432/receitas?schema=public"
+DATABASE_URL="postgresql://usuario:senha@localhost:5432/receitas?schema=public"
 SESSION_SECRET="troque-por-um-segredo-com-pelo-menos-32-caracteres"
 ADMIN_EMAIL="seu-email@exemplo.com"
 ADMIN_PASSWORD="troque-por-uma-senha-forte"
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
+CLOUDINARY_CLOUD_NAME=""
+CLOUDINARY_API_KEY=""
+CLOUDINARY_API_SECRET=""
+CLOUDINARY_UPLOAD_FOLDER="savor"
 ```
 
 ### 3. Configure o banco
@@ -218,6 +222,7 @@ docs/         Versão estática e imagens para documentação
 ```
 
 ---
+
 ## Autor
 
 Desenvolvido por **Wesley Cruz**.

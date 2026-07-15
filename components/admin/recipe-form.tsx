@@ -36,7 +36,7 @@ export function RecipeForm({
   const [steps, setSteps] = useState<string[]>(recipe?.steps.map((step) => step.content) ?? [""]);
 
   return (
-    <form action={formAction} className="space-y-6" encType="multipart/form-data">
+    <form action={formAction} className="space-y-6">
       {state.message ? (
         <p className="rounded-md border border-tomato/20 bg-tomato/10 px-4 py-3 text-sm text-tomato">{state.message}</p>
       ) : null}
@@ -80,7 +80,7 @@ export function RecipeForm({
               accept="image/png,image/jpeg,image/webp,image/gif"
             />
             <p className="mt-2 text-xs leading-5 text-muted">
-              Use uma foto do seu computador ou mantenha a URL acima. Formatos aceitos: JPG, PNG, WEBP e GIF até 5 MB.
+              Use uma foto do seu computador ou mantenha a URL acima. Em produção, configure Cloudinary para armazenar fora do servidor. Formatos aceitos: JPG, PNG, WEBP e GIF até 5 MB.
             </p>
           </div>
           <div>

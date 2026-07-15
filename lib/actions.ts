@@ -1,15 +1,13 @@
 "use server";
 
 import bcrypt from "bcryptjs";
-import { randomUUID } from "crypto";
-import { mkdir, writeFile } from "fs/promises";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import path from "path";
 import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { notifyUsersAboutNewRecipe } from "@/lib/mail";
 import { createSession, destroySession, requireAdmin, requireUser } from "@/lib/session";
+import { saveUploadedImage } from "@/lib/storage";
 import { slugify } from "@/lib/utils";
 import {
   type ActionState,
@@ -26,43 +24,6 @@ import {
 function fieldValue(formData: FormData, key: string) {
   const value = formData.get(key);
   return typeof value === "string" ? value : "";
-}
-
-async function saveUploadedImage(formData: FormData, key = "imageFile", fallbackName = "receita") {
-  const file = formData.get(key);
-
-  if (!(file instanceof File) || file.size === 0) {
-    return null;
-  }
-
-  const allowedTypes = new Map([
-    ["image/jpeg", ".jpg"],
-    ["image/png", ".png"],
-    ["image/webp", ".webp"],
-    ["image/gif", ".gif"]
-  ]);
-  const extension = allowedTypes.get(file.type);
-
-  if (!extension) {
-    throw new Error("Envie uma imagem JPG, PNG, WEBP ou GIF.");
-  }
-
-  if (file.size > 5 * 1024 * 1024) {
-    throw new Error("A imagem precisa ter no máximo 5 MB.");
-  }
-
-  const uploadsDir = path.join(process.cwd(), "public", "uploads");
-  await mkdir(uploadsDir, { recursive: true });
-
-  const rawName = file.name.replace(/\.[^.]+$/, "");
-  const safeName = slugify(rawName).slice(0, 48) || fallbackName;
-  const fileName = `${safeName}-${randomUUID()}${extension}`;
-  const filePath = path.join(uploadsDir, fileName);
-  const bytes = Buffer.from(await file.arrayBuffer());
-
-  await writeFile(filePath, bytes);
-
-  return `/uploads/${fileName}`;
 }
 
 export async function loginAction(_prevState: ActionState, formData: FormData): Promise<ActionState> {

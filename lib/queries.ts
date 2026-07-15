@@ -50,6 +50,30 @@ export function buildRecipeWhere(params: {
   return where;
 }
 
+export function buildRecipeOrderBy(sort?: string): Prisma.RecipeOrderByWithRelationInput[] {
+  if (sort === "saved") {
+    return [{ favorites: { _count: "desc" } }, { createdAt: "desc" }];
+  }
+
+  if (sort === "commented") {
+    return [{ comments: { _count: "desc" } }, { createdAt: "desc" }];
+  }
+
+  if (sort === "viewed") {
+    return [{ views: { _count: "desc" } }, { createdAt: "desc" }];
+  }
+
+  if (sort === "fastest") {
+    return [{ prepTime: "asc" }, { createdAt: "desc" }];
+  }
+
+  if (sort === "title") {
+    return [{ title: "asc" }];
+  }
+
+  return [{ createdAt: "desc" }];
+}
+
 export const recipeInclude = {
   category: true,
   author: { select: { name: true, avatarUrl: true } },

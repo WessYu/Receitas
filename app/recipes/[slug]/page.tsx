@@ -11,6 +11,7 @@ import { SaveRecipeButton } from "@/components/recipes/save-recipe-button";
 import { CommentForm } from "@/components/recipes/comment-form";
 import { RecipeImage } from "@/components/recipes/recipe-image";
 import { RecipeCard } from "@/components/recipes/recipe-card";
+import { RecipeViewTracker } from "@/components/recipes/recipe-view-tracker";
 
 export const dynamic = "force-dynamic";
 
@@ -90,6 +91,7 @@ export default async function RecipePage({ params }: RecipePageProps) {
 
   return (
     <article>
+      <RecipeViewTracker recipeId={recipe.id} />
       <section className="container-page pt-8 md:pt-12">
         <div className="relative aspect-[16/9] min-h-[440px] overflow-hidden rounded-[30px] bg-surface">
           <RecipeImage src={recipe.imageUrl} alt={recipe.title} priority sizes="100vw" className="object-cover" />

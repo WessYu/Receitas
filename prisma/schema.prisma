@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("POSTGRES_PRISMA_URL")
+  url      = env("DATABASE_URL")
 }
 
 enum Role {
@@ -29,6 +29,7 @@ model User {
   favorites          Favorite[]
   recipes            Recipe[]   @relation("RecipeAuthor")
   comments           Comment[]
+  recipeViews        RecipeView[]
   createdAt          DateTime   @default(now())
   updatedAt          DateTime   @updatedAt
 }
@@ -61,8 +62,24 @@ model Recipe {
   steps       PreparationStep[]
   favorites   Favorite[]
   comments    Comment[]
+  views       RecipeView[]
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
+}
+
+model RecipeView {
+  id        String   @id @default(cuid())
+  recipeId  String
+  userId    String?
+  sessionId String?
+  userAgent String?
+  referrer  String?
+  recipe    Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  createdAt DateTime @default(now())
+
+  @@index([recipeId, createdAt])
+  @@index([userId, createdAt])
 }
 
 model Ingredient {

@@ -1,10 +1,45 @@
 import Link from "next/link";
+import { Prisma } from "@prisma/client";
 import type { LucideIcon } from "lucide-react";
 import { Activity, BookOpen, FolderTree, MessageCircle, Plus, Star, TrendingUp, UsersRound } from "lucide-react";
 import { DashboardCard } from "@/components/admin/dashboard-card";
 import { prisma } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
+
+async function getViewMetrics(weekStart: Date) {
+  try {
+    const [viewCount, weeklyViews, topRecipes] = await Promise.all([
+      prisma.recipeView.count(),
+      prisma.recipeView.count({ where: { createdAt: { gte: weekStart } } }),
+      prisma.recipe.findMany({
+        include: {
+          category: true,
+          _count: { select: { comments: true, favorites: true, views: true } }
+        },
+        orderBy: [{ views: { _count: "desc" } }, { favorites: { _count: "desc" } }, { comments: { _count: "desc" } }],
+        take: 5
+      })
+    ]);
+
+    return { available: true, viewCount, weeklyViews, topRecipes };
+  } catch (error) {
+    if (!(error instanceof Prisma.PrismaClientKnownRequestError) || error.code !== "P2021") {
+      throw error;
+    }
+
+    const topRecipes = await prisma.recipe.findMany({
+      include: {
+        category: true,
+        _count: { select: { comments: true, favorites: true } }
+      },
+      orderBy: [{ favorites: { _count: "desc" } }, { comments: { _count: "desc" } }],
+      take: 5
+    });
+
+    return { available: false, viewCount: 0, weeklyViews: 0, topRecipes };
+  }
+}
 
 export default async function AdminPage() {
   const weekStart = new Date();
@@ -19,7 +54,6 @@ export default async function AdminPage() {
     commentCount,
     favoriteCount,
     weeklyRecipes,
-    topRecipes,
     latestRecipes,
     latestComments
   ] = await Promise.all([
@@ -34,16 +68,8 @@ export default async function AdminPage() {
     prisma.recipe.findMany({
       include: {
         category: true,
-        _count: { select: { comments: true, favorites: true } }
-      },
-      orderBy: [{ favorites: { _count: "desc" } }, { comments: { _count: "desc" } }],
-      take: 5
-    }),
-    prisma.recipe.findMany({
-      include: {
-        category: true,
         author: { select: { name: true } },
-        _count: { select: { comments: true, favorites: true } }
+        _count: { select: { comments: true, favorites: true, views: true } }
       },
       orderBy: { createdAt: "desc" },
       take: 5
@@ -57,6 +83,8 @@ export default async function AdminPage() {
       take: 5
     })
   ]);
+  const viewMetrics = await getViewMetrics(weekStart);
+  const topRecipes = viewMetrics.topRecipes;
 
   return (
     <div>
@@ -83,7 +111,7 @@ export default async function AdminPage() {
         <InsightCard label="Publicadas" value={publishedCount} detail={`${pendingCount} em revisão`} icon={Star} />
         <InsightCard label="Receitas salvas" value={favoriteCount} detail="favoritos totais" icon={Activity} />
         <InsightCard label="Receitas da semana" value={weeklyRecipes} detail="criadas nos últimos 7 dias" icon={TrendingUp} />
-        <InsightCard label="Analytics" value={topRecipes.length} detail="receitas com sinais de interesse" icon={Activity} />
+        <InsightCard label="Visualizações" value={viewMetrics.viewCount} detail={`${viewMetrics.weeklyViews} nos últimos 7 dias`} icon={Activity} />
       </section>
 
       <section className="mt-8 grid gap-8 lg:grid-cols-[1fr_0.9fr]">
@@ -93,7 +121,7 @@ export default async function AdminPage() {
               <p className="eyebrow mb-2">Analytics</p>
               <h2 className="font-serif text-4xl text-ink">Receitas mais vistas</h2>
             </div>
-            <span className="rounded-full bg-elevated px-3 py-1 text-xs text-muted">engajamento</span>
+            <span className="rounded-full bg-elevated px-3 py-1 text-xs text-muted">{viewMetrics.available ? "views reais" : "engajamento"}</span>
           </div>
           <div className="grid gap-3">
             {topRecipes.map((recipe, index) => (
@@ -104,7 +132,9 @@ export default async function AdminPage() {
                   <p className="mt-1 text-sm text-muted">{recipe.category.name}</p>
                 </div>
                 <span className="text-sm text-muted">
-                  {recipe._count.favorites + recipe._count.comments} sinais
+                  {viewMetrics.available
+                    ? `${(recipe._count as { views?: number }).views ?? 0} views`
+                    : `${recipe._count.favorites + recipe._count.comments} sinais`}
                 </span>
               </Link>
             ))}
