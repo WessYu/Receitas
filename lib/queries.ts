@@ -1,6 +1,8 @@
+import { cache } from "react";
 import { Difficulty, type Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { gourmetRecipeSlugs } from "@/lib/gourmet-recipes";
+import { normalizeIngredientName } from "@/lib/pantry";
 
 export function buildRecipeWhere(params: {
   q?: string;
@@ -40,9 +42,13 @@ export function buildRecipeWhere(params: {
   }
 
   if (params.ingredient) {
+    const normalizedIngredient = normalizeIngredientName(params.ingredient);
     where.ingredients = {
       some: {
-        name: { contains: params.ingredient, mode: "insensitive" }
+        OR: [
+          { name: { contains: params.ingredient, mode: "insensitive" } },
+          { normalizedName: { contains: normalizedIngredient, mode: "insensitive" } }
+        ]
       }
     };
   }
@@ -77,7 +83,10 @@ export function buildRecipeOrderBy(sort?: string): Prisma.RecipeOrderByWithRelat
 export const recipeInclude = {
   category: true,
   author: { select: { name: true, avatarUrl: true } },
-  ingredients: { orderBy: { order: "asc" } },
+  ingredients: {
+    orderBy: { order: "asc" },
+    select: { id: true, amount: true, name: true, order: true, recipeId: true }
+  },
   steps: { orderBy: { order: "asc" } },
   favorites: true,
   comments: {
@@ -86,6 +95,6 @@ export const recipeInclude = {
   }
 } satisfies Prisma.RecipeInclude;
 
-export async function getCategories() {
+export const getCategories = cache(async () => {
   return prisma.category.findMany({ orderBy: { name: "asc" } });
-}
+});

@@ -83,12 +83,15 @@ model RecipeView {
 }
 
 model Ingredient {
-  id       String @id @default(cuid())
-  name     String
-  amount   String
-  order    Int
-  recipeId String
-  recipe   Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  id             String @id @default(cuid())
+  name           String
+  normalizedName String @default("")
+  amount         String
+  order          Int
+  recipeId       String
+  recipe         Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+
+  @@index([normalizedName])
 }
 
 model PreparationStep {

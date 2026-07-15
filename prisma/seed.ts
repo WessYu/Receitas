@@ -1,5 +1,6 @@
 ﻿import bcrypt from "bcryptjs";
 import { PrismaClient, Difficulty } from "@prisma/client";
+import { normalizeIngredientName } from "../lib/pantry";
 import { slugify } from "../lib/utils";
 
 const prisma = new PrismaClient();
@@ -706,7 +707,23 @@ async function main() {
         featured: recipe.featured,
         published: true,
         categoryId: category.id,
-        authorId: admin.id
+        authorId: admin.id,
+        ingredients: {
+          deleteMany: {},
+          create: recipe.ingredients.map(([amount, name], index) => ({
+            amount,
+            name,
+            normalizedName: normalizeIngredientName(name),
+            order: index + 1
+          }))
+        },
+        steps: {
+          deleteMany: {},
+          create: recipe.steps.map((content, index) => ({
+            content,
+            order: index + 1
+          }))
+        }
       },
       create: {
         title: recipe.title,
@@ -724,6 +741,7 @@ async function main() {
           create: recipe.ingredients.map(([amount, name], index) => ({
             amount,
             name,
+            normalizedName: normalizeIngredientName(name),
             order: index + 1
           }))
         },

@@ -1,5 +1,6 @@
 import { SlidersHorizontal } from "lucide-react";
 import type { Category } from "@prisma/client";
+import { PantryFilterPanel } from "@/components/recipes/pantry-filter-panel";
 import { SearchBar } from "@/components/recipes/search-bar";
 
 type FilterBarProps = {
@@ -13,6 +14,8 @@ type FilterBarProps = {
     ingredient?: string;
     sort?: string;
     perPage?: string;
+    pantry?: string;
+    complete?: string;
   };
 };
 
@@ -23,7 +26,13 @@ export function FilterBar({ categories, params }: FilterBarProps) {
         <SlidersHorizontal className="h-4 w-4 text-olive" />
         Filtros
       </div>
+      <div className="mb-4 grid gap-3 md:grid-cols-[1fr_auto] md:items-center">
+        <p className="text-sm leading-6 text-muted">Refine por categoria, tempo ou encontre receitas a partir da sua despensa.</p>
+        <PantryFilterPanel selectedValue={params.pantry} completeOnly={params.complete === "1"} />
+      </div>
       <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-[1.35fr_0.95fr_0.95fr_0.95fr_0.9fr_0.9fr_0.85fr_auto]">
+        {params.pantry ? <input type="hidden" name="pantry" value={params.pantry} /> : null}
+        {params.complete === "1" ? <input type="hidden" name="complete" value="1" /> : null}
         <SearchBar defaultValue={params.q} />
         <select className="field" name="category" defaultValue={params.category ?? ""} aria-label="Categoria">
           <option value="">Categoria</option>

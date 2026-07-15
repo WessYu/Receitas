@@ -3,6 +3,7 @@ import { FilterBar } from "@/components/recipes/filter-bar";
 import { Pagination } from "@/components/recipes/pagination";
 import { RecipeCard } from "@/components/recipes/recipe-card";
 import { buildRecipeOrderBy, buildRecipeWhere, getCategories } from "@/lib/queries";
+import { calculateRecipeCompatibility, parsePantryParam } from "@/lib/pantry";
 import { prisma } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
@@ -30,27 +31,66 @@ export default async function RecipesPage({ searchParams }: PageProps) {
     maxTime: asString(params.maxTime),
     ingredient: asString(params.ingredient),
     sort: asString(params.sort),
-    perPage: asString(params.perPage)
+    perPage: asString(params.perPage),
+    pantry: asString(params.pantry),
+    complete: asString(params.complete)
   };
+  const pantryIngredients = parsePantryParam(filters.pantry);
+  const onlyComplete = filters.complete === "1";
   const page = asPositiveInt(asString(params.page), 1);
   const perPageOptions = [6, 9, 12, 24];
   const requestedPerPage = asPositiveInt(filters.perPage, 9);
   const perPage = perPageOptions.includes(requestedPerPage) ? requestedPerPage : 9;
   const where = buildRecipeWhere(filters);
+  const compatibilityWhere =
+    pantryIngredients.length > 0
+      ? {
+          AND: [
+            where,
+            {
+              ingredients: {
+                some: {
+                  normalizedName: { in: pantryIngredients }
+                }
+              }
+            }
+          ]
+        }
+      : where;
 
   const [totalRecipes, categories] = await Promise.all([
-    prisma.recipe.count({ where }),
+    pantryIngredients.length ? Promise.resolve(0) : prisma.recipe.count({ where }),
     getCategories()
   ]);
-  const totalPages = Math.max(1, Math.ceil(totalRecipes / perPage));
+  const rankedRecipes = pantryIngredients.length
+    ? (
+        await prisma.recipe.findMany({
+          where: compatibilityWhere,
+          include: { category: true, ingredients: { orderBy: { order: "asc" } } },
+          orderBy: buildRecipeOrderBy(filters.sort)
+        })
+      )
+        .map((recipe) => ({
+          recipe,
+          compatibility: calculateRecipeCompatibility(recipe.ingredients, pantryIngredients)
+        }))
+        .filter((item) => item.compatibility && (!onlyComplete || item.compatibility.score === 100))
+        .sort((a, b) => (b.compatibility?.score ?? 0) - (a.compatibility?.score ?? 0) || b.recipe.createdAt.getTime() - a.recipe.createdAt.getTime())
+    : [];
+  const effectiveTotalRecipes = pantryIngredients.length ? rankedRecipes.length : totalRecipes;
+  const totalPages = Math.max(1, Math.ceil(effectiveTotalRecipes / perPage));
   const currentPage = Math.min(page, totalPages);
-  const recipes = await prisma.recipe.findMany({
-    where,
-    include: { category: true },
-    orderBy: buildRecipeOrderBy(filters.sort),
-    skip: (currentPage - 1) * perPage,
-    take: perPage
-  });
+  const recipes = pantryIngredients.length
+    ? rankedRecipes.slice((currentPage - 1) * perPage, currentPage * perPage)
+    : (
+        await prisma.recipe.findMany({
+          where,
+          include: { category: true },
+          orderBy: buildRecipeOrderBy(filters.sort),
+          skip: (currentPage - 1) * perPage,
+          take: perPage
+        })
+      ).map((recipe) => ({ recipe, compatibility: null }));
 
   return (
     <section className="container-page py-16">
@@ -63,14 +103,25 @@ export default async function RecipesPage({ searchParams }: PageProps) {
       <div className="mt-10">
         {recipes.length ? (
           <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
-            {recipes.map((recipe) => (
-              <RecipeCard key={recipe.id} recipe={recipe} />
+            {recipes.map(({ recipe, compatibility }) => (
+              <RecipeCard key={recipe.id} recipe={recipe} compatibility={compatibility} />
             ))}
           </div>
         ) : (
-          <EmptyState title="Nenhuma receita encontrada" description="Ajuste os filtros ou tente um termo mais amplo para descobrir novas opções." />
+          <EmptyState
+            title={pantryIngredients.length ? "Não encontramos receitas com essa combinação." : "Nenhuma receita encontrada"}
+            description={pantryIngredients.length ? "Tente remover um ingrediente ou desativar o modo de receitas completas." : "Ajuste os filtros ou tente um termo mais amplo para descobrir novas opções."}
+            action={
+              pantryIngredients.length
+                ? {
+                    href: "/recipes",
+                    label: "Limpar seleção"
+                  }
+                : undefined
+            }
+          />
         )}
-        <Pagination page={currentPage} totalPages={totalPages} totalItems={totalRecipes} perPage={perPage} params={filters} />
+        <Pagination page={currentPage} totalPages={totalPages} totalItems={effectiveTotalRecipes} perPage={perPage} params={filters} />
       </div>
     </section>
   );

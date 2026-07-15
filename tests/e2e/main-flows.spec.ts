@@ -16,6 +16,21 @@ async function openFirstRecipe(page: Page) {
 }
 
 test.describe.serial("fluxos principais", () => {
+  test("filtro de despensa encontra receitas compatíveis", async ({ page }) => {
+    await page.goto("/recipes");
+    await page.getByRole("button", { name: /O que tenho em casa/i }).click();
+
+    await expect(page.getByRole("dialog", { name: /Cozinhe com o que você tem/i })).toBeVisible();
+    await page.getByRole("button", { name: "Ovos", exact: true }).click();
+    await page.getByRole("button", { name: "Leite", exact: true }).click();
+    await page.getByRole("button", { name: "Farinha", exact: true }).click();
+    await page.getByRole("button", { name: "Encontrar receitas" }).click();
+
+    await expect(page).toHaveURL(/pantry=.*ovo/);
+    await expect(page.getByText(/compatível/i).first()).toBeVisible();
+    await expect(page.getByText(/Você já possui/i).first()).toBeVisible();
+  });
+
   test("cadastro cria uma sessão de usuário", async ({ page }) => {
     await page.goto("/register");
     await page.getByLabel("Nome").fill(user.name);

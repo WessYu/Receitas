@@ -10,7 +10,10 @@ export default async function CookingModePage({ params }: { params: Promise<{ sl
   const recipe = await prisma.recipe.findFirst({
     where: { slug, published: true },
     include: {
-      ingredients: { orderBy: { order: "asc" } },
+      ingredients: {
+        orderBy: { order: "asc" },
+        select: { id: true, amount: true, name: true }
+      },
       steps: { orderBy: { order: "asc" } }
     }
   });

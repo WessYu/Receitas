@@ -2,12 +2,12 @@
 
 import { useActionState, useMemo, useState } from "react";
 import { Plus, Save, Trash2 } from "lucide-react";
-import type { Category, Ingredient, PreparationStep, Recipe } from "@prisma/client";
+import type { Category, PreparationStep, Recipe } from "@prisma/client";
 import { createRecipeAction, createUserRecipeAction, updateRecipeAction } from "@/lib/actions";
 import type { ActionState } from "@/lib/validators";
 
 type RecipeWithChildren = Recipe & {
-  ingredients: Ingredient[];
+  ingredients: Array<{ amount: string; name: string }>;
   steps: PreparationStep[];
 };
 

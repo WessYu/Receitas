@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { notifyUsersAboutNewRecipe } from "@/lib/mail";
+import { normalizeIngredientName } from "@/lib/pantry";
 import { createSession, destroySession, requireAdmin, requireUser } from "@/lib/session";
 import { saveUploadedImage } from "@/lib/storage";
 import { slugify } from "@/lib/utils";
@@ -220,6 +221,7 @@ async function createRecipeRecord(userId: string, formData: FormData, options: {
       ingredients: {
         create: parsed.data.ingredients.map((ingredient, index) => ({
           ...ingredient,
+          normalizedName: normalizeIngredientName(ingredient.name),
           order: index + 1
         }))
       },
@@ -320,6 +322,7 @@ export async function updateRecipeAction(
           ingredients: {
             create: parsed.data.ingredients.map((ingredient, index) => ({
               ...ingredient,
+              normalizedName: normalizeIngredientName(ingredient.name),
               order: index + 1
             }))
           },
