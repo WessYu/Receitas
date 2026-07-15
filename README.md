@@ -218,16 +218,6 @@ docs/         Versão estática e imagens para documentação
 ```
 
 ---
-
-## Próximas melhorias
-
-- Integrar upload de imagens com storage externo
-- Criar testes automatizados para fluxos principais
-- Adicionar paginação avançada na listagem de receitas
-- Incluir métricas reais de uso no dashboard administrativo
-
----
-
 ## Autor
 
 Desenvolvido por **Wesley Cruz**.
