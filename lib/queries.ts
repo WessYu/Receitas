@@ -1,9 +1,11 @@
 import { Difficulty, type Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
+import { gourmetRecipeSlugs } from "@/lib/gourmet-recipes";
 
 export function buildRecipeWhere(params: {
   q?: string;
   category?: string;
+  gourmet?: string;
   difficulty?: string;
   maxTime?: string;
   ingredient?: string;
@@ -20,6 +22,10 @@ export function buildRecipeWhere(params: {
 
   if (params.category) {
     where.category = { slug: params.category };
+  }
+
+  if (params.gourmet === "1") {
+    where.slug = { in: gourmetRecipeSlugs };
   }
 
   if (params.difficulty && ["EASY", "MEDIUM", "HARD"].includes(params.difficulty)) {

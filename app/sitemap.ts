@@ -16,6 +16,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(),
       changeFrequency: "daily",
       priority: 0.9
+    },
+    {
+      url: `${appUrl}/recipes?gourmet=1`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8
     }
   ];
 

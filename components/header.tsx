@@ -1,13 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
-import { LogOut, Search, ShieldCheck, UserRound } from "lucide-react";
+import { LogOut, Search, ShieldCheck, Sparkles, UserRound } from "lucide-react";
 import { logoutAction } from "@/lib/actions";
 import { MobileNavigation } from "@/components/mobile-navigation";
 import { getCurrentUser } from "@/lib/session";
 
 const nav = [
   { href: "/", label: "Início" },
-  { href: "/recipes", label: "Receitas" }
+  { href: "/recipes", label: "Receitas" },
+  { href: "/recipes?gourmet=1", label: "Gourmet", featured: true }
 ];
 
 export async function Header() {
@@ -25,7 +26,16 @@ export async function Header() {
 
         <nav className="hidden items-center gap-7 text-sm font-medium text-muted lg:flex">
           {nav.map((item) => (
-            <Link key={item.href} href={item.href} className="transition duration-300 hover:text-ink">
+            <Link
+              key={item.href}
+              href={item.href}
+              className={
+                item.featured
+                  ? "inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-3 py-2 font-semibold text-gold transition duration-300 hover:border-gold/60 hover:bg-gold/15"
+                  : "transition duration-300 hover:text-ink"
+              }
+            >
+              {item.featured ? <Sparkles className="h-4 w-4" /> : null}
               {item.label}
             </Link>
           ))}

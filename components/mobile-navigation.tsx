@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { ChefHat, Home, LogIn, LogOut, Menu, Search, ShieldCheck, UserRound, X } from "lucide-react";
+import { ChefHat, Home, LogIn, LogOut, Menu, Search, ShieldCheck, Sparkles, UserRound, X } from "lucide-react";
 import { logoutAction } from "@/lib/actions";
 
 type MobileNavigationProps = {
@@ -20,6 +20,7 @@ export function MobileNavigation({ user }: MobileNavigationProps) {
   const links = [
     { href: "/", label: "Início", icon: Home },
     { href: "/recipes", label: "Receitas", icon: ChefHat },
+    { href: "/recipes?gourmet=1", label: "Gourmet", icon: Sparkles, featured: true },
     ...(user ? [{ href: "/dashboard", label: "Minha cozinha", icon: UserRound }] : []),
     ...(user?.isAdmin ? [{ href: "/admin", label: "Admin", icon: ShieldCheck }] : [])
   ];
@@ -79,10 +80,14 @@ export function MobileNavigation({ user }: MobileNavigationProps) {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="flex items-center gap-3 rounded-2xl border border-border bg-surface px-4 py-3 transition hover:border-white/20 hover:bg-elevated hover:text-ink"
+                    className={
+                      item.featured
+                        ? "flex items-center gap-3 rounded-2xl border border-gold/30 bg-gold/10 px-4 py-3 text-gold transition hover:border-gold/60 hover:bg-gold/15"
+                        : "flex items-center gap-3 rounded-2xl border border-border bg-surface px-4 py-3 transition hover:border-white/20 hover:bg-elevated hover:text-ink"
+                    }
                     onClick={() => setOpen(false)}
                   >
-                    <Icon className="h-4 w-4 text-olive" />
+                    <Icon className={`h-4 w-4 ${item.featured ? "text-gold" : "text-olive"}`} />
                     {item.label}
                   </Link>
                 );

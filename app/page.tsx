@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Category, Recipe } from "@prisma/client";
 import { ArrowRight, Clock3, Search } from "lucide-react";
 import { prisma } from "@/lib/prisma";
+import { gourmetRecipeSlugs } from "@/lib/gourmet-recipes";
 import { RecipeImage } from "@/components/recipes/recipe-image";
 import { Reveal } from "@/components/ui/reveal";
 
@@ -24,14 +25,6 @@ const categoryImageBySlug: Record<string, string> = {
   vegetariano: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1200&q=90",
   "jantar-rapido": "https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=1200&q=90"
 };
-
-const gourmetRecipeSlugs = [
-  "vieiras-seladas-com-pure-de-couve-flor",
-  "ravioli-de-ricota-com-manteiga-trufada",
-  "pato-com-reducao-de-laranja",
-  "tartar-de-salmao-com-avocado",
-  "nhoque-de-mandioquinha-com-fonduta"
-];
 
 export const dynamic = "force-dynamic";
 

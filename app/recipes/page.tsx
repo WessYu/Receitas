@@ -19,6 +19,7 @@ export default async function RecipesPage({ searchParams }: PageProps) {
   const filters = {
     q: asString(params.q),
     category: asString(params.category),
+    gourmet: asString(params.gourmet),
     difficulty: asString(params.difficulty),
     maxTime: asString(params.maxTime),
     ingredient: asString(params.ingredient)

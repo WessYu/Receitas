@@ -7,6 +7,7 @@ type FilterBarProps = {
   params: {
     q?: string;
     category?: string;
+    gourmet?: string;
     difficulty?: string;
     maxTime?: string;
     ingredient?: string;
@@ -20,7 +21,7 @@ export function FilterBar({ categories, params }: FilterBarProps) {
         <SlidersHorizontal className="h-4 w-4 text-olive" />
         Filtros
       </div>
-      <div className="grid gap-3 md:grid-cols-[1.3fr_1fr_1fr_1fr_1fr_auto]">
+      <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr_1fr_1fr_auto]">
         <SearchBar defaultValue={params.q} />
         <select className="field" name="category" defaultValue={params.category ?? ""} aria-label="Categoria">
           <option value="">Categoria</option>
@@ -29,6 +30,10 @@ export function FilterBar({ categories, params }: FilterBarProps) {
               {category.name}
             </option>
           ))}
+        </select>
+        <select className="field" name="gourmet" defaultValue={params.gourmet === "1" ? "1" : ""} aria-label="Curadoria">
+          <option value="">Todas</option>
+          <option value="1">Receitas gourmet</option>
         </select>
         <select className="field" name="difficulty" defaultValue={params.difficulty ?? ""} aria-label="Dificuldade">
           <option value="">Dificuldade</option>
