@@ -53,9 +53,6 @@ Também existe um fluxo administrativo protegido por role `ADMIN`, usado para ge
 ### Vídeo demonstrativo
 
 https://github.com/user-attachments/assets/COLE-AQUI-O-LINK-DO-VIDEO
-
-Para o vídeo aparecer com player no README, abra a edição do README no GitHub e arraste o MP4 diretamente para o editor. O GitHub vai gerar automaticamente o link user-attachments; substitua a última linha por ele.
-
 ---
 
 ## Funcionalidades
