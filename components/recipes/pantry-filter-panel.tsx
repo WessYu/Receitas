@@ -85,7 +85,7 @@ export function PantryFilterPanel({ selectedValue, completeOnly = false }: Pantr
       {open ? (
         <div className="fixed inset-0 z-50 bg-background/70 backdrop-blur-sm" role="presentation" onClick={() => setOpen(false)}>
           <aside
-            className="ml-auto flex h-full w-[min(94vw,520px)] flex-col border-l border-border bg-background shadow-2xl"
+            className="ml-auto flex h-full w-[min(94vw,520px)] flex-col overflow-hidden border-l border-border bg-background shadow-2xl sm:my-4 sm:h-[calc(100dvh-32px)] sm:rounded-l-[28px]"
             role="dialog"
             aria-modal="true"
             aria-label="Cozinhe com o que você tem"
@@ -201,7 +201,7 @@ export function PantryFilterPanel({ selectedValue, completeOnly = false }: Pantr
               ) : null}
             </div>
 
-            <div className="border-t border-border p-5 sm:p-6">
+            <div className="border-t border-border bg-background/95 p-4 backdrop-blur sm:p-5">
               <div className="grid gap-3 sm:grid-cols-[auto_1fr]">
                 <button type="button" className="button-secondary" onClick={clearSelection}>
                   Limpar seleção
