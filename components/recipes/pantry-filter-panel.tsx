@@ -136,8 +136,8 @@ export function PantryFilterPanel({ selectedValue, completeOnly = false }: Pantr
             <div className="min-h-0 flex-1 overflow-y-auto p-5 sm:p-6">
               <label className="mb-6 flex cursor-pointer items-center justify-between gap-4 rounded-2xl border border-border bg-surface p-4 transition hover:border-white/20 hover:bg-elevated">
                 <span>
-                  <span className="block text-sm font-semibold text-ink">Mostrar apenas receitas completas</span>
-                  <span className="mt-1 block text-xs leading-5 text-muted">Lista somente pratos com 100% de compatibilidade.</span>
+                  <span className="block text-sm font-semibold text-ink">Mostrar receitas quase prontas</span>
+                  <span className="mt-1 block text-xs leading-5 text-muted">Exibe pratos para os quais faltam no máximo 2 ingredientes.</span>
                 </span>
                 <input
                   className="h-5 w-5 accent-olive"
