@@ -14,5 +14,15 @@ export const gourmetRecipeSlugs = [
   "creme-brulee-de-cafe",
   "tagliatelle-com-ragu-de-cogumelos",
   "risoto-de-acafrao-com-camaroes",
-  "file-mignon-ao-molho-de-vinho"
+  "file-mignon-ao-molho-de-vinho",
+  "lagosta-na-manteiga-de-ervas",
+  "risoto-negro-com-lula-e-aioli",
+  "cordeiro-com-crosta-de-pistache",
+  "bacalhau-confitado-com-grao-de-bico",
+  "magret-de-pato-com-pure-de-maca",
+  "ravioli-de-abobora-com-amaretti",
+  "polvo-grelhado-com-batatas-ao-murro",
+  "tarte-tatin-de-pera-e-cardamomo",
+  "souffle-de-queijo-gruyere",
+  "entremet-de-chocolate-e-framboesa"
 ];
