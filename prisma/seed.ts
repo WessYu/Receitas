@@ -15,6 +15,41 @@ const categoryFallbackImages: Record<string, string> = {
   Massas: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=1400&q=90"
 };
 
+const specificRecipeImages: Record<string, string> = {
+  "salada-fria-de-parafuso": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1400&q=90",
+  "conchiglione-de-frango": "https://upload.wikimedia.org/wikipedia/commons/3/33/Conchiglioni.jpg",
+  "linguine-com-abobrinha": "https://images.unsplash.com/photo-1608897013039-887f21d8c804?auto=format&fit=crop&w=1400&q=90",
+  "macarrao-de-forno-com-queijo": "https://upload.wikimedia.org/wikipedia/commons/1/19/Baked_macaroni_and_cheese_1.jpg",
+  "orzo-com-legumes": "https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&w=1400&q=90",
+  "canelone-de-ricota-e-espinafre": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Spinach_and_ricotta_cannelloni.jpg",
+  "espaguete-alho-e-oleo-com-brocolis": "https://images.unsplash.com/photo-1608897013039-887f21d8c804?auto=format&fit=crop&w=1400&q=90",
+  "macarrao-cremoso-de-panela": "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=1400&q=90",
+  "fusilli-com-atum-e-limao": "https://images.unsplash.com/photo-1608897013039-887f21d8c804?auto=format&fit=crop&w=1400&q=90",
+  "talharim-ao-molho-branco": "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=1400&q=90",
+  "lasanha-de-berinjela": "https://images.unsplash.com/photo-1574894709920-11b28e7367e3?auto=format&fit=crop&w=1400&q=90",
+  "ravioli-de-ricota-com-manteiga-trufada": "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=1400&q=90",
+  "ravioli-de-abobora-com-amaretti": "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=1400&q=90",
+  "nhoque-de-mandioquinha-com-fonduta": "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=1400&q=90",
+  "gnocchi-na-manteiga-de-salvia": "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=1400&q=90",
+  "risoto-negro-com-lula-e-aioli": "https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=1400&q=90",
+  "risoto-de-acafrao-com-camaroes": "https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=1400&q=90",
+  "arroz-de-camarao-com-coentro": "https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=1400&q=90",
+  "tilapia-no-papillote-com-legumes": "https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=1400&q=90",
+  "peixe-assado-com-batatas": "https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=1400&q=90",
+  "tartar-de-salmao-com-avocado": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=1400&q=90",
+  "bacalhau-confitado-com-grao-de-bico": "https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=1400&q=90",
+  "frango-xadrez-caseiro": "https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=1400&q=90",
+  "frango-ao-molho-de-mostarda-e-mel": "https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=1400&q=90",
+  "sandwiche-quente-de-frango": "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=1400&q=90",
+  "sanduiche-quente-de-frango": "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=1400&q=90",
+  "brownie-intenso-de-cacau": "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=1400&q=90",
+  "bolo-de-cenoura-com-cacau": "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=1400&q=90",
+  "cookies-de-chocolate": "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=1400&q=90",
+  "cheesecake-leve-com-frutas-vermelhas": "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=1400&q=90",
+  "waffle-de-iogurte": "https://images.unsplash.com/photo-1562376552-0d160a2f238d?auto=format&fit=crop&w=1400&q=90",
+  "panquecas-de-banana-e-aveia": "https://images.unsplash.com/photo-1528207776546-365bb710ee93?auto=format&fit=crop&w=1400&q=90"
+};
+
 const recipeImageRules = [
   { keywords: ["waffle"], imageUrl: "https://images.unsplash.com/photo-1562376552-0d160a2f238d?auto=format&fit=crop&w=1400&q=90" },
   { keywords: ["panquecas"], imageUrl: "https://images.unsplash.com/photo-1528207776546-365bb710ee93?auto=format&fit=crop&w=1400&q=90" },
@@ -44,6 +79,9 @@ const recipeImageRules = [
 
 function getRecipeImageUrl(title: string, category: string) {
   const slug = slugify(title);
+  const specificImage = specificRecipeImages[slug];
+  if (specificImage) return specificImage;
+
   const imageRule = recipeImageRules.find((rule) => rule.keywords.some((keyword) => slug.includes(keyword)));
 
   return imageRule?.imageUrl ?? categoryFallbackImages[category] ?? categoryFallbackImages["Jantar rápido"];
