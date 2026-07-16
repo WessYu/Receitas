@@ -7,6 +7,48 @@ const prisma = new PrismaClient();
 
 const categories = ["Jantar rápido", "Vegetariano", "Café da manhã", "Sobremesas", "Massas"];
 
+const categoryFallbackImages: Record<string, string> = {
+  "Jantar rápido": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1400&q=90",
+  Vegetariano: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1400&q=90",
+  "Café da manhã": "https://images.unsplash.com/photo-1494597564530-871f2b93ac55?auto=format&fit=crop&w=1400&q=90",
+  Sobremesas: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=1400&q=90",
+  Massas: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=1400&q=90"
+};
+
+const recipeImageRules = [
+  { keywords: ["waffle"], imageUrl: "https://images.unsplash.com/photo-1562376552-0d160a2f238d?auto=format&fit=crop&w=1400&q=90" },
+  { keywords: ["panquecas"], imageUrl: "https://images.unsplash.com/photo-1528207776546-365bb710ee93?auto=format&fit=crop&w=1400&q=90" },
+  { keywords: ["rabanada", "french-toast", "torrada", "tapioca-com-banana"], imageUrl: "https://images.unsplash.com/photo-1484723091739-30a097e8f929?auto=format&fit=crop&w=1400&q=90" },
+  { keywords: ["omelete", "ovos", "crepioca", "fritada"], imageUrl: "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=1400&q=90" },
+  { keywords: ["granola", "mingau", "overnight", "smoothie", "muffin"], imageUrl: "https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?auto=format&fit=crop&w=1400&q=90" },
+  { keywords: ["pao-de-queijo", "cuscuz-com-queijo"], imageUrl: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1400&q=90" },
+  { keywords: ["camarao", "camaroes", "lula", "lagosta", "polvo", "vieiras"], imageUrl: "https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=1400&q=90" },
+  { keywords: ["risoto", "arroz"], imageUrl: "https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&w=1400&q=90" },
+  { keywords: ["tilapia", "peixe", "bacalhau", "salmao"], imageUrl: "https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=1400&q=90" },
+  { keywords: ["frango"], imageUrl: "https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=1400&q=90" },
+  { keywords: ["carne", "file-mignon", "picadinho", "almondegas", "lombo", "cordeiro", "pato", "magret"], imageUrl: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1400&q=90" },
+  { keywords: ["massa", "penne", "carbonara", "gnocchi", "nhoque", "ravioli", "ravioli", "tagliatelle", "espaguete", "macarrao", "fusilli", "talharim", "canelone", "orzo", "linguine", "conchiglione", "parafuso", "lasanha"], imageUrl: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=1400&q=90" },
+  { keywords: ["pesto", "alho-e-oleo"], imageUrl: "https://images.unsplash.com/photo-1608897013039-887f21d8c804?auto=format&fit=crop&w=1400&q=90" },
+  { keywords: ["bowl", "salada", "tabule"], imageUrl: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1400&q=90" },
+  { keywords: ["sopa", "curry", "chili", "panela-de-legumes"], imageUrl: "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=1400&q=90" },
+  { keywords: ["abobrinha", "berinjela", "couve-flor", "legumes", "falafel", "tofu", "hamburguer-de-lentilha"], imageUrl: "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=1400&q=90" },
+  { keywords: ["cogumelos", "aspargos", "souffle"], imageUrl: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1400&q=90" },
+  { keywords: ["torta-fria", "brownie", "bolo-de-cenoura", "cookies", "brigadeiro", "entremet"], imageUrl: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=1400&q=90" },
+  { keywords: ["cheesecake"], imageUrl: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=1400&q=90" },
+  { keywords: ["panna-cotta", "pudim", "arroz-doce", "creme-brulee"], imageUrl: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=1400&q=90" },
+  { keywords: ["mousse", "gelado", "pavlova", "frutas", "pessegos", "compota"], imageUrl: "https://images.unsplash.com/photo-1470124182917-cc6e71b22ecc?auto=format&fit=crop&w=1400&q=90" },
+  { keywords: ["tarte", "torta-de-limao", "mil-folhas", "banana-assada"], imageUrl: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=1400&q=90" },
+  { keywords: ["sanduiche"], imageUrl: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=1400&q=90" },
+  { keywords: ["cuscuz-paulista"], imageUrl: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1400&q=90" }
+] as const;
+
+function getRecipeImageUrl(title: string, category: string) {
+  const slug = slugify(title);
+  const imageRule = recipeImageRules.find((rule) => rule.keywords.some((keyword) => slug.includes(keyword)));
+
+  return imageRule?.imageUrl ?? categoryFallbackImages[category] ?? categoryFallbackImages["Jantar rápido"];
+}
+
 const baseRecipes = [
   {
     title: "Risoto de limão siciliano com ervas",
@@ -1422,13 +1464,14 @@ async function main() {
   for (const recipe of recipes) {
     const category = await prisma.category.findUniqueOrThrow({ where: { slug: slugify(recipe.category) } });
     const slug = slugify(recipe.title);
+    const imageUrl = getRecipeImageUrl(recipe.title, recipe.category);
 
     await prisma.recipe.upsert({
       where: { slug },
       update: {
         title: recipe.title,
         description: recipe.description,
-        imageUrl: recipe.imageUrl,
+        imageUrl,
         prepTime: recipe.prepTime,
         servings: recipe.servings,
         difficulty: recipe.difficulty,
@@ -1457,7 +1500,7 @@ async function main() {
         title: recipe.title,
         slug,
         description: recipe.description,
-        imageUrl: recipe.imageUrl,
+        imageUrl,
         prepTime: recipe.prepTime,
         servings: recipe.servings,
         difficulty: recipe.difficulty,
