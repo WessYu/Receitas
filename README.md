@@ -1,171 +1,101 @@
-# Receitas — Aplicação Full Stack
+# Receitas
 
-Sistema web de receitas desenvolvido com **Next.js, TypeScript, TailwindCSS, Prisma e PostgreSQL**, com autenticação, área privada, favoritos, comentários, dashboard do usuário e painel administrativo.
+Aplicação full stack para publicar, buscar, salvar e gerenciar receitas.
 
-O projeto foi criado como aplicação principal de portfólio para demonstrar uma experiência próxima de produto real: interface responsiva, rotas protegidas, banco de dados, regras de usuário e deploy em produção.
+O projeto reúne uma área pública, autenticação, perfil de usuário, favoritos, comentários, envio de receitas e um painel administrativo para moderação de conteúdo.
 
-![Next.js](https://img.shields.io/badge/Next.js-111827?style=for-the-badge&logo=nextdotjs&logoColor=white)
-![React](https://img.shields.io/badge/React-111827?style=for-the-badge&logo=react&logoColor=61DAFB)
-![TypeScript](https://img.shields.io/badge/TypeScript-111827?style=for-the-badge&logo=typescript&logoColor=3178C6)
-![TailwindCSS](https://img.shields.io/badge/TailwindCSS-111827?style=for-the-badge&logo=tailwindcss&logoColor=38BDF8)
-![Prisma](https://img.shields.io/badge/Prisma-111827?style=for-the-badge&logo=prisma&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-111827?style=for-the-badge&logo=postgresql&logoColor=4169E1)
+## Demo
 
----
-
-## Deploy
-
-- **Aplicação em produção:** https://receitas-delta-eight.vercel.app
-- **Repositório:** https://github.com/WessYu/Receitas
-
----
-
-## Visão geral
-
-O **Receitas** é uma plataforma full stack para descobrir, salvar, comentar e gerenciar receitas.
-
-A aplicação possui uma área pública com listagem, filtros e detalhes de receitas, além de uma área autenticada onde o usuário pode editar perfil, salvar receitas favoritas, enviar receitas e acompanhar suas publicações.
-
-Também existe um fluxo administrativo protegido por role `ADMIN`, usado para gerenciar receitas, categorias, comentários e usuários.
-
----
-
-## Demonstração
-
-<p align="center">
-  <a href="https://receitas-delta-eight.vercel.app">
-    <strong>🍳 Acessar aplicação em produção</strong>
-  </a>
-</p>
-
-### Página da receita
-
-![Página de detalhes da receita](docs/screenshots/recipe.png)
-
-### Biblioteca de receitas
-
-![Biblioteca de receitas com busca e filtros](docs/screenshots/library.png)
-
-### Painel administrativo
-
-![Dashboard administrativo do Savor](docs/screenshots/admin.png)
-
-### Vídeo demonstrativo
-
-https://github.com/user-attachments/assets/COLE-AQUI-O-LINK-DO-VIDEO
----
+- Aplicação: https://receitas-delta-eight.vercel.app
+- Repositório: https://github.com/WessYu/Receitas
 
 ## Funcionalidades
 
-- Cadastro, login e logout de usuários
-- Autenticação com cookie assinado
-- Senhas criptografadas
-- Área privada do usuário
-- Perfil editável com foto e preferências
-- Listagem de receitas com busca e filtros
-- Página individual de receita com ingredientes e preparo
-- Modo cozinha com checklist, ajuste de porções, progresso, timer e tela ligada opcional
-- Comentários em receitas
-- Favoritos privados por usuário
-- Dashboard com receitas enviadas e salvas
-- Envio de receitas para revisão
-- Painel administrativo protegido
-- CRUD de receitas e categorias
-- Gerenciamento de usuários e comentários
-- Validação de dados com Zod
-- Banco de dados PostgreSQL com Prisma
-- SEO com Open Graph, Twitter Card, sitemap e robots
-- Deploy em produção na Vercel
+- cadastro, login e logout
+- sessão por cookie assinado
+- perfil editável
+- busca e filtros de receitas
+- página de detalhes com ingredientes e preparo
+- modo cozinha com checklist, ajuste de porções e timer
+- favoritos e comentários
+- envio de receitas para revisão
+- painel administrativo
+- gerenciamento de receitas, categorias, usuários e comentários
+- validação de dados com Zod
+- SEO com sitemap, robots e metadados sociais
 
----
+## Tecnologias
 
-## Stack utilizada
+### Aplicação
 
-### Front-end
-
-- Next.js App Router
+- Next.js
 - React
 - TypeScript
-- TailwindCSS
+- Tailwind CSS
 - Lucide React
-- Componentização de interface
-- Layout responsivo
 
-### Back-end / Dados
+### Dados e autenticação
 
-- Server Actions
 - Prisma ORM
 - PostgreSQL
-- Cookies para sessão
-- Bcrypt para hash de senha
-- Zod para validação
-- Nodemailer para notificações opcionais
+- bcryptjs
+- jose
+- Zod
 
-### Deploy
+### Infraestrutura
 
 - Vercel
-- Vercel Postgres / Neon
-- Variáveis de ambiente para produção
+- Neon ou outro banco PostgreSQL compatível
+- Cloudinary para upload de imagens
 
----
+## Estrutura
 
-## Explicação técnica
+```text
+app/          rotas, páginas e ações da aplicação
+components/   componentes de interface
+lib/          autenticação, banco, validações e consultas
+prisma/       schema e seed do banco
+public/       arquivos públicos
+docs/         imagens usadas na documentação
+```
 
-A aplicação usa **Next.js App Router** para organizar rotas públicas, privadas e administrativas.
+## Execução local
 
-A autenticação é baseada em sessão via cookie assinado. As senhas são armazenadas com hash usando `bcryptjs`, e as permissões são controladas por roles, permitindo separar usuários comuns de administradores.
+### Requisitos
 
-O banco de dados é modelado com **Prisma**, utilizando relações entre usuários, receitas, categorias, ingredientes, etapas de preparo, favoritos e comentários.
+- Node.js 20 ou superior
+- banco PostgreSQL
 
-O painel administrativo permite gerenciar o conteúdo publicado, enquanto o usuário comum possui uma área privada para acompanhar suas receitas e salvar favoritos.
-
----
-
-## Modelagem principal
-
-O banco possui entidades para:
-
-- `User`
-- `Recipe`
-- `Category`
-- `Ingredient`
-- `PreparationStep`
-- `Favorite`
-- `Comment`
-
-Essas relações permitem criar uma experiência completa com autoria, favoritos, comentários, filtros e gestão administrativa.
-
----
-
-## Como rodar localmente
-
-### 1. Instale as dependências
+### Instalação
 
 ```bash
 npm install
-```
-
-### 2. Configure as variáveis de ambiente
-
-Crie um arquivo `.env` com base no `.env.example`:
-
-```bash
 cp .env.example .env
 ```
 
-No Windows PowerShell:
+No PowerShell:
 
 ```powershell
 Copy-Item .env.example .env
 ```
 
-Exemplo de variáveis:
+Preencha as variáveis do `.env` e configure o banco:
+
+```bash
+npm run db:push
+npm run db:seed
+npm run dev
+```
+
+A aplicação ficará disponível em `http://localhost:3000`.
+
+## Variáveis de ambiente
 
 ```env
 DATABASE_URL="postgresql://usuario:senha@localhost:5432/receitas?schema=public"
-SESSION_SECRET="troque-por-um-segredo-com-pelo-menos-32-caracteres"
-ADMIN_EMAIL="seu-email@exemplo.com"
-ADMIN_PASSWORD="troque-por-uma-senha-forte"
+SESSION_SECRET="defina-um-segredo-com-pelo-menos-32-caracteres"
+ADMIN_EMAIL="admin@exemplo.com"
+ADMIN_PASSWORD="defina-uma-senha-forte"
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
 CLOUDINARY_CLOUD_NAME=""
 CLOUDINARY_API_KEY=""
@@ -173,34 +103,13 @@ CLOUDINARY_API_SECRET=""
 CLOUDINARY_UPLOAD_FOLDER="savor"
 ```
 
-### 3. Configure o banco
-
-```bash
-npm run db:push
-npm run db:seed
-```
-
-### 4. Inicie o projeto
-
-```bash
-npm run dev
-```
-
-Acesse:
-
-```txt
-http://localhost:3000
-```
-
----
-
-## Scripts disponíveis
+## Scripts
 
 ```bash
 npm run dev
 npm run build
 npm run start
-npm run vercel-build
+npm run test:e2e
 npm run prisma:generate
 npm run prisma:migrate
 npm run prisma:studio
@@ -208,28 +117,9 @@ npm run db:push
 npm run db:seed
 ```
 
----
-
-## Estrutura do projeto
-
-```txt
-app/          Rotas da aplicação, páginas públicas, privadas e admin
-components/   Componentes reutilizáveis de UI, auth, receitas e admin
-lib/          Prisma, autenticação, validações, queries e server actions
-prisma/       Schema do banco e seed inicial
-public/       Assets públicos
-docs/         Versão estática e imagens para documentação
-```
-
----
-
 ## Autor
 
-Desenvolvido por **Wesley Cruz**.
+Wesley Cruz
 
-- GitHub: [@WessYu](https://github.com/WessYu)
+- GitHub: https://github.com/WessYu
 - Email: wess.c@proton.me
-
----
-
-> Projeto principal de portfólio, criado para demonstrar front-end moderno, autenticação, banco de dados, CRUD, painel administrativo e deploy em produção.
