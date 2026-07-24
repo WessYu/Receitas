@@ -1,171 +1,139 @@
-# Receitas — Aplicação Full Stack
+# Receitas
 
-Sistema web de receitas desenvolvido com **Next.js, TypeScript, TailwindCSS, Prisma e PostgreSQL**, com autenticação, área privada, favoritos, comentários, dashboard do usuário e painel administrativo.
+Aplicação full stack para descobrir, publicar, salvar e gerenciar receitas em uma única plataforma.
 
-O projeto foi criado como aplicação principal de portfólio para demonstrar uma experiência próxima de produto real: interface responsiva, rotas protegidas, banco de dados, regras de usuário e deploy em produção.
+O projeto foi desenvolvido para ir além de um catálogo estático. Ele reúne autenticação, perfis, favoritos, comentários, envio de receitas, modo cozinha e um painel administrativo para moderação de conteúdo.
 
-![Next.js](https://img.shields.io/badge/Next.js-111827?style=for-the-badge&logo=nextdotjs&logoColor=white)
-![React](https://img.shields.io/badge/React-111827?style=for-the-badge&logo=react&logoColor=61DAFB)
-![TypeScript](https://img.shields.io/badge/TypeScript-111827?style=for-the-badge&logo=typescript&logoColor=3178C6)
-![TailwindCSS](https://img.shields.io/badge/TailwindCSS-111827?style=for-the-badge&logo=tailwindcss&logoColor=38BDF8)
-![Prisma](https://img.shields.io/badge/Prisma-111827?style=for-the-badge&logo=prisma&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-111827?style=for-the-badge&logo=postgresql&logoColor=4169E1)
-
----
-
-## Deploy
-
-- **Aplicação em produção:** https://receitas-delta-eight.vercel.app
-- **Repositório:** https://github.com/WessYu/Receitas
-
----
+**Projeto publicado:** https://receitas-delta-eight.vercel.app  
+**Repositório:** https://github.com/WessYu/Receitas
 
 ## Visão geral
 
-O **Receitas** é uma plataforma full stack para descobrir, salvar, comentar e gerenciar receitas.
+O Receitas organiza dois fluxos principais:
 
-A aplicação possui uma área pública com listagem, filtros e detalhes de receitas, além de uma área autenticada onde o usuário pode editar perfil, salvar receitas favoritas, enviar receitas e acompanhar suas publicações.
+- usuários podem criar conta, buscar receitas, salvar favoritos, comentar e enviar suas próprias receitas;
+- administradores podem revisar conteúdo e gerenciar receitas, categorias, usuários e comentários.
 
-Também existe um fluxo administrativo protegido por role `ADMIN`, usado para gerenciar receitas, categorias, comentários e usuários.
+A aplicação foi estruturada com Next.js, Prisma e PostgreSQL, mantendo regras de autenticação, validação e acesso ao banco separadas da camada de interface.
 
----
+## Problema
 
-## Demonstração
+Sites de receitas normalmente apresentam apenas conteúdo estático, sem permitir participação do usuário ou gestão centralizada.
 
-<p align="center">
-  <a href="https://receitas-delta-eight.vercel.app">
-    <strong>🍳 Acessar aplicação em produção</strong>
-  </a>
-</p>
-
-### Página da receita
-
-![Página de detalhes da receita](docs/screenshots/recipe.png)
-
-### Biblioteca de receitas
-
-![Biblioteca de receitas com busca e filtros](docs/screenshots/library.png)
-
-### Painel administrativo
-
-![Dashboard administrativo do Savor](docs/screenshots/admin.png)
-
-### Vídeo demonstrativo
-
-https://github.com/user-attachments/assets/COLE-AQUI-O-LINK-DO-VIDEO
----
+A proposta deste projeto foi criar uma aplicação real, com diferentes níveis de acesso, conteúdo persistido em banco de dados e ferramentas para publicação e moderação sem necessidade de editar o código.
 
 ## Funcionalidades
 
-- Cadastro, login e logout de usuários
-- Autenticação com cookie assinado
-- Senhas criptografadas
-- Área privada do usuário
-- Perfil editável com foto e preferências
-- Listagem de receitas com busca e filtros
-- Página individual de receita com ingredientes e preparo
-- Modo cozinha com checklist, ajuste de porções, progresso, timer e tela ligada opcional
-- Comentários em receitas
-- Favoritos privados por usuário
-- Dashboard com receitas enviadas e salvas
-- Envio de receitas para revisão
-- Painel administrativo protegido
-- CRUD de receitas e categorias
-- Gerenciamento de usuários e comentários
-- Validação de dados com Zod
-- Banco de dados PostgreSQL com Prisma
-- SEO com Open Graph, Twitter Card, sitemap e robots
-- Deploy em produção na Vercel
+- cadastro, login e logout;
+- sessão por cookie assinado;
+- perfil de usuário editável;
+- busca e filtros de receitas;
+- página de detalhes com ingredientes e modo de preparo;
+- modo cozinha com checklist, ajuste de porções e timer;
+- favoritos e comentários;
+- envio de receitas para revisão;
+- painel administrativo;
+- gerenciamento de receitas, categorias, usuários e comentários;
+- upload de imagens com Cloudinary;
+- validação de dados com Zod;
+- sitemap, robots e metadados para compartilhamento.
 
----
+## Decisões técnicas
 
-## Stack utilizada
+### Autenticação e autorização
 
-### Front-end
+As sessões são mantidas por cookies assinados. As áreas restritas verificam a sessão do usuário e suas permissões antes de permitir acesso às ações administrativas.
 
-- Next.js App Router
-- React
+### Modelagem de dados
+
+O Prisma centraliza o schema e os relacionamentos entre usuários, receitas, categorias, favoritos e comentários. O PostgreSQL é usado como banco principal da aplicação.
+
+### Validação
+
+Os dados enviados por formulários e ações do servidor são validados com Zod antes de serem processados ou gravados.
+
+### Upload de imagens
+
+As imagens das receitas são enviadas para o Cloudinary, evitando armazenar arquivos diretamente no servidor da aplicação.
+
+### Testes
+
+O projeto possui estrutura para testes de ponta a ponta com Playwright.
+
+## Tecnologias
+
+### Aplicação
+
+- Next.js 15
+- React 19
 - TypeScript
-- TailwindCSS
+- Tailwind CSS
 - Lucide React
-- Componentização de interface
-- Layout responsivo
 
-### Back-end / Dados
+### Dados e autenticação
 
-- Server Actions
-- Prisma ORM
+- Prisma 6
 - PostgreSQL
-- Cookies para sessão
-- Bcrypt para hash de senha
-- Zod para validação
-- Nodemailer para notificações opcionais
+- bcryptjs
+- jose
+- Zod
 
-### Deploy
+### Infraestrutura e qualidade
 
 - Vercel
-- Vercel Postgres / Neon
-- Variáveis de ambiente para produção
+- Cloudinary
+- Playwright
+- ESLint
 
----
+## Estrutura do projeto
 
-## Explicação técnica
+```text
+app/          rotas, páginas e ações da aplicação
+components/   componentes de interface
+lib/          autenticação, banco, validações e consultas
+prisma/       schema e seed do banco
+public/       arquivos públicos
+docs/         imagens usadas na documentação
+```
 
-A aplicação usa **Next.js App Router** para organizar rotas públicas, privadas e administrativas.
+## Execução local
 
-A autenticação é baseada em sessão via cookie assinado. As senhas são armazenadas com hash usando `bcryptjs`, e as permissões são controladas por roles, permitindo separar usuários comuns de administradores.
+### Requisitos
 
-O banco de dados é modelado com **Prisma**, utilizando relações entre usuários, receitas, categorias, ingredientes, etapas de preparo, favoritos e comentários.
+- Node.js 20 ou superior
+- banco PostgreSQL
+- conta no Cloudinary para upload de imagens
 
-O painel administrativo permite gerenciar o conteúdo publicado, enquanto o usuário comum possui uma área privada para acompanhar suas receitas e salvar favoritos.
-
----
-
-## Modelagem principal
-
-O banco possui entidades para:
-
-- `User`
-- `Recipe`
-- `Category`
-- `Ingredient`
-- `PreparationStep`
-- `Favorite`
-- `Comment`
-
-Essas relações permitem criar uma experiência completa com autoria, favoritos, comentários, filtros e gestão administrativa.
-
----
-
-## Como rodar localmente
-
-### 1. Instale as dependências
+### Instalação
 
 ```bash
 npm install
-```
-
-### 2. Configure as variáveis de ambiente
-
-Crie um arquivo `.env` com base no `.env.example`:
-
-```bash
 cp .env.example .env
 ```
 
-No Windows PowerShell:
+No PowerShell:
 
 ```powershell
 Copy-Item .env.example .env
 ```
 
-Exemplo de variáveis:
+Configure as variáveis de ambiente e prepare o banco:
+
+```bash
+npm run db:push
+npm run db:seed
+npm run dev
+```
+
+A aplicação ficará disponível em `http://localhost:3000`.
+
+## Variáveis de ambiente
 
 ```env
 DATABASE_URL="postgresql://usuario:senha@localhost:5432/receitas?schema=public"
-SESSION_SECRET="troque-por-um-segredo-com-pelo-menos-32-caracteres"
-ADMIN_EMAIL="seu-email@exemplo.com"
-ADMIN_PASSWORD="troque-por-uma-senha-forte"
+SESSION_SECRET="defina-um-segredo-com-pelo-menos-32-caracteres"
+ADMIN_EMAIL="admin@exemplo.com"
+ADMIN_PASSWORD="defina-uma-senha-forte"
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
 CLOUDINARY_CLOUD_NAME=""
 CLOUDINARY_API_KEY=""
@@ -173,34 +141,13 @@ CLOUDINARY_API_SECRET=""
 CLOUDINARY_UPLOAD_FOLDER="savor"
 ```
 
-### 3. Configure o banco
-
-```bash
-npm run db:push
-npm run db:seed
-```
-
-### 4. Inicie o projeto
-
-```bash
-npm run dev
-```
-
-Acesse:
-
-```txt
-http://localhost:3000
-```
-
----
-
-## Scripts disponíveis
+## Scripts
 
 ```bash
 npm run dev
 npm run build
 npm run start
-npm run vercel-build
+npm run test:e2e
 npm run prisma:generate
 npm run prisma:migrate
 npm run prisma:studio
@@ -208,28 +155,17 @@ npm run db:push
 npm run db:seed
 ```
 
----
+## Próximos passos
 
-## Estrutura do projeto
-
-```txt
-app/          Rotas da aplicação, páginas públicas, privadas e admin
-components/   Componentes reutilizáveis de UI, auth, receitas e admin
-lib/          Prisma, autenticação, validações, queries e server actions
-prisma/       Schema do banco e seed inicial
-public/       Assets públicos
-docs/         Versão estática e imagens para documentação
-```
-
----
+- recuperação de senha por e-mail;
+- melhorias na moderação de receitas;
+- testes automatizados para os fluxos críticos;
+- otimizações adicionais de acessibilidade e desempenho.
 
 ## Autor
 
-Desenvolvido por **Wesley Cruz**.
+Wesley Cruz
 
-- GitHub: [@WessYu](https://github.com/WessYu)
-- Email: wess.c@proton.me
-
----
-
-> Projeto principal de portfólio, criado para demonstrar front-end moderno, autenticação, banco de dados, CRUD, painel administrativo e deploy em produção.
+- GitHub: https://github.com/WessYu
+- Portfólio: https://portifoliowess.netlify.app
+- E-mail: wess.c@proton.me

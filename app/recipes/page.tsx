@@ -8,6 +8,8 @@ import { prisma } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
 
+const MAX_MISSING_INGREDIENTS = 2;
+
 type PageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
@@ -74,8 +76,17 @@ export default async function RecipesPage({ searchParams }: PageProps) {
           recipe,
           compatibility: calculateRecipeCompatibility(recipe.ingredients, pantryIngredients)
         }))
-        .filter((item) => item.compatibility && (!onlyComplete || item.compatibility.score === 100))
-        .sort((a, b) => (b.compatibility?.score ?? 0) - (a.compatibility?.score ?? 0) || b.recipe.createdAt.getTime() - a.recipe.createdAt.getTime())
+        .filter(
+          (item) =>
+            item.compatibility &&
+            (!onlyComplete || item.compatibility.missingIngredients.length <= MAX_MISSING_INGREDIENTS)
+        )
+        .sort(
+          (a, b) =>
+            (b.compatibility?.score ?? 0) - (a.compatibility?.score ?? 0) ||
+            (a.compatibility?.missingIngredients.length ?? 0) - (b.compatibility?.missingIngredients.length ?? 0) ||
+            b.recipe.createdAt.getTime() - a.recipe.createdAt.getTime()
+        )
     : [];
   const effectiveTotalRecipes = pantryIngredients.length ? rankedRecipes.length : totalRecipes;
   const totalPages = Math.max(1, Math.ceil(effectiveTotalRecipes / perPage));
@@ -110,7 +121,13 @@ export default async function RecipesPage({ searchParams }: PageProps) {
         ) : (
           <EmptyState
             title={pantryIngredients.length ? "Não encontramos receitas com essa combinação." : "Nenhuma receita encontrada"}
-            description={pantryIngredients.length ? "Tente remover um ingrediente ou desativar o modo de receitas completas." : "Ajuste os filtros ou tente um termo mais amplo para descobrir novas opções."}
+            description={
+              pantryIngredients.length
+                ? onlyComplete
+                  ? "Tente adicionar mais ingredientes ou veja também receitas que exigem alguns itens extras."
+                  : "Tente remover um ingrediente ou ajustar os demais filtros."
+                : "Ajuste os filtros ou tente um termo mais amplo para descobrir novas opções."
+            }
             action={
               pantryIngredients.length
                 ? {
