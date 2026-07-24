@@ -234,6 +234,8 @@ function CategoryTile({ category, index }: { category: CategoryWithCount; index:
 
 function GourmetShowcase({ recipes }: { recipes: RecipeWithCategory[] }) {
   const [hero, ...items] = recipes;
+  const featuredItems = items.slice(0, 4);
+  const railItems = items.slice(4, 12);
 
   if (!hero) return null;
 
@@ -272,7 +274,7 @@ function GourmetShowcase({ recipes }: { recipes: RecipeWithCategory[] }) {
               </p>
             </div>
             <div className="grid gap-4">
-              {items.slice(0, 4).map((recipe, index) => (
+              {featuredItems.map((recipe, index) => (
                 <Reveal key={recipe.id} delay={index * 60}>
                   <Link href={`/recipes/${recipe.slug}`} className="group grid grid-cols-[96px_1fr] gap-4 rounded-[24px] p-2 transition duration-300 hover:bg-elevated">
                     <div className="relative aspect-square overflow-hidden rounded-[20px] bg-background">
@@ -293,6 +295,44 @@ function GourmetShowcase({ recipes }: { recipes: RecipeWithCategory[] }) {
             </div>
           </div>
         </div>
+
+        {railItems.length ? (
+          <div className="mt-12">
+            <div className="mb-6 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+              <div>
+                <p className="eyebrow text-gold">Mais escolhas gourmet</p>
+                <h3 className="mt-3 font-serif text-4xl leading-none text-ink md:text-5xl">Uma seleção para cozinhar sem pressa.</h3>
+              </div>
+              <Link href="/recipes?gourmet=1" className="inline-flex items-center gap-2 text-sm font-semibold text-olive transition hover:text-[#8DC592]">
+                Ver todas
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+            <div className="flex gap-5 overflow-x-auto pb-3 md:grid md:grid-cols-4 md:overflow-visible">
+              {railItems.map((recipe, index) => (
+                <Reveal key={recipe.id} delay={index * 55} className="min-w-[260px] md:min-w-0">
+                  <Link href={`/recipes/${recipe.slug}`} className="group block">
+                    <div className="relative aspect-[0.92/1] overflow-hidden rounded-[28px] bg-surface">
+                      <RecipeImage
+                        src={recipe.imageUrl}
+                        alt={recipe.title}
+                        sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 74vw"
+                        className="object-cover transition duration-700 ease-out group-hover:scale-[1.018]"
+                      />
+                      <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-background/82 to-transparent" />
+                      <div className="absolute bottom-5 left-5 right-5">
+                        <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted">
+                          {recipe.category.name} - {recipe.prepTime} min
+                        </p>
+                        <h4 className="mt-2 font-serif text-3xl leading-none text-ink">{recipe.title}</h4>
+                      </div>
+                    </div>
+                  </Link>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        ) : null}
       </div>
     </Reveal>
   );
